@@ -9,5 +9,8 @@
     <color name="tomato">#e84418</color>
 
     <color name="backcolor_default">#f7f7f7</color>
+    <color name="psts_press">#1AFFFFFF</color>
+    <color name="filterTitle">#f9f9f9</color>
+    <color name="homeSelectColor">#e54829</color>
 
 </resources>

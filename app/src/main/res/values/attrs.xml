@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="ImageCoverFlowView">
+        <attr name="visibleImage" format="integer"/>
+        <attr name="reflectionHeight" format="fraction"/>
+        <attr name="reflectionGap" format="dimension"/>
+        <attr name="topImageClickEnable" format="boolean"/>
+        <attr name="coverflowGravity" format="enum">
+            <enum name="top" value="0"/>
+            <enum name="bottom" value="1"/>
+            <enum name="center_vertical" value="2"/>
+        </attr>
+        <attr name="coverflowLayoutMode" format="enum">
+            <enum name="match_parent" value="0"></enum>
+            <enum name="wrap_content" value="1"></enum>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="PagerSlidingTabStrip">
+        <attr name="pstsIndicatorColor" format="color"/>
+        <attr name="pstsIndicatorHeight" format="dimension"/>
+        <attr name="pstsUnderlineColor" format="color"/>
+        <attr name="pstsUnderlineHeight" format="dimension"/>
+        <attr name="pstsDividerColor" format="color"/>
+        <attr name="pstsDividerWidth" format="dimension"/>
+        <attr name="pstsDividerPadding" format="dimension"/>
+        <attr name="pstsScrollOffset" format="dimension"/>
+        <attr name="pstsShouldExpand" format="boolean"/>
+        <attr name="pstsPaddingMiddle" format="boolean"/>
+        <attr name="pstsTabPaddingLeftRight" format="dimension"/>
+        <attr name="pstsTabBackground" format="reference"/>
+        <attr name="pstsTabTextSize" format="dimension"/>
+        <attr name="pstsTabTextColor" format="reference"/>
+        <attr name="pstsTabTextStyle" format="reference">
+            <flag name="normal" value="0x0"/>
+            <flag name="bold" value="0x1"/>
+            <flag name="italic" value="0x2"/>
+        </attr>
+        <attr name="pstsTabTextAllCaps" format="boolean"/>
+        <attr name="pstsTabTextAlpha" format="integer"/>
+        <attr name="pstsTabTextFontFamily" format="string"/>
+    </declare-styleable>
+
+    <style name="SpinnerwithNoArrow" parent="@android:style/Widget.Spinner">
+        <item name="android:background">@android:drawable/edit_text</item>
+    </style>
+
+    <declare-styleable name="draggable_view">
+        <attr name="top_view_id" format="reference"/>
+        <attr name="bottom_view_id" format="reference"/>
+        <attr name="top_view_height" format="dimension"/>
+        <attr name="top_view_x_scale_factor" format="float"/>
+        <attr name="top_view_y_scale_factor" format="float"/>
+        <attr name="top_view_margin_right" format="dimension"/>
+        <attr name="top_view_margin_bottom" format="dimension"/>
+        <attr name="enable_minimized_horizontal_alpha_effect" format="boolean"/>
+        <attr name="enable_click_to_maximize_view" format="boolean"/>
+        <attr name="enable_click_to_minimize_view" format="boolean"/>
+        <attr name="top_view_resize" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="RulerSurfaceView">
+
+        <!-- The mark line at the ends of ruler's line type -->
+        <attr name="line_type" format="enum">
+            <enum name="dash_line" value="1" />
+            <enum name="line" value="2" />
+        </attr>
+
+        <!-- If the mark line is dash line,
+         you can define the dash line blank.
+         The default value is 3dp-->
+        <attr name="dash_line_blank" format="dimension" />
+
+        <!-- The mark line height.
+        The default value is 1px.-->
+        <attr name="line_height" format="dimension" />
+
+        <!-- The mark line color.
+        The default value is Color.WHITE.-->
+        <attr name="line_color" format="color" />
+
+        <!-- The ruler line color.
+        The default value is Color.WHITE.-->
+        <attr name="ruler_color" format="color" />
+
+        <!-- The ruler line height.
+        The default value is 2dp.-->
+        <attr name="ruler_line_height" format="dimension" />
+
+        <attr name="measure_text_size" format="dimension" />
+        <attr name="measure_text_color" format="color" />
+        <attr name="measure_ruler_width" format="dimension" />
+        <attr name="measure_ruler_scale_width" format="dimension" />
+        <attr name="measure_icon_size" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="SpannedGridLayoutManager">
+        <attr name="android:orientation" />
+        <attr name="spanCount" />
+        <attr name="aspectRatio" format="string" />
+    </declare-styleable>
+    <declare-styleable name="RoundedImageView">
+        <attr name="topLeftRadius" format="dimension"/>
+        <attr name="topRightRadius" format="dimension"/>
+        <attr name="bottomLeftRadius" format="dimension"/>
+        <attr name="bottomRightRadius" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="MaxHeightLinearLayout">
+        <attr name="maxHeight" format="dimension"/>
+
+    </declare-styleable>
+
+        <declare-styleable name="CircleImageView">
+            <attr name="civ_border_width" format="dimension" />
+            <attr name="civ_border_color" format="color" />
+            <attr name="civ_border_overlay" format="boolean" />
+            <!-- {@deprecated Use civ_circlebackground_color instead.} -->
+            <attr name="civ_fill_color" format="color" />
+            <attr name="civ_circle_background_color" format="color" />
+        </declare-styleable>
+
+    <declare-styleable name="editor">
+        <attr name="render_type" format="string"/>
+        <attr name="placeholder" format="string"/>
+    </declare-styleable>
+    <declare-styleable name="ItemBottomNavi">
+        <attr name="text" format="string"/>
+        <attr name="src" format="integer"/>
+
+    </declare-styleable>
+</resources>
