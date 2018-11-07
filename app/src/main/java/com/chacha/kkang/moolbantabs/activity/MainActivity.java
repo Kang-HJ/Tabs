@@ -183,6 +183,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setEvent() {
+
+        tabBar.setOnTabReselectedListener(new MBTabBar.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(int position) {
+                Debug("onTabSelected   >  " + position + " / " + tabList.get(position).subList.size());
+                for (int i = 0; i < tabList.size(); i++) {
+                    tabList.get(i).isSelect = false;
+                }
+                tabList.get(position).isSelect = true;
+                adapterAll.notifyDataSetChanged();
+
+                adapterSub.setData(tabList.get(position).subList);
+                adapterSub.notifyDataSetChanged();
+
+            }
+        });
+
+
         all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

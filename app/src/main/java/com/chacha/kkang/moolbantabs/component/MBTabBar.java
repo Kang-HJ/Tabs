@@ -78,7 +78,7 @@ public class MBTabBar extends HorizontalScrollView {
 
     private final PagerAdapterObserver mAdapterObserver = new PagerAdapterObserver();
     private final PageListener mPageListener = new PageListener();
-    private OnTabReselectedListener mTabReselectedListener = null;
+    private OnTabSelectedListener mTabReselectedListener = null;
     public ViewPager.OnPageChangeListener mDelegatePageListener;
     private ViewPager mPager;
 
@@ -311,8 +311,9 @@ public class MBTabBar extends HorizontalScrollView {
                     View tab = mTabsContainer.getChildAt(mPager.getCurrentItem());
                     unSelect(tab);
                     mPager.setCurrentItem(position);
-                } else if (mTabReselectedListener != null) {
-                    mTabReselectedListener.onTabReselected(position);
+                    if (mTabReselectedListener != null) {
+                        mTabReselectedListener.onTabSelected(position);
+                    }
                 }
             }
         });
@@ -476,7 +477,7 @@ public class MBTabBar extends HorizontalScrollView {
         }
     }
 
-    public void setOnTabReselectedListener(OnTabReselectedListener tabReselectedListener) {
+    public void setOnTabReselectedListener(OnTabSelectedListener tabReselectedListener) {
         this.mTabReselectedListener = tabReselectedListener;
     }
 
@@ -528,7 +529,15 @@ public class MBTabBar extends HorizontalScrollView {
             updateSelection(position);
             if (mDelegatePageListener != null) {
                 mDelegatePageListener.onPageSelected(position);
+
             }
+                View tab = mTabsContainer.getChildAt(mPager.getCurrentItem());
+                unSelect(tab);
+                mPager.setCurrentItem(position);
+                if (mTabReselectedListener != null) {
+                    mTabReselectedListener.onTabSelected(position);
+                }
+            
         }
 
     }
@@ -849,8 +858,8 @@ public class MBTabBar extends HorizontalScrollView {
         void tabUnselected(View tab);
     }
 
-    public interface OnTabReselectedListener {
-        void onTabReselected(int position);
+    public interface OnTabSelectedListener {
+        void onTabSelected(int position);
     }
 }
 
