@@ -17,13 +17,19 @@ import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Pair;
 import android.util.TypedValue;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import static android.content.Context.WINDOW_SERVICE;
+import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
+import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 /**
  * Created by kkang on 2018. 10. 29..
@@ -189,6 +195,8 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
         mTabLayoutParams = isExpandTabs ?
                 new LinearLayout.LayoutParams(0, LayoutParams.MATCH_PARENT, 1.0f) :
                 new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
+        Display dis = ((WindowManager) getContext().getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
+        width = dis.getWidth();
     }
 
     private void setTabsContainerParentViewPaddings() {
@@ -208,8 +216,10 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
         mAdapterObserver.setAttached(true);
         notifyDataSetChanged();
     }
-
+    int wrapWidth = 0;
+    int width = 0;
     public void notifyDataSetChanged() {
+        wrapWidth = 0;
         mTabsContainer.removeAllViews();
         mTabCount = mPager.getAdapter().getCount();
         View tabView;
@@ -222,9 +232,44 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
 
             CharSequence title = mPager.getAdapter().getPageTitle(i);
             addTab(i, title, tabView);
+            final int finalI = i;
+            mTabsContainer.getChildAt(i).getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    /* don't forget to remove the listener after you use it once */
+                    if (mTabsContainer.getChildAt(finalI) == null) {
+                        return;
+                    }
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                        mTabsContainer.getChildAt(finalI).getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    }
+
+                    TabBar.Debug(" notifyDataSetChanged    layoutContainer   width:" + mTabsContainer.getChildAt(finalI).getWidth());
+                    wrapWidth += mTabsContainer.getChildAt(finalI).getWidth();
+                    tabWidthSetting();
+                    TabBar. Debug("notifyDataSetChanged    wrapWidth : " + wrapWidth);
+                }
+            });
         }
 
         updateTabStyles();
+        tabWidthSetting();
+    }
+    private void tabWidthSetting() {
+        boolean isWeight = false;
+        if (wrapWidth <= width) {
+            isWeight = true;
+        }
+
+        if (isWeight) {
+            for (int i = 0; i < mTabCount; i++) {
+                mTabsContainer.getChildAt(i).setLayoutParams(new LinearLayout.LayoutParams(WRAP_CONTENT, MATCH_PARENT, 1));
+            }
+        } else {
+            for (int i = 0; i < mTabCount; i++) {
+                mTabsContainer.getChildAt(i).setLayoutParams(new LinearLayout.LayoutParams(WRAP_CONTENT, MATCH_PARENT));
+            }
+        }
     }
 
     private void addTab(final int position, CharSequence title, View tabView) {

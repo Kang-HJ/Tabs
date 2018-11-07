@@ -10,6 +10,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
@@ -148,24 +149,75 @@ public class TabBar extends HorizontalScrollView {
         this.isSub = isSub;
 
     }
-
-    public void setViewPager(ViewPager viewPager) {
+    float mStartDragX = 0;
+    boolean isRight = false;
+    public void setViewPager(final ViewPager viewPager) {
         this.viewPager = viewPager;
         if (viewPager != null) {
+            viewPager.setOnTouchListener(new OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    float x = event.getX();
+
+                    switch(event.getAction()){
+                        case MotionEvent.ACTION_DOWN:
+                            mStartDragX = x;
+                            break;
+                        case MotionEvent.ACTION_MOVE:
+                            if (event.getX() > mStartDragX) {
+                                Debug("SWIPING RIGHT");
+                                isRight = true;
+                                mStartDragX = event.getX();
+                            } else if (event.getX() < mStartDragX) {
+                                Debug("SWIPING LEFT");
+                                isRight = false;
+                                mStartDragX = event.getX();
+                            }
+                            break;
+                    }
+                    return false;
+                }
+            });
             viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                 @Override
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                     Debug(" position getWidth : : " + layoutContainer.getChildAt(position).getWidth());
+                    Debug(" position position : : " + position);
+                    Debug(" position positionOffset : : " + positionOffset);
+                    Debug(" position positionOffsetPixels : : " + positionOffsetPixels);
                 }
 
                 @Override
                 public void onPageSelected(int position) {
+
                 }
 
                 @Override
                 public void onPageScrollStateChanged(int state) {
+                    if (state == ViewPager.SCROLL_STATE_IDLE) {
+                       // scrollToChild(mPager.getCurrentItem(), 0);
+                    }
+                    //Full tabTextAlpha for current item
+                    View currentTab = layoutContainer.getChildAt(viewPager.getCurrentItem());
+                    //select(currentTab);
+                    //Half transparent for prev item
+                    if (viewPager.getCurrentItem() - 1 >= 0) {
+                        View prevTab = layoutContainer.getChildAt(viewPager.getCurrentItem() - 1);
+                        //unSelect(prevTab);
+                    }
 
+                    //Half transparent for next item
+                    if (viewPager.getCurrentItem() + 1 <= viewPager.getAdapter().getCount() - 1) {
+                        View nextTab = layoutContainer.getChildAt(viewPager.getCurrentItem() + 1);
+                        //unSelect(nextTab);
+                    }
+
+//                    if (mDelegatePageListener != null) {
+//                        mDelegatePageListener.onPageScrollStateChanged(state);
+//                    }
                 }
+
+
             });
         }
     }
