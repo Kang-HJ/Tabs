@@ -15,6 +15,9 @@ import android.view.animation.Transformation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
+
 import java.util.ArrayList;
 
 import static com.chacha.kkang.moolbantabs.TabBar.Debug;
@@ -23,12 +26,14 @@ public class Main2Activity extends AppCompatActivity implements Adapter_All.OnSu
     PagerSlidingTabStrip tabBar;
     RecyclerView rcvSub;
     ArrayList<TAB_DATA> tabList;
+    ArrayList<TAB_DATA> subList;
     TextView scroll;
     TextView tvAll;
 
     ImageView all;
     RecyclerView rcvAll;
 
+    Adapter_Pager adapterPager;
     Adapter_All adapterAll;
     Adapter_Sub adapterSub;
     GridLayoutManager gridLayoutManager1;
@@ -43,11 +48,23 @@ public class Main2Activity extends AppCompatActivity implements Adapter_All.OnSu
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
+        initData();
+        setUI();
+        setView();
+        setEvent();
+    }
+
+    private void initData() {
         tabList = new ArrayList<>();
+        subList = new ArrayList<>();
+
         for (int i = 0; i < 8; i++) {
             TAB_DATA data = new TAB_DATA();
             data.key = i + "";
             data.name = i + " TAB";
+            if (i == 3) {
+                data.name += "BBBBB";
+            }
 
             if (i == 0) {
                 data.isSelect = true;
@@ -55,25 +72,78 @@ public class Main2Activity extends AppCompatActivity implements Adapter_All.OnSu
             tabList.add(data);
         }
 
+        adapterPager = new Adapter_Pager(this, tabList);
+        adapterAll = new Adapter_All(this, tabList, this);
+        gridLayoutManager1 = new GridLayoutManager(Main2Activity.this, 3);
+
+        adapterSub = new Adapter_Sub(this, subList, new Adapter_Sub.OnSubAreaItemClickListener() {
+            @Override
+            public void onSubItemClick(int position, TAB_DATA data, View v) {
+                for (int i = 0; i < subList.size(); i++) {
+                    subList.get(i).isSelect = false;
+                }
+                data.isSelect = true;
+                adapterSub.notifyDataSetChanged();
+                YoYo.with(Techniques.Tada)
+                        .duration(700)
+                        .playOn(v);
+            }
+
+            @Override
+            public void onSubItemClick(int position, TAB_DATA data) {
+
+            }
+        });
+        gridLayoutManager2 = new GridLayoutManager(Main2Activity.this, 3);
+
+    }
+
+    private void setUI() {
         back = (View) findViewById(R.id.back);
         scroll = (TextView) findViewById(R.id.scroll);
         tvAll = (TextView) findViewById(R.id.tvAll);
         all = (ImageView) findViewById(R.id.all);
         rcvAll = (RecyclerView) findViewById(R.id.rcvAll);
-        pager = (ViewPager)findViewById(R.id.pager);
-        //pager.setOffscreenPageLimit(AppController.getInstance().getSeaSubCategoryDatas().size() - 1);
+        pager = (ViewPager) findViewById(R.id.pager);
 
-        Adapter_Pager adapter = new Adapter_Pager(this,tabList);
+        tabBar = (PagerSlidingTabStrip) findViewById(R.id.tabBar);
+        rcvSub = (RecyclerView) findViewById(R.id.rcvSub);
 
-        pager.setAdapter(adapter);
+
+    }
+
+    private void setView(){
+        pager.setAdapter(adapterPager);
         pager.setOverScrollMode(View.OVER_SCROLL_IF_CONTENT_SCROLLS);
-
-
-        adapterAll = new Adapter_All(this, tabList, this);
-        gridLayoutManager1 = new GridLayoutManager(Main2Activity.this, 3);
         rcvAll.setLayoutManager(gridLayoutManager1);
         rcvAll.setAdapter(adapterAll);
 
+        all.setRotation(90);
+        rcvAll.setVisibility(View.GONE);
+        back.setVisibility(View.GONE);
+        tvAll.setVisibility(View.GONE);
+
+        UtilAnim.fideIn(tabBar, 200, null);
+
+        rcvSub.setLayoutManager(gridLayoutManager2);
+        rcvSub.setAdapter(adapterSub);
+
+        updateSubCate();
+        tabBar.setDividerWidth(0);
+        tabBar.setIndicatorHeight(5);
+        tabBar.setBackgroundColor(Color.WHITE);
+
+        tabBar.setIndicatorColor(getResources().getColor(R.color.tomato));
+        ColorStateList colorList = createColorStateList(getResources().getColor(R.color.tomato)
+                , getResources().getColor(R.color.tomato), Color.BLACK);
+
+        tabBar.setTextColor(colorList);
+
+        tabBar.setViewPager(pager);
+
+    }
+
+    private void setEvent() {
         all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,12 +166,6 @@ public class Main2Activity extends AppCompatActivity implements Adapter_All.OnSu
                 isOpen = !isOpen;
             }
         });
-        all.setRotation(90);
-        rcvAll.setVisibility(View.GONE);
-        back.setVisibility(View.GONE);
-        tvAll.setVisibility(View.GONE);
-
-        UtilAnim.fideIn(tabBar, 200, null);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,99 +205,28 @@ public class Main2Activity extends AppCompatActivity implements Adapter_All.OnSu
             }
 
         });
-        tabBar = (PagerSlidingTabStrip) findViewById(R.id.tabBar);
-        rcvSub = (RecyclerView) findViewById(R.id.rcvSub);
-//        tabBar.setOnTabClicked(new TabBar.OnTabClicked() {
-//            @Override
-//            public void onTabClicked(boolean isSub, TAB_DATA tab, int pos) {
-//
-//            }
-//        });
-//
-//        tabBar.addTab(tabList, false);
-//        tabBar.notifyDataSetChanged();
-
-        adapterSub = new Adapter_Sub(this, subList, new Adapter_Sub.OnSubAreaItemClickListener() {
-            @Override
-            public void onSubItemClick(int position, TAB_DATA data, View v) {
-                for (int i = 0; i < subList.size(); i++) {
-                    subList.get(i).isSelect = false;
-                }
-                data.isSelect = true;
-                adapterSub.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onSubItemClick(int position, TAB_DATA data) {
-
-            }
-        });
-        gridLayoutManager2 = new GridLayoutManager(Main2Activity.this, 3);
-        rcvSub.setLayoutManager(gridLayoutManager2);
-        rcvSub.setAdapter(adapterSub);
-
-        updateSubCate();
-        tabBar.setDividerWidth(0);
-        tabBar.setIndicatorHeight(5);
-        tabBar.setBackgroundColor(Color.WHITE);
-//        tabs.setMinimumWidth(AppController.getInstance().getScreenSize(0) / 4);
-
-        tabBar.setIndicatorColor(getResources().getColor(R.color.tomato));
-
-        tabBar.setOnTabReselectedListener(new PagerSlidingTabStrip.OnTabReselectedListener() {
-            @Override
-            public void onTabReselected(int position) {
-
-                Debug("MainSeaView - onTabReselected(position) : " + position);
-            }
-        });
-
-        ColorStateList colorList = createColorStateList(getResources().getColor(R.color.tomato)
-                , getResources().getColor(R.color.tomato), Color.BLACK);
-
-        tabBar.setTextColor(colorList);
-
-        tabBar.setViewPager(pager);
-
         tabBar.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                                         @Override
-                                         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                                           @Override
+                                           public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-                                         }
+                                           }
 
-                                         @Override
-                                         public void onPageSelected(int position) {
+                                           @Override
+                                           public void onPageSelected(int position) {
 
-//                                             if(adapter.getView(position).getLocationKey().length() > 0) {
-//                                                 for(int i=0; i < AppController.getInstance().getOtherLocationDatas().size(); i++){
-//                                                     for(int k=0; k < AppController.getInstance().getOtherLocationDatas().get(i).subLocations.size(); k++){
-//                                                         if(Integer.parseInt(adapter.getView(position).getLocationKey()) == AppController.getInstance().getOtherLocationDatas().get(i).subLocations.get(k).key)
-//                                                         {
-//                                                             otherPlace_TV.setText(AppController.getInstance().getOtherLocationDatas().get(i).subLocations.get(k).name);
-//                                                             break;
-//                                                         }
-//                                                     }
-//                                                 }
-//                                             }else{
-//                                                 otherPlace_TV.setText("현재 위치");
-//                                             }
-//
-//                                             cateKey = AppController.getInstance().getSeaSubCategoryDatas().get(position).key + "";
-//                                             filterStatus();
-////                                             }
-                                         }
+                                           }
 
-                                         @Override
-                                         public void onPageScrollStateChanged(int state) {
+                                           @Override
+                                           public void onPageScrollStateChanged(int state) {
 
-                                         }
+                                           }
 
-                                     }
+                                       }
 
         );
+
     }
 
-    ArrayList<TAB_DATA> subList = new ArrayList<>();
     private ColorStateList createColorStateList(int color_state_pressed, int color_state_selected, int color_state_default) {
         return new ColorStateList(
                 new int[][]{
@@ -251,8 +244,6 @@ public class Main2Activity extends AppCompatActivity implements Adapter_All.OnSu
 
     private void updateSubCate() {
 
-
-        //TalkDataContoller.getInstance().getSubTabs(mainCategory.get(customPager.getCurrentItem()).key + "") = new ArrayList<>();
         subList.clear();
         for (int i = 0; i < 7; i++) {
             TAB_DATA data = new TAB_DATA();
@@ -311,8 +302,6 @@ public class Main2Activity extends AppCompatActivity implements Adapter_All.OnSu
             }
         };
 
-        // 1dp/ms
-        //a.setDuration((int) (targetHeight / v.getContext().getResources().getDisplayMetrics().density));
         a.setDuration(300);
         v.startAnimation(a);
     }
@@ -344,8 +333,6 @@ public class Main2Activity extends AppCompatActivity implements Adapter_All.OnSu
             }
         };
 
-        // 1dp/ms
-        // a.setDuration((int)(initialHeight / v.getContext().getResources().getDisplayMetrics().density));
         a.setDuration(300);
         v.startAnimation(a);
     }

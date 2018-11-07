@@ -19,17 +19,13 @@ import java.util.ArrayList;
 
 public class Adapter_Sub extends RecyclerView.Adapter<Adapter_Sub.ViewHolder> {
     Context context;
-    ArrayList<TAB_DATA> dataList = new ArrayList<>();
+    ArrayList<TAB_DATA> dataList;
     OnSubAreaItemClickListener listener;
-    boolean isReserve;
-    boolean isTalk = false;
 
     public Adapter_Sub(Context context, ArrayList<TAB_DATA> dataList, OnSubAreaItemClickListener listener) {
         this.context = context;
-        this.isReserve = isReserve;
         this.dataList = dataList;
         this.listener = listener;
-        this.isTalk = isTalk;
     }
 
     public void setData(ArrayList<TAB_DATA> dataList) {
@@ -61,10 +57,8 @@ public class Adapter_Sub extends RecyclerView.Adapter<Adapter_Sub.ViewHolder> {
         int position;
         TextView tv;
 
-        View itemView;
         public ViewHolder(View itemView) {
             super(itemView);
-            this.itemView = itemView;
             tv = (TextView) itemView.findViewById(R.id.tv);
         }
 
@@ -85,9 +79,7 @@ public class Adapter_Sub extends RecyclerView.Adapter<Adapter_Sub.ViewHolder> {
 
         @Override
         public void onClick(View v) {
-            YoYo.with(Techniques.Tada)
-                    .duration(700)
-                    .playOn(itemView);
+
             listener.onSubItemClick(position, data, itemView);
 
         }
