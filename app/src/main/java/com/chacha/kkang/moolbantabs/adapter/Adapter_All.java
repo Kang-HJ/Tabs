@@ -19,17 +19,13 @@ import java.util.ArrayList;
 
 public class Adapter_All extends RecyclerView.Adapter<Adapter_All.ViewHolder> {
     Context context;
-    ArrayList<TAB_DATA> dataList = new ArrayList<>();
+    ArrayList<TAB_DATA> dataList;
     setOnTabClickListener listener;
-    boolean isReserve;
-    boolean isTalk = false;
 
-    public Adapter_All(Context context,ArrayList<TAB_DATA> dataList, setOnTabClickListener listener) {
+    public Adapter_All(Context context, ArrayList<TAB_DATA> dataList, setOnTabClickListener listener) {
         this.context = context;
-        this.isReserve = isReserve;
         this.dataList = dataList;
         this.listener = listener;
-        this.isTalk = isTalk;
     }
 
     public void setData(ArrayList<TAB_DATA> dataList) {
@@ -50,7 +46,7 @@ public class Adapter_All extends RecyclerView.Adapter<Adapter_All.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        if(dataList == null){
+        if (dataList == null) {
             return 0;
         }
         return dataList.size();
@@ -76,7 +72,7 @@ public class Adapter_All extends RecyclerView.Adapter<Adapter_All.ViewHolder> {
             if (data.isSelect) {
                 tv.setTextColor(Color.parseColor("#e84418"));
                 tv.setBackgroundResource(R.drawable.shape_round_tomato_trnas_7);
-            }  else {
+            } else {
                 tv.setTextColor(Color.parseColor("#231916"));
                 tv.setBackgroundResource(R.drawable.shape_round_231916_trnas_7);
 

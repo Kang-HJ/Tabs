@@ -19,13 +19,13 @@ import java.util.ArrayList;
  */
 
 public class Adapter_Sub extends RecyclerView.Adapter<Adapter_Sub.ViewHolder> {
+
     Context context;
     ArrayList<TAB_DATA> dataList;
     setOnSubTabClickListener listener;
 
     public Adapter_Sub(Context context, setOnSubTabClickListener listener) {
         this.context = context;
-        this.dataList = dataList;
         this.listener = listener;
     }
 
