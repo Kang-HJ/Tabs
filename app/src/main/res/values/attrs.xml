@@ -17,7 +17,7 @@
         </attr>
     </declare-styleable>
 
-    <declare-styleable name="PagerSlidingTabStrip">
+    <declare-styleable name="MBTabBar">
         <attr name="pstsIndicatorColor" format="color"/>
         <attr name="pstsIndicatorHeight" format="dimension"/>
         <attr name="pstsUnderlineColor" format="color"/>

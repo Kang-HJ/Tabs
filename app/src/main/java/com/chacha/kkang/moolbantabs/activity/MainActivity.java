@@ -1,4 +1,4 @@
-package com.chacha.kkang.moolbantabs;
+package com.chacha.kkang.moolbantabs.activity;
 
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -15,15 +16,41 @@ import android.view.animation.Transformation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.chacha.kkang.moolbantabs.adapter.Adapter_All;
+import com.chacha.kkang.moolbantabs.adapter.Adapter_Pager;
+import com.chacha.kkang.moolbantabs.adapter.Adapter_Sub;
+import com.chacha.kkang.moolbantabs.component.MBTabBar;
+import com.chacha.kkang.moolbantabs.R;
+import com.chacha.kkang.moolbantabs.TAB_DATA;
+import com.chacha.kkang.moolbantabs.UtilAnim;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 
 import java.util.ArrayList;
 
-import static com.chacha.kkang.moolbantabs.TabBar.Debug;
+public class MainActivity extends AppCompatActivity implements Adapter_All.OnSubAreaItemClickListener {
 
-public class Main2Activity extends AppCompatActivity implements Adapter_All.OnSubAreaItemClickListener {
-    PagerSlidingTabStrip tabBar;
+    public static void Debug(String msg) {
+        Log.d("KKANG", buildLogMsg(msg));
+    }
+
+    private static String buildLogMsg(String message) {
+        StackTraceElement ste = Thread.currentThread().getStackTrace()[4];
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        sb.append(ste.getFileName());
+        sb.append(" > ");
+        sb.append(ste.getMethodName());
+        sb.append(" > #");
+        sb.append(ste.getLineNumber());
+        sb.append("] ");
+        sb.append(message);
+
+        return sb.toString();
+    }
+
+
+    MBTabBar tabBar;
     RecyclerView rcvSub;
     ArrayList<TAB_DATA> tabList;
     ArrayList<TAB_DATA> subList;
@@ -75,7 +102,7 @@ public class Main2Activity extends AppCompatActivity implements Adapter_All.OnSu
 
         adapterPager = new Adapter_Pager(this, tabList);
         adapterAll = new Adapter_All(this, tabList, this);
-        gridLayoutManager1 = new GridLayoutManager(Main2Activity.this, 3);
+        gridLayoutManager1 = new GridLayoutManager(MainActivity.this, 3);
 
         adapterSub = new Adapter_Sub(this, subList, new Adapter_Sub.OnSubAreaItemClickListener() {
             @Override
@@ -95,7 +122,7 @@ public class Main2Activity extends AppCompatActivity implements Adapter_All.OnSu
 
             }
         });
-        gridLayoutManager2 = new GridLayoutManager(Main2Activity.this, 3);
+        gridLayoutManager2 = new GridLayoutManager(MainActivity.this, 3);
 
     }
 
@@ -107,13 +134,13 @@ public class Main2Activity extends AppCompatActivity implements Adapter_All.OnSu
         rcvAll = (RecyclerView) findViewById(R.id.rcvAll);
         pager = (ViewPager) findViewById(R.id.pager);
 
-        tabBar = (PagerSlidingTabStrip) findViewById(R.id.tabBar);
+        tabBar = (MBTabBar) findViewById(R.id.tabBar);
         rcvSub = (RecyclerView) findViewById(R.id.rcvSub);
 
 
     }
 
-    private void setView(){
+    private void setView() {
         pager.setAdapter(adapterPager);
         pager.setOverScrollMode(View.OVER_SCROLL_IF_CONTENT_SCROLLS);
         rcvAll.setLayoutManager(gridLayoutManager1);
@@ -154,15 +181,14 @@ public class Main2Activity extends AppCompatActivity implements Adapter_All.OnSu
                     back.setVisibility(View.GONE);
                     tvAll.setVisibility(View.GONE);
                     collapse(rcvAll);
-                    UtilAnim.fideIn(tabBar, 200, null);
+                    UtilAnim.fideIn(tabBar, 100, null);
                 } else {
                     all.setRotation(270);
                     //rcvAll.setVisibility(View.VISIBLE);
                     back.setVisibility(View.VISIBLE);
                     tvAll.setVisibility(View.VISIBLE);
                     expand(rcvAll);
-                    UtilAnim.fideOut(tabBar, 200, null);
-                    UtilAnim.moveXBounce(tvAll, UtilAnim.dip2px(Main2Activity.this, 90), 0, 500, null);
+                    UtilAnim.fideOut(tabBar, 100, null);
                 }
                 isOpen = !isOpen;
             }
@@ -206,26 +232,6 @@ public class Main2Activity extends AppCompatActivity implements Adapter_All.OnSu
             }
 
         });
-        tabBar.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                                           @Override
-                                           public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-                                           }
-
-                                           @Override
-                                           public void onPageSelected(int position) {
-
-                                           }
-
-                                           @Override
-                                           public void onPageScrollStateChanged(int state) {
-
-                                           }
-
-                                       }
-
-        );
-
     }
 
     private ColorStateList createColorStateList(int color_state_pressed, int color_state_selected, int color_state_default) {

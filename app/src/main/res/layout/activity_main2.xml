@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.chacha.kkang.moolbantabs.MainActivity">
+    tools:context="com.chacha.kkang.moolbantabs.activity.MainActivity">
 
     <TextView
         android:id="@+id/scroll"
@@ -25,7 +25,7 @@
             android:layout_weight="1"
             android:background="@android:color/white">
 
-            <com.chacha.kkang.moolbantabs.PagerSlidingTabStrip
+            <com.chacha.kkang.moolbantabs.component.MBTabBar
                 android:id="@+id/tabBar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
