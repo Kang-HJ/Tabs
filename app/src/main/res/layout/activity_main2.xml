@@ -8,7 +8,7 @@
     tools:context="com.chacha.kkang.moolbantabs.activity.MainActivity">
 
     <TextView
-        android:id="@+id/scroll"
+        android:id="@+id/tvOnResumScroll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10dp"
@@ -17,13 +17,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:background="@android:color/white"
         android:orientation="horizontal">
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@android:color/white">
+            android:layout_weight="1">
 
             <com.chacha.kkang.moolbantabs.component.MBTabBar
                 android:id="@+id/tabBar"
@@ -41,13 +41,17 @@
                 android:textSize="13sp" />
         </FrameLayout>
 
+        <FrameLayout
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/line_01"></FrameLayout>
+
         <ImageView
             android:id="@+id/all"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:padding="10dp"
-            android:rotation="90"
-            android:src="@drawable/right_arrow_og_171108" />
+            android:src="@drawable/sketch_cabtn_up_180927" />
     </LinearLayout>
 
     <FrameLayout

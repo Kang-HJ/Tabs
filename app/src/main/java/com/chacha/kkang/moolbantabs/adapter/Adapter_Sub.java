@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.chacha.kkang.moolbantabs.R;
 import com.chacha.kkang.moolbantabs.TAB_DATA;
+import com.chacha.kkang.moolbantabs.activity.MainActivity;
 
 import java.util.ArrayList;
 
@@ -20,13 +21,14 @@ import java.util.ArrayList;
 public class Adapter_Sub extends RecyclerView.Adapter<Adapter_Sub.ViewHolder> {
     Context context;
     ArrayList<TAB_DATA> dataList;
-    OnSubAreaItemClickListener listener;
+    setOnSubTabClickListener listener;
 
-    public Adapter_Sub(Context context, ArrayList<TAB_DATA> dataList, OnSubAreaItemClickListener listener) {
+    public Adapter_Sub(Context context, setOnSubTabClickListener listener) {
         this.context = context;
         this.dataList = dataList;
         this.listener = listener;
     }
+
 
     public void setData(ArrayList<TAB_DATA> dataList) {
         this.dataList = dataList;
@@ -80,15 +82,13 @@ public class Adapter_Sub extends RecyclerView.Adapter<Adapter_Sub.ViewHolder> {
         @Override
         public void onClick(View v) {
 
-            listener.onSubItemClick(position, data, itemView);
+            listener.onSubTabClick(position, data);
 
         }
     }
 
-    public interface OnSubAreaItemClickListener {
-        void onSubItemClick(int position, TAB_DATA data);
-
-        void onSubItemClick(int position, TAB_DATA data, View v);
+    public interface setOnSubTabClickListener {
+        void onSubTabClick(int position, TAB_DATA data);
     }
 }
 

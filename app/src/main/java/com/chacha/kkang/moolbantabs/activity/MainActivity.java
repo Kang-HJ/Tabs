@@ -23,12 +23,10 @@ import com.chacha.kkang.moolbantabs.component.MBTabBar;
 import com.chacha.kkang.moolbantabs.R;
 import com.chacha.kkang.moolbantabs.TAB_DATA;
 import com.chacha.kkang.moolbantabs.UtilAnim;
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements Adapter_All.OnSubAreaItemClickListener {
+public class MainActivity extends AppCompatActivity {
 
     public static void Debug(String msg) {
         Log.d("KKANG", buildLogMsg(msg));
@@ -53,8 +51,7 @@ public class MainActivity extends AppCompatActivity implements Adapter_All.OnSub
     MBTabBar tabBar;
     RecyclerView rcvSub;
     ArrayList<TAB_DATA> tabList;
-    ArrayList<TAB_DATA> subList;
-    TextView scroll;
+    TextView tvOnResumScroll;
     TextView tvAll;
 
     ImageView all;
@@ -84,7 +81,6 @@ public class MainActivity extends AppCompatActivity implements Adapter_All.OnSub
 
     private void initData() {
         tabList = new ArrayList<>();
-        subList = new ArrayList<>();
 
         for (int i = 0; i < 8; i++) {
             TAB_DATA data = new TAB_DATA();
@@ -97,38 +93,55 @@ public class MainActivity extends AppCompatActivity implements Adapter_All.OnSub
             if (i == 0) {
                 data.isSelect = true;
             }
+
+            data.subList = new ArrayList<>();
+            for (int j = 0; j < i; j++) {
+                TAB_DATA sub = new TAB_DATA();
+                sub.key = i + "";
+                sub.name = i + " SUB TAB";
+                data.isSelect = false;
+                data.subList.add(sub);
+            }
             tabList.add(data);
         }
 
         adapterPager = new Adapter_Pager(this, tabList);
-        adapterAll = new Adapter_All(this, tabList, this);
-        gridLayoutManager1 = new GridLayoutManager(MainActivity.this, 3);
 
-        adapterSub = new Adapter_Sub(this, subList, new Adapter_Sub.OnSubAreaItemClickListener() {
+        gridLayoutManager1 = new GridLayoutManager(MainActivity.this, 3);
+        gridLayoutManager2 = new GridLayoutManager(MainActivity.this, 3);
+
+
+        adapterAll = new Adapter_All(this, tabList, new Adapter_All.setOnTabClickListener() {
             @Override
-            public void onSubItemClick(int position, TAB_DATA data, View v) {
-                for (int i = 0; i < subList.size(); i++) {
-                    subList.get(i).isSelect = false;
+            public void onTabClick(int position, TAB_DATA data) {
+                for (int i = 0; i < tabList.size(); i++) {
+                    tabList.get(i).isSelect = false;
                 }
                 data.isSelect = true;
-                adapterSub.notifyDataSetChanged();
-                YoYo.with(Techniques.Tada)
-                        .duration(700)
-                        .playOn(v);
+                adapterAll.notifyDataSetChanged();
             }
 
+        });
+
+        adapterSub = new Adapter_Sub(this, new Adapter_Sub.setOnSubTabClickListener() {
             @Override
-            public void onSubItemClick(int position, TAB_DATA data) {
+            public void onSubTabClick(int position, TAB_DATA data) {
+                if (tabList.size() > pager.getCurrentItem()) {
+                    ArrayList<TAB_DATA> subList = tabList.get(pager.getCurrentItem()).subList;
+                    for (int i = 0; i < subList.size(); i++) {
+                        subList.get(i).isSelect = false;
+                    }
+                    data.isSelect = true;
+                    adapterSub.notifyDataSetChanged();
+                }
 
             }
         });
-        gridLayoutManager2 = new GridLayoutManager(MainActivity.this, 3);
-
     }
 
     private void setUI() {
         back = (View) findViewById(R.id.back);
-        scroll = (TextView) findViewById(R.id.scroll);
+        tvOnResumScroll = (TextView) findViewById(R.id.tvOnResumScroll);
         tvAll = (TextView) findViewById(R.id.tvAll);
         all = (ImageView) findViewById(R.id.all);
         rcvAll = (RecyclerView) findViewById(R.id.rcvAll);
@@ -146,7 +159,6 @@ public class MainActivity extends AppCompatActivity implements Adapter_All.OnSub
         rcvAll.setLayoutManager(gridLayoutManager1);
         rcvAll.setAdapter(adapterAll);
 
-        all.setRotation(90);
         rcvAll.setVisibility(View.GONE);
         back.setVisibility(View.GONE);
         tvAll.setVisibility(View.GONE);
@@ -156,7 +168,6 @@ public class MainActivity extends AppCompatActivity implements Adapter_All.OnSub
         rcvSub.setLayoutManager(gridLayoutManager2);
         rcvSub.setAdapter(adapterSub);
 
-        updateSubCate();
         tabBar.setDividerWidth(0);
         tabBar.setIndicatorHeight(5);
         tabBar.setBackgroundColor(Color.WHITE);
@@ -176,15 +187,13 @@ public class MainActivity extends AppCompatActivity implements Adapter_All.OnSub
             @Override
             public void onClick(View v) {
                 if (isOpen) {
-                    all.setRotation(90);
-                    //rcvAll.setVisibility(View.GONE);
+                    all.setImageResource(R.drawable.sketch_cabtn_up_180927);
                     back.setVisibility(View.GONE);
                     tvAll.setVisibility(View.GONE);
                     collapse(rcvAll);
                     UtilAnim.fideIn(tabBar, 100, null);
                 } else {
-                    all.setRotation(270);
-                    //rcvAll.setVisibility(View.VISIBLE);
+                    all.setImageResource(R.drawable.sketch_cabtn_down_180927);
                     back.setVisibility(View.VISIBLE);
                     tvAll.setVisibility(View.VISIBLE);
                     expand(rcvAll);
@@ -208,7 +217,7 @@ public class MainActivity extends AppCompatActivity implements Adapter_All.OnSub
                 isOpen = !isOpen;
             }
         });
-        scroll.setOnClickListener(new View.OnClickListener() {
+        tvOnResumScroll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -232,6 +241,7 @@ public class MainActivity extends AppCompatActivity implements Adapter_All.OnSub
             }
 
         });
+
     }
 
     private ColorStateList createColorStateList(int color_state_pressed, int color_state_selected, int color_state_default) {
@@ -247,37 +257,6 @@ public class MainActivity extends AppCompatActivity implements Adapter_All.OnSub
                         color_state_default
                 }
         );
-    }
-
-    private void updateSubCate() {
-
-        subList.clear();
-        for (int i = 0; i < 7; i++) {
-            TAB_DATA data = new TAB_DATA();
-            data.key = i + "";
-            data.name = i + " SUB TAB";
-            data.isSelect = false;
-
-            subList.add(data);
-
-        }
-        adapterSub.setData(subList);
-        adapterSub.notifyDataSetChanged();
-
-    }
-
-    @Override
-    public void onSubItemClick(int position, TAB_DATA data) {
-        for (int i = 0; i < tabList.size(); i++) {
-            tabList.get(i).isSelect = false;
-        }
-        data.isSelect = true;
-        adapterAll.notifyDataSetChanged();
-    }
-
-    @Override
-    public void onSubItemClick(int position, TAB_DATA data, View v) {
-
     }
 
     public void expand(final View v) {

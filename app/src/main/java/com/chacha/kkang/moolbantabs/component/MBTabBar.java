@@ -233,13 +233,15 @@ public class MBTabBar extends HorizontalScrollView {
         }
 
         isCustomTabs = pager.getAdapter() instanceof CustomTabProvider;
-        pager.setOnPageChangeListener(mPageListener);
+        pager.addOnPageChangeListener(mPageListener);
         pager.getAdapter().registerDataSetObserver(mAdapterObserver);
         mAdapterObserver.setAttached(true);
         notifyDataSetChanged();
     }
+
     int wrapWidth = 0;
     int width = 0;
+
     public void notifyDataSetChanged() {
         wrapWidth = 0;
         mTabsContainer.removeAllViews();
@@ -277,6 +279,7 @@ public class MBTabBar extends HorizontalScrollView {
         updateTabStyles();
         tabWidthSetting();
     }
+
     private void tabWidthSetting() {
         boolean isWeight = false;
         if (wrapWidth <= width) {

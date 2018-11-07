@@ -10,8 +10,6 @@ import android.widget.TextView;
 
 import com.chacha.kkang.moolbantabs.R;
 import com.chacha.kkang.moolbantabs.TAB_DATA;
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
 
 import java.util.ArrayList;
 
@@ -22,11 +20,11 @@ import java.util.ArrayList;
 public class Adapter_All extends RecyclerView.Adapter<Adapter_All.ViewHolder> {
     Context context;
     ArrayList<TAB_DATA> dataList = new ArrayList<>();
-    OnSubAreaItemClickListener listener;
+    setOnTabClickListener listener;
     boolean isReserve;
     boolean isTalk = false;
 
-    public Adapter_All(Context context,ArrayList<TAB_DATA> dataList, OnSubAreaItemClickListener listener) {
+    public Adapter_All(Context context,ArrayList<TAB_DATA> dataList, setOnTabClickListener listener) {
         this.context = context;
         this.isReserve = isReserve;
         this.dataList = dataList;
@@ -74,6 +72,7 @@ public class Adapter_All extends RecyclerView.Adapter<Adapter_All.ViewHolder> {
             position = pos;
 
             tv.setText(data.name);
+
             if (data.isSelect) {
                 tv.setTextColor(Color.parseColor("#e84418"));
                 tv.setBackgroundResource(R.drawable.shape_round_tomato_trnas_7);
@@ -87,17 +86,13 @@ public class Adapter_All extends RecyclerView.Adapter<Adapter_All.ViewHolder> {
 
         @Override
         public void onClick(View v) {
-            YoYo.with(Techniques.StandUp)
-                    .duration(700)
-                    .playOn(v);
-            listener.onSubItemClick(position, data);
+            listener.onTabClick(position, data);
 
         }
     }
 
-    public interface OnSubAreaItemClickListener {
-        void onSubItemClick(int position, TAB_DATA data);
-        void onSubItemClick(int position, TAB_DATA data, View v);
+    public interface setOnTabClickListener {
+        void onTabClick(int position, TAB_DATA data);
     }
 }
 
