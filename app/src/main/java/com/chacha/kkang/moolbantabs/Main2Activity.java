@@ -33,7 +33,6 @@ public class Main2Activity extends AppCompatActivity implements Adapter_All.OnSu
     ImageView all;
     RecyclerView rcvAll;
 
-    Adapter_Pager adapterPager;
     Adapter_All adapterAll;
     Adapter_Sub adapterSub;
     GridLayoutManager gridLayoutManager1;
@@ -41,6 +40,8 @@ public class Main2Activity extends AppCompatActivity implements Adapter_All.OnSu
     View back;
 
     ViewPager pager;
+    Adapter_Pager adapterPager;
+
     boolean isOpen = false;
 
     @Override

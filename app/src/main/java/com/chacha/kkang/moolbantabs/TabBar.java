@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Display;
@@ -37,6 +38,7 @@ public class TabBar extends HorizontalScrollView {
     boolean isSub = false;
     int width = 0;
     int wrapWidth = 0;
+    ViewPager viewPager;
 
     // Log
     public static void Debug(String msg) {
@@ -107,8 +109,8 @@ public class TabBar extends HorizontalScrollView {
             layoutContainer.getChildAt(i).getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                 @Override
                 public void onGlobalLayout() {
-                /* don't forget to remove the listener after you use it once */
-                    if(layoutContainer.getChildAt(finalI) == null){
+                    /* don't forget to remove the listener after you use it once */
+                    if (layoutContainer.getChildAt(finalI) == null) {
                         return;
                     }
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -128,10 +130,8 @@ public class TabBar extends HorizontalScrollView {
         boolean isWeight = false;
         if (wrapWidth <= width) {
             isWeight = true;
-        } else {
-            isWeight = false;
         }
-        Debug("notifyDataSetChanged    isWeight : " + isWeight);
+
         if (isWeight) {
             for (int i = 0; i < data.size(); i++) {
                 layoutContainer.getChildAt(i).setLayoutParams(new LinearLayout.LayoutParams(WRAP_CONTENT, MATCH_PARENT, 1));
@@ -149,29 +149,52 @@ public class TabBar extends HorizontalScrollView {
 
     }
 
+    public void setViewPager(ViewPager viewPager) {
+        this.viewPager = viewPager;
+        if (viewPager != null) {
+            viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                    Debug(" position getWidth : : " + layoutContainer.getChildAt(position).getWidth());
+                }
+
+                @Override
+                public void onPageSelected(int position) {
+                }
+
+                @Override
+                public void onPageScrollStateChanged(int state) {
+
+                }
+            });
+        }
+    }
+
     public void clearTabs() {
         layoutContainer.removeAllViews();
     }
 
-    public void selectTabs(int position) {
+    public void setSelectTab(int position) {
 
-        if (layoutContainer == null)
+        if (layoutContainer == null) {
             return;
-        if (layoutContainer.getChildCount() <= position)
-            return;
-        if (((LinearLayout) layoutContainer.getChildAt(position).findViewById(R.id.llMain)) == null)
-            return;
-        ((LinearLayout) layoutContainer.getChildAt(position).findViewById(R.id.llMain)).performClick();
-    }
-
-    public TAB_DATA getTabData(int position){
-        TAB_DATA tab = null;
-        if(data != null){
-            if(data.size() > position){
-                tab =  data.get(position);
-            }
         }
-        return  tab;
+
+        if (layoutContainer.getChildCount() <= position) {
+            return;
+        }
+
+        View view = layoutContainer.getChildAt(position);
+        if (view == null) {
+            return;
+        }
+
+        LinearLayout linearLayout = view.findViewById(R.id.llMain);
+        if (linearLayout == null) {
+            return;
+        }
+
+        linearLayout.performClick();
     }
 
     private View createTabView(final TAB_DATA tab, final int position) {
@@ -219,7 +242,7 @@ public class TabBar extends HorizontalScrollView {
     }
 
     public void updateUI(int position) {
-        if(isSlide){
+        if (isSlide) {
             return;
         }
         isSlide = true;

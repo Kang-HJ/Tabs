@@ -1,6 +1,7 @@
 package com.chacha.kkang.moolbantabs;
 
 import android.os.CountDownTimer;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -37,34 +38,96 @@ public class MainActivity extends AppCompatActivity implements Adapter_All.OnSub
 
     boolean isOpen = false;
 
+    ViewPager pager;
+    Adapter_Pager adapterPager;
+
+    ArrayList<TAB_DATA> subList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        initData();
+        setUI();
+        setView();
+        setEvent();
+    }
+
+    private void initData() {
         tabList = new ArrayList<>();
+        subList = new ArrayList<>();
         for (int i = 0; i < 8; i++) {
             TAB_DATA data = new TAB_DATA();
             data.key = i + "";
             data.name = i + " TAB";
+            if (i == 3) {
+                data.name += "BBBBB";
+            }
 
             if (i == 0) {
                 data.isSelect = true;
             }
             tabList.add(data);
         }
+        adapterPager = new Adapter_Pager(this, tabList);
+        adapterAll = new Adapter_All(this, tabList, this);
+        gridLayoutManager1 = new GridLayoutManager(MainActivity.this, 3);
+        adapterSub = new Adapter_Sub(this, subList, new Adapter_Sub.OnSubAreaItemClickListener() {
+            @Override
+            public void onSubItemClick(int position, TAB_DATA data, View v) {
+                for (int i = 0; i < subList.size(); i++) {
+                    subList.get(i).isSelect = false;
+                }
+                data.isSelect = true;
+                adapterSub.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onSubItemClick(int position, TAB_DATA data) {
+
+            }
+        });
+        gridLayoutManager2 = new GridLayoutManager(MainActivity.this, 3);
+    }
+
+    private void setUI() {
+        pager = (ViewPager) findViewById(R.id.pager);
 
         back = (View) findViewById(R.id.back);
         scroll = (TextView) findViewById(R.id.scroll);
         tvAll = (TextView) findViewById(R.id.tvAll);
         all = (ImageView) findViewById(R.id.all);
         rcvAll = (RecyclerView) findViewById(R.id.rcvAll);
+        tabBar = (TabBar) findViewById(R.id.tabBar);
+        rcvSub = (RecyclerView) findViewById(R.id.rcvSub);
 
-        adapterAll = new Adapter_All(this, tabList, this);
-        gridLayoutManager1 = new GridLayoutManager(MainActivity.this, 3);
+    }
+
+    private void setView() {
         rcvAll.setLayoutManager(gridLayoutManager1);
         rcvAll.setAdapter(adapterAll);
 
+        all.setRotation(90);
+        rcvAll.setVisibility(View.GONE);
+        back.setVisibility(View.GONE);
+        tvAll.setVisibility(View.GONE);
+
+        UtilAnim.fideIn(tabBar, 200, null);
+
+        tabBar.addTab(tabList, false);
+        tabBar.notifyDataSetChanged();
+
+
+        rcvSub.setLayoutManager(gridLayoutManager2);
+        rcvSub.setAdapter(adapterSub);
+
+        tabBar.setViewPager(pager);
+        pager.setAdapter(adapterPager);
+
+    }
+
+    private void setEvent() {
         all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,12 +150,6 @@ public class MainActivity extends AppCompatActivity implements Adapter_All.OnSub
                 isOpen = !isOpen;
             }
         });
-        all.setRotation(90);
-        rcvAll.setVisibility(View.GONE);
-        back.setVisibility(View.GONE);
-        tvAll.setVisibility(View.GONE);
-
-        UtilAnim.fideIn(tabBar, 200, null);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,8 +189,6 @@ public class MainActivity extends AppCompatActivity implements Adapter_All.OnSub
             }
 
         });
-        tabBar = (TabBar) findViewById(R.id.tabBar);
-        rcvSub = (RecyclerView) findViewById(R.id.rcvSub);
         tabBar.setOnTabClicked(new TabBar.OnTabClicked() {
             @Override
             public void onTabClicked(boolean isSub, TAB_DATA tab, int pos) {
@@ -141,35 +196,29 @@ public class MainActivity extends AppCompatActivity implements Adapter_All.OnSub
             }
         });
 
-        tabBar.addTab(tabList, false);
-        tabBar.notifyDataSetChanged();
-
-        adapterSub = new Adapter_Sub(this, subList, new Adapter_Sub.OnSubAreaItemClickListener() {
+        pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onSubItemClick(int position, TAB_DATA data, View v) {
-                for (int i = 0; i < subList.size(); i++) {
-                    subList.get(i).isSelect = false;
-                }
-                data.isSelect = true;
-                adapterSub.notifyDataSetChanged();
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
             }
 
             @Override
-            public void onSubItemClick(int position, TAB_DATA data) {
+            public void onPageSelected(int position) {
+                tabBar.setSelectTab(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
 
             }
         });
-        gridLayoutManager2 = new GridLayoutManager(MainActivity.this, 3);
-        rcvSub.setLayoutManager(gridLayoutManager2);
-        rcvSub.setAdapter(adapterSub);
+
     }
 
-    ArrayList<TAB_DATA> subList = new ArrayList<>();
 
     private void updateSubCate() {
 
 
-        //TalkDataContoller.getInstance().getSubTabs(mainCategory.get(customPager.getCurrentItem()).key + "") = new ArrayList<>();
         subList.clear();
         for (int i = 0; i < 7; i++) {
             TAB_DATA data = new TAB_DATA();
