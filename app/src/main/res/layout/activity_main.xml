@@ -39,6 +39,7 @@
 
             <TextView
                 android:id="@+id/tvAll"
+                style="@style/FontBoldTextViewStyle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="13dp"

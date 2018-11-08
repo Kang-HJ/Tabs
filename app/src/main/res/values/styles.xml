@@ -8,4 +8,8 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="FontBoldTextViewStyle" parent="android:Widget.TextView">
+        <item name="fontFamily">@font/notosanscjk_bold</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
 </resources>
