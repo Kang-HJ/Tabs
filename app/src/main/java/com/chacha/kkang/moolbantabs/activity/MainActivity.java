@@ -16,13 +16,13 @@ import android.view.animation.Transformation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.chacha.kkang.moolbantabs.R;
+import com.chacha.kkang.moolbantabs.TAB_DATA;
+import com.chacha.kkang.moolbantabs.UtilAnim;
 import com.chacha.kkang.moolbantabs.adapter.Adapter_All;
 import com.chacha.kkang.moolbantabs.adapter.Adapter_Pager;
 import com.chacha.kkang.moolbantabs.adapter.Adapter_Sub;
 import com.chacha.kkang.moolbantabs.component.MBTabBar;
-import com.chacha.kkang.moolbantabs.R;
-import com.chacha.kkang.moolbantabs.TAB_DATA;
-import com.chacha.kkang.moolbantabs.UtilAnim;
 
 import java.util.ArrayList;
 
@@ -54,8 +54,9 @@ public class MainActivity extends AppCompatActivity {
     TextView tvOnResumScroll;
     TextView tvAll;
 
-    ImageView all;
+    ImageView ivAll;
     RecyclerView rcvAll;
+    ImageView ivFading;
 
     Adapter_All adapterAll;
     Adapter_Sub adapterSub;
@@ -110,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
         gridLayoutManager1 = new GridLayoutManager(MainActivity.this, 3);
         gridLayoutManager2 = new GridLayoutManager(MainActivity.this, 3);
 
-
         adapterAll = new Adapter_All(this, tabList, new Adapter_All.setOnTabClickListener() {
             @Override
             public void onTabClick(int position, TAB_DATA data) {
@@ -144,14 +144,12 @@ public class MainActivity extends AppCompatActivity {
         back = (View) findViewById(R.id.back);
         tvOnResumScroll = (TextView) findViewById(R.id.tvOnResumScroll);
         tvAll = (TextView) findViewById(R.id.tvAll);
-        all = (ImageView) findViewById(R.id.all);
+        ivAll = (ImageView) findViewById(R.id.ivAll);
         rcvAll = (RecyclerView) findViewById(R.id.rcvAll);
         pager = (ViewPager) findViewById(R.id.pager);
-
         tabBar = (MBTabBar) findViewById(R.id.tabBar);
         rcvSub = (RecyclerView) findViewById(R.id.rcvSub);
-
-
+        ivFading = (ImageView) findViewById(R.id.ivFading);
     }
 
     private void setView() {
@@ -180,11 +178,9 @@ public class MainActivity extends AppCompatActivity {
         tabBar.setTextColor(colorList);
 
         tabBar.setViewPager(pager);
-
     }
 
     private void setEvent() {
-
         tabBar.setOnTabReselectedListener(new MBTabBar.OnTabSelectedListener() {
             @Override
             public void onTabSelected(int position) {
@@ -203,47 +199,59 @@ public class MainActivity extends AppCompatActivity {
                 adapterSub.notifyDataSetChanged();
 
             }
+
+            @Override
+            public void onScrollEnd() {
+                ivFading.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onScrolling() {
+                ivFading.setVisibility(View.VISIBLE);
+            }
         });
 
-
-        all.setOnClickListener(new View.OnClickListener() {
+        ivAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (isOpen) {
-                    all.setImageResource(R.drawable.sketch_cabtn_up_180927);
+                    ivAll.setImageResource(R.drawable.sketch_cabtn_up_180927);
                     back.setVisibility(View.GONE);
                     tvAll.setVisibility(View.GONE);
+                    ivFading.setVisibility(View.VISIBLE);
                     collapse(rcvAll);
                     UtilAnim.fideIn(tabBar, 100, null);
                 } else {
-                    all.setImageResource(R.drawable.sketch_cabtn_down_180927);
+                    ivAll.setImageResource(R.drawable.sketch_cabtn_down_180927);
                     back.setVisibility(View.VISIBLE);
                     tvAll.setVisibility(View.VISIBLE);
+                    ivFading.setVisibility(View.GONE);
                     expand(rcvAll);
                     UtilAnim.fideOut(tabBar, 100, null);
                 }
                 isOpen = !isOpen;
             }
         });
+
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (isOpen) {
-                    all.setRotation(180);
+                    ivAll.setRotation(180);
                     rcvAll.setVisibility(View.GONE);
                     back.setVisibility(View.GONE);
                 } else {
-                    all.setRotation(0);
+                    ivAll.setRotation(0);
                     rcvAll.setVisibility(View.VISIBLE);
                     back.setVisibility(View.VISIBLE);
                 }
                 isOpen = !isOpen;
             }
         });
+
         tvOnResumScroll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 final double offsetX = 200.0;
                 final double duration = 500.0;
                 if (tabBar != null)

@@ -30,13 +30,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
+            <ImageView
+                android:id="@+id/ivFading"
+                android:layout_width="15dp"
+                android:layout_height="match_parent"
+                android:background="#99ffffff"
+                android:layout_gravity="right"/>
+
             <TextView
                 android:id="@+id/tvAll"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="13dp"
                 android:gravity="center_vertical"
-                android:text=" 모아보기"
+                android:text="모아보기"
                 android:textColor="#000000"
                 android:textSize="13sp" />
         </FrameLayout>
@@ -47,7 +54,7 @@
             android:background="@color/line_01" />
 
         <ImageView
-            android:id="@+id/all"
+            android:id="@+id/ivAll"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:padding="10dp"

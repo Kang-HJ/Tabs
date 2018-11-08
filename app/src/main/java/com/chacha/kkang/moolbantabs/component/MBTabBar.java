@@ -850,6 +850,19 @@ public class MBTabBar extends HorizontalScrollView {
         updateTabStyles();
     }
 
+    @Override
+    protected void onScrollChanged(int l, int t, int oldl, int oldt) {
+        super.onScrollChanged(l, t, oldl, oldt);
+        View view = (View) getChildAt(getChildCount() - 1);
+        int diff = (view.getRight() - (getWidth() + getScrollX()));
+
+        if (diff == 0){
+            mTabReselectedListener.onScrollEnd();
+        } else {
+            mTabReselectedListener.onScrolling();
+        }
+    }
+
     public interface CustomTabProvider {
         View getCustomTabView(ViewGroup parent, int position);
 
@@ -860,6 +873,8 @@ public class MBTabBar extends HorizontalScrollView {
 
     public interface OnTabSelectedListener {
         void onTabSelected(int position);
+        void onScrollEnd();
+        void onScrolling();
     }
 }
 
