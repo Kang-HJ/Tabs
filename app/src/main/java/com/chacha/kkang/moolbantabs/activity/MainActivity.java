@@ -131,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
                     for (int i = 0; i < subList.size(); i++) {
                         subList.get(i).isSelect = false;
                     }
+
                     data.isSelect = true;
                     adapterSub.notifyDataSetChanged();
                 }
@@ -194,6 +195,10 @@ public class MainActivity extends AppCompatActivity {
                 tabList.get(position).isSelect = true;
                 adapterAll.notifyDataSetChanged();
 
+                if(tabList.get(position).subList.size() % 3 != 0) {
+                    tabList.get(position).subList.add(null);
+                }
+
                 adapterSub.setData(tabList.get(position).subList);
                 adapterSub.notifyDataSetChanged();
 
@@ -224,11 +229,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (isOpen) {
-                    all.setRotation(90);
+                    all.setRotation(180);
                     rcvAll.setVisibility(View.GONE);
                     back.setVisibility(View.GONE);
                 } else {
-                    all.setRotation(270);
+                    all.setRotation(0);
                     rcvAll.setVisibility(View.VISIBLE);
                     back.setVisibility(View.VISIBLE);
                 }

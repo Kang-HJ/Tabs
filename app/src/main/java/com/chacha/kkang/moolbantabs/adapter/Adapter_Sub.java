@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chacha.kkang.moolbantabs.R;
@@ -31,7 +32,6 @@ public class Adapter_Sub extends RecyclerView.Adapter<Adapter_Sub.ViewHolder> {
         this.context = context;
         this.listener = listener;
     }
-
 
     public void setData(ArrayList<TAB_DATA> dataList) {
         this.dataList = dataList;
@@ -61,10 +61,12 @@ public class Adapter_Sub extends RecyclerView.Adapter<Adapter_Sub.ViewHolder> {
         TAB_DATA data;
         int position;
         TextView tv;
+        ImageView ivNon;
 
         public ViewHolder(View itemView) {
             super(itemView);
             tv = (TextView) itemView.findViewById(R.id.tv);
+            ivNon = (ImageView) itemView.findViewById(R.id.ivNon);
         }
 
         public void setData(TAB_DATA _data, int pos) {
@@ -72,13 +74,20 @@ public class Adapter_Sub extends RecyclerView.Adapter<Adapter_Sub.ViewHolder> {
             position = pos;
             itemView.setOnClickListener(this);
 
-            tv.setText(data.name);
-            if (data.isSelect) {
-                tv.setTextColor(Color.parseColor("#3e3e3e"));
-                tv.setTypeface(null, Typeface.BOLD);
+            if (data == null) {
+                tv.setVisibility(View.GONE);
+                ivNon.setVisibility(View.VISIBLE);
             } else {
-                tv.setTextColor(Color.parseColor("#878787"));
-                tv.setTypeface(null, Typeface.NORMAL);
+                tv.setVisibility(View.VISIBLE);
+                ivNon.setVisibility(View.GONE);
+                tv.setText(data.name);
+                if (data.isSelect) {
+                    tv.setTextColor(Color.parseColor("#3e3e3e"));
+                    tv.setTypeface(null, Typeface.BOLD);
+                } else {
+                    tv.setTextColor(Color.parseColor("#878787"));
+                    tv.setTypeface(null, Typeface.NORMAL);
+                }
             }
         }
 

@@ -13,4 +13,12 @@
         android:background="@drawable/shape_round_line01_white_7"
         android:padding="10dp"
         android:textSize="12sp"/>
+
+    <ImageView
+        android:id="@+id/ivNon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/sketch_fish_180927"
+        android:padding="10dp"
+        android:visibility="gone"/>
 </LinearLayout>
