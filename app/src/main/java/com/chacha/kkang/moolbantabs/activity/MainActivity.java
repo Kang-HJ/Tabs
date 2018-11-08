@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
         return sb.toString();
     }
 
-
     MBTabBar tabBar;
     RecyclerView rcvSub;
     ArrayList<TAB_DATA> tabList;
@@ -159,6 +158,7 @@ public class MainActivity extends AppCompatActivity {
         rcvAll.setAdapter(adapterAll);
 
         rcvAll.setVisibility(View.GONE);
+        rcvSub.setVisibility(View.GONE);
         back.setVisibility(View.GONE);
         tvAll.setVisibility(View.GONE);
 
@@ -184,20 +184,29 @@ public class MainActivity extends AppCompatActivity {
         tabBar.setOnTabReselectedListener(new MBTabBar.OnTabSelectedListener() {
             @Override
             public void onTabSelected(int position) {
-                Debug("onTabSelected   >  " + position + " / " + tabList.get(position).subList.size());
+                Debug("----- onTabSelected   >  " + position + " / " + tabList.get(position).subList.size());
                 for (int i = 0; i < tabList.size(); i++) {
                     tabList.get(i).isSelect = false;
                 }
                 tabList.get(position).isSelect = true;
                 adapterAll.notifyDataSetChanged();
 
+                int count = tabList.get(position).subList.size() % 3;
                 if(tabList.get(position).subList.size() % 3 != 0) {
-                    tabList.get(position).subList.add(null);
+                    for (int i = count; i < 3; i++) {
+                        tabList.get(position).subList.add(null);
+                    }
                 }
 
-                adapterSub.setData(tabList.get(position).subList);
-                adapterSub.notifyDataSetChanged();
+                if (tabList.get(position).subList.size() > 0){
+                    rcvSub.setVisibility(View.VISIBLE);
 
+                    tabList.get(position).subList.get(0).isSelect = true;
+                    adapterSub.setData(tabList.get(position).subList);
+                    adapterSub.notifyDataSetChanged();
+                } else {
+                    rcvSub.setVisibility(View.GONE);
+                }
             }
 
             @Override
