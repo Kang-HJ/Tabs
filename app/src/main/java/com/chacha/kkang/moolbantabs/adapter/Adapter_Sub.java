@@ -2,6 +2,7 @@ package com.chacha.kkang.moolbantabs.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,8 @@ import com.chacha.kkang.moolbantabs.TAB_DATA;
 import com.chacha.kkang.moolbantabs.activity.MainActivity;
 
 import java.util.ArrayList;
+
+import static com.chacha.kkang.moolbantabs.activity.MainActivity.Debug;
 
 /**
  * Created by kkang on 2018. 10. 28..
@@ -72,18 +75,16 @@ public class Adapter_Sub extends RecyclerView.Adapter<Adapter_Sub.ViewHolder> {
             tv.setText(data.name);
             if (data.isSelect) {
                 tv.setTextColor(Color.parseColor("#3e3e3e"));
+                tv.setTypeface(null, Typeface.BOLD);
             } else {
                 tv.setTextColor(Color.parseColor("#878787"));
-
+                tv.setTypeface(null, Typeface.NORMAL);
             }
-
         }
 
         @Override
         public void onClick(View v) {
-
             listener.onSubTabClick(position, data);
-
         }
     }
 

@@ -74,7 +74,7 @@ public class Adapter_All extends RecyclerView.Adapter<Adapter_All.ViewHolder> {
                 tv.setBackgroundResource(R.drawable.shape_round_tomato_trans_7);
             } else {
                 tv.setTextColor(Color.parseColor("#231916"));
-                tv.setBackgroundResource(R.drawable.shape_round_line01_trans_7);
+                tv.setBackgroundResource(R.drawable.shape_round_line01_white_7);
 
             }
 
