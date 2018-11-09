@@ -2,6 +2,7 @@ package com.chacha.kkang.moolbantabs.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,12 +73,22 @@ public class Adapter_All extends RecyclerView.Adapter<Adapter_All.ViewHolder> {
             if (data.isSelect) {
                 tv.setTextColor(Color.parseColor("#e84418"));
                 tv.setBackgroundResource(R.drawable.shape_round_tomato_trans_7);
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    tv.setTextAppearance(R.style.FontBoldTextViewStyle);
+                } else {
+                    tv.setTextAppearance(context, R.style.FontBoldTextViewStyle);
+                }
             } else {
                 tv.setTextColor(Color.parseColor("#231916"));
                 tv.setBackgroundResource(R.drawable.shape_round_line01_white_7);
 
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    tv.setTextAppearance(R.style.FontTextViewStyle);
+                } else {
+                    tv.setTextAppearance(context, R.style.FontTextViewStyle);
+                }
             }
-
         }
 
         @Override
