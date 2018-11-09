@@ -193,6 +193,10 @@ public class MainActivity extends AppCompatActivity implements ViewMainTab.setOn
     }
 
     private void setAllTab() {
+        if (llAll.getChildCount() > 0) {
+            llAll.removeAllViews();
+        }
+
         int count = 0;
         if (tabList.size() > 0) {
             if (tabList.size() % mainTabCount != 0) {
@@ -413,6 +417,10 @@ public class MainActivity extends AppCompatActivity implements ViewMainTab.setOn
 
     @Override
     public void onMainTabClick(TAB_DATA data) {
-
+        for (int i = 0; i < tabList.size(); i++) {
+            tabList.get(i).isSelect = false;
+        }
+        data.isSelect = true;
+        setAllTab();
     }
 }

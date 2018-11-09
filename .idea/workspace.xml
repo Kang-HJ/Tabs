@@ -10,38 +10,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="072e3913-6344-4b1a-ab08-19c6dc857b80" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/chacha/kkang/moolbantabs/component/ViewMainTab.java" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/chacha/kkang/moolbantabs/activity/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/chacha/kkang/moolbantabs/activity/MainActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-11-07-16-17-51-065.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-11-07-16-17-51-065.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-11-07-16-22-49-161.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-11-07-16-22-49-161.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-11-07-16-24-05-461.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-11-07-16-24-05-461.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-11-07-16-24-21-630.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-11-07-16-24-21-630.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-11-07-16-24-34-802.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-11-07-16-24-34-802.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-11-07-16-32-09-186.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-11-07-16-32-09-186.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-11-07-16-32-16-154.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-11-07-16-32-16-154.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-11-07-16-33-07-986.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-11-07-16-33-07-986.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-11-07-16-33-22-419.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-11-07-16-33-22-419.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-11-07-20-16-40-973.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-11-07-20-16-40-973.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-11-07-20-19-33-459.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-11-07-20-19-33-459.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-11-07-20-21-56-348.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-11-07-20-21-56-348.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-11-07-20-24-17-640.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-11-07-20-24-17-640.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-11-07-20-24-49-024.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-11-07-20-24-49-024.rawproto" afterPath="" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -99,19 +69,19 @@
       <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/chacha/kkang/moolbantabs/activity/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="887">
-              <caret line="202" column="31" lean-forward="false" selection-start-line="202" selection-start-column="31" selection-end-line="202" selection-end-column="31" />
+            <state relative-caret-position="361">
+              <caret line="52" column="0" lean-forward="true" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
               <folding>
                 <element signature="e#3680#4053#0" expanded="true" />
                 <element signature="e#4052#4053#0" expanded="true" />
                 <element signature="e#4100#4676#0" expanded="true" />
                 <element signature="e#4675#4676#0" expanded="true" />
-                <element signature="e#9164#10057#0" expanded="true" />
-                <element signature="e#10056#10057#0" expanded="true" />
-                <element signature="e#10093#10616#0" expanded="true" />
-                <element signature="e#10615#10616#0" expanded="true" />
-                <element signature="e#10663#11611#0" expanded="true" />
-                <element signature="e#11610#11611#0" expanded="true" />
+                <element signature="e#9252#10145#0" expanded="true" />
+                <element signature="e#10144#10145#0" expanded="true" />
+                <element signature="e#10181#10704#0" expanded="true" />
+                <element signature="e#10703#10704#0" expanded="true" />
+                <element signature="e#10751#11699#0" expanded="true" />
+                <element signature="e#11698#11699#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -2580,12 +2550,12 @@
             <element signature="e#4052#4053#0" expanded="true" />
             <element signature="e#4100#4676#0" expanded="true" />
             <element signature="e#4675#4676#0" expanded="true" />
-            <element signature="e#9164#10057#0" expanded="true" />
-            <element signature="e#10056#10057#0" expanded="true" />
-            <element signature="e#10093#10616#0" expanded="true" />
-            <element signature="e#10615#10616#0" expanded="true" />
-            <element signature="e#10663#11611#0" expanded="true" />
-            <element signature="e#11610#11611#0" expanded="true" />
+            <element signature="e#9252#10145#0" expanded="true" />
+            <element signature="e#10144#10145#0" expanded="true" />
+            <element signature="e#10181#10704#0" expanded="true" />
+            <element signature="e#10703#10704#0" expanded="true" />
+            <element signature="e#10751#11699#0" expanded="true" />
+            <element signature="e#11698#11699#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2725,19 +2695,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/chacha/kkang/moolbantabs/activity/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="887">
-          <caret line="202" column="31" lean-forward="false" selection-start-line="202" selection-start-column="31" selection-end-line="202" selection-end-column="31" />
+        <state relative-caret-position="361">
+          <caret line="52" column="0" lean-forward="true" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
           <folding>
             <element signature="e#3680#4053#0" expanded="true" />
             <element signature="e#4052#4053#0" expanded="true" />
             <element signature="e#4100#4676#0" expanded="true" />
             <element signature="e#4675#4676#0" expanded="true" />
-            <element signature="e#9164#10057#0" expanded="true" />
-            <element signature="e#10056#10057#0" expanded="true" />
-            <element signature="e#10093#10616#0" expanded="true" />
-            <element signature="e#10615#10616#0" expanded="true" />
-            <element signature="e#10663#11611#0" expanded="true" />
-            <element signature="e#11610#11611#0" expanded="true" />
+            <element signature="e#9252#10145#0" expanded="true" />
+            <element signature="e#10144#10145#0" expanded="true" />
+            <element signature="e#10181#10704#0" expanded="true" />
+            <element signature="e#10703#10704#0" expanded="true" />
+            <element signature="e#10751#11699#0" expanded="true" />
+            <element signature="e#11698#11699#0" expanded="true" />
           </folding>
         </state>
       </provider>
