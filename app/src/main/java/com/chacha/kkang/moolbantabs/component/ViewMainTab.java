@@ -89,7 +89,7 @@ public class ViewMainTab extends LinearLayout {
                 }
             }
         } else {
-            tv.setVisibility(View.GONE);
+            tv.setVisibility(View.INVISIBLE);
         }
     }
 
