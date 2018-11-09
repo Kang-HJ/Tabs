@@ -12,7 +12,6 @@
   <component name="ChangeListManager">
     <list default="true" id="072e3913-6344-4b1a-ab08-19c6dc857b80" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/chacha/kkang/moolbantabs/activity/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/chacha/kkang/moolbantabs/activity/MainActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -50,8 +49,8 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1995">
-              <caret line="105" column="30" lean-forward="false" selection-start-line="105" selection-start-column="30" selection-end-line="105" selection-end-column="30" />
+            <state relative-caret-position="213">
+              <caret line="28" column="39" lean-forward="false" selection-start-line="28" selection-start-column="33" selection-end-line="28" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -60,8 +59,8 @@
       <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/chacha/kkang/moolbantabs/activity/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-715">
-              <caret line="284" column="25" lean-forward="false" selection-start-line="284" selection-start-column="25" selection-end-line="284" selection-end-column="25" />
+            <state relative-caret-position="892">
+              <caret line="291" column="56" lean-forward="false" selection-start-line="291" selection-start-column="56" selection-end-line="291" selection-end-column="56" />
               <folding>
                 <element signature="e#3502#4078#0" expanded="true" />
                 <element signature="e#4077#4078#0" expanded="true" />
@@ -71,10 +70,10 @@
                 <element signature="e#8400#8401#0" expanded="true" />
                 <element signature="e#8448#9341#0" expanded="true" />
                 <element signature="e#9340#9341#0" expanded="true" />
-                <element signature="e#9377#9898#0" expanded="true" />
-                <element signature="e#9897#9898#0" expanded="true" />
-                <element signature="e#9945#10893#0" expanded="true" />
-                <element signature="e#10892#10893#0" expanded="true" />
+                <element signature="e#9377#10270#0" expanded="true" />
+                <element signature="e#10269#10270#0" expanded="true" />
+                <element signature="e#10317#11265#0" expanded="true" />
+                <element signature="e#11264#11265#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -2539,10 +2538,10 @@
             <element signature="e#8400#8401#0" expanded="true" />
             <element signature="e#8448#9341#0" expanded="true" />
             <element signature="e#9340#9341#0" expanded="true" />
-            <element signature="e#9377#9898#0" expanded="true" />
-            <element signature="e#9897#9898#0" expanded="true" />
-            <element signature="e#9945#10893#0" expanded="true" />
-            <element signature="e#10892#10893#0" expanded="true" />
+            <element signature="e#9377#10270#0" expanded="true" />
+            <element signature="e#10269#10270#0" expanded="true" />
+            <element signature="e#10317#11265#0" expanded="true" />
+            <element signature="e#11264#11265#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2693,10 +2692,10 @@
             <element signature="e#8400#8401#0" expanded="true" />
             <element signature="e#8448#9341#0" expanded="true" />
             <element signature="e#9340#9341#0" expanded="true" />
-            <element signature="e#9377#9898#0" expanded="true" />
-            <element signature="e#9897#9898#0" expanded="true" />
-            <element signature="e#9945#10893#0" expanded="true" />
-            <element signature="e#10892#10893#0" expanded="true" />
+            <element signature="e#9377#10270#0" expanded="true" />
+            <element signature="e#10269#10270#0" expanded="true" />
+            <element signature="e#10317#11265#0" expanded="true" />
+            <element signature="e#11264#11265#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2786,10 +2785,10 @@
             <element signature="e#8400#8401#0" expanded="true" />
             <element signature="e#8448#9341#0" expanded="true" />
             <element signature="e#9340#9341#0" expanded="true" />
-            <element signature="e#9377#9898#0" expanded="true" />
-            <element signature="e#9897#9898#0" expanded="true" />
-            <element signature="e#9945#10893#0" expanded="true" />
-            <element signature="e#10892#10893#0" expanded="true" />
+            <element signature="e#9377#10270#0" expanded="true" />
+            <element signature="e#10269#10270#0" expanded="true" />
+            <element signature="e#10317#11265#0" expanded="true" />
+            <element signature="e#11264#11265#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2921,16 +2920,16 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1995">
-          <caret line="105" column="30" lean-forward="false" selection-start-line="105" selection-start-column="30" selection-end-line="105" selection-end-column="30" />
+        <state relative-caret-position="213">
+          <caret line="28" column="39" lean-forward="false" selection-start-line="28" selection-start-column="33" selection-end-line="28" selection-end-column="39" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/chacha/kkang/moolbantabs/activity/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-715">
-          <caret line="284" column="25" lean-forward="false" selection-start-line="284" selection-start-column="25" selection-end-line="284" selection-end-column="25" />
+        <state relative-caret-position="892">
+          <caret line="291" column="56" lean-forward="false" selection-start-line="291" selection-start-column="56" selection-end-line="291" selection-end-column="56" />
           <folding>
             <element signature="e#3502#4078#0" expanded="true" />
             <element signature="e#4077#4078#0" expanded="true" />
@@ -2940,10 +2939,10 @@
             <element signature="e#8400#8401#0" expanded="true" />
             <element signature="e#8448#9341#0" expanded="true" />
             <element signature="e#9340#9341#0" expanded="true" />
-            <element signature="e#9377#9898#0" expanded="true" />
-            <element signature="e#9897#9898#0" expanded="true" />
-            <element signature="e#9945#10893#0" expanded="true" />
-            <element signature="e#10892#10893#0" expanded="true" />
+            <element signature="e#9377#10270#0" expanded="true" />
+            <element signature="e#10269#10270#0" expanded="true" />
+            <element signature="e#10317#11265#0" expanded="true" />
+            <element signature="e#11264#11265#0" expanded="true" />
           </folding>
         </state>
       </provider>

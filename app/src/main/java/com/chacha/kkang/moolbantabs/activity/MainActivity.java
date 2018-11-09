@@ -277,13 +277,19 @@ public class MainActivity extends AppCompatActivity implements ViewMainTab.setOn
             @Override
             public void onClick(View v) {
                 if (isOpen) {
-                    ivAll.setRotation(180);
-                    llAll.setVisibility(View.GONE);
+                    ivAll.setImageResource(R.drawable.sketch_cabtn_up_180927);
+                    tvAll.setVisibility(View.GONE);
                     back.setVisibility(View.GONE);
+                    ivFading.setVisibility(View.VISIBLE);
+                    collapse(llAll);
+                    UtilAnim.fideIn(tabBar, 100, null);
                 } else {
-                    ivAll.setRotation(0);
-                    llAll.setVisibility(View.VISIBLE);
+                    ivAll.setImageResource(R.drawable.sketch_cabtn_down_180927);
+                    tvAll.setVisibility(View.VISIBLE);
                     back.setVisibility(View.VISIBLE);
+                    ivFading.setVisibility(View.GONE);
+                    expand(llAll);
+                    UtilAnim.fideOut(tabBar, 100, null);
                 }
                 isOpen = !isOpen;
             }
