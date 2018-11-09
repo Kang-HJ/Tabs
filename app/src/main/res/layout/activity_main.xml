@@ -98,13 +98,6 @@
             android:layout_height="match_parent"
             android:background="#cc000000" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rcvAll"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            android:padding="10dp" />
-
         <LinearLayout
             android:id="@+id/llAll"
             android:layout_width="match_parent"

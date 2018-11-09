@@ -61,13 +61,10 @@ public class MainActivity extends AppCompatActivity implements ViewMainTab.setOn
     TextView tvAll;
 
     ImageView ivAll;
-    RecyclerView rcvAll;
     ImageView ivFading;
     LinearLayout llAll;
 
-    Adapter_All adapterAll;
     Adapter_Sub adapterSub;
-    GridLayoutManager gridLayoutManager1;
     GridLayoutManager gridLayoutManager2;
     View back;
 
@@ -116,20 +113,7 @@ public class MainActivity extends AppCompatActivity implements ViewMainTab.setOn
 
         adapterPager = new Adapter_Pager(this, tabList);
 
-        gridLayoutManager1 = new GridLayoutManager(MainActivity.this, 3);
         gridLayoutManager2 = new GridLayoutManager(MainActivity.this, 3);
-
-        adapterAll = new Adapter_All(this, tabList, new Adapter_All.setOnTabClickListener() {
-            @Override
-            public void onTabClick(int position, TAB_DATA data) {
-                for (int i = 0; i < tabList.size(); i++) {
-                    tabList.get(i).isSelect = false;
-                }
-                data.isSelect = true;
-                adapterAll.notifyDataSetChanged();
-            }
-
-        });
 
         adapterSub = new Adapter_Sub(this, new Adapter_Sub.setOnSubTabClickListener() {
             @Override
@@ -153,7 +137,6 @@ public class MainActivity extends AppCompatActivity implements ViewMainTab.setOn
         tvOnResumScroll = (TextView) findViewById(R.id.tvOnResumScroll);
         tvAll = (TextView) findViewById(R.id.tvAll);
         ivAll = (ImageView) findViewById(R.id.ivAll);
-        rcvAll = (RecyclerView) findViewById(R.id.rcvAll);
         llAll = (LinearLayout) findViewById(R.id.llAll);
         pager = (ViewPager) findViewById(R.id.pager);
         tabBar = (MBTabBar) findViewById(R.id.tabBar);
@@ -164,10 +147,6 @@ public class MainActivity extends AppCompatActivity implements ViewMainTab.setOn
     private void setView() {
         pager.setAdapter(adapterPager);
         pager.setOverScrollMode(View.OVER_SCROLL_IF_CONTENT_SCROLLS);
-        rcvAll.setLayoutManager(gridLayoutManager1);
-        rcvAll.setAdapter(adapterAll);
-
-        rcvAll.setVisibility(View.GONE);
         rcvSub.setVisibility(View.GONE);
         back.setVisibility(View.GONE);
         tvAll.setVisibility(View.GONE);
@@ -299,11 +278,11 @@ public class MainActivity extends AppCompatActivity implements ViewMainTab.setOn
             public void onClick(View v) {
                 if (isOpen) {
                     ivAll.setRotation(180);
-                    rcvAll.setVisibility(View.GONE);
+                    llAll.setVisibility(View.GONE);
                     back.setVisibility(View.GONE);
                 } else {
                     ivAll.setRotation(0);
-                    rcvAll.setVisibility(View.VISIBLE);
+                    llAll.setVisibility(View.VISIBLE);
                     back.setVisibility(View.VISIBLE);
                 }
                 isOpen = !isOpen;
