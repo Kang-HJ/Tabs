@@ -2,6 +2,7 @@ package com.chacha.kkang.moolbantabs.activity;
 
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.view.ViewPager;
@@ -10,10 +11,12 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chacha.kkang.moolbantabs.R;
@@ -23,10 +26,14 @@ import com.chacha.kkang.moolbantabs.adapter.Adapter_All;
 import com.chacha.kkang.moolbantabs.adapter.Adapter_Pager;
 import com.chacha.kkang.moolbantabs.adapter.Adapter_Sub;
 import com.chacha.kkang.moolbantabs.component.MBTabBar;
+import com.chacha.kkang.moolbantabs.component.ViewMainTab;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
+import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
+
+public class MainActivity extends AppCompatActivity implements ViewMainTab.setOnMainTabClickListener {
 
     public static void Debug(String msg) {
         Log.d("KKANG", buildLogMsg(msg));
@@ -56,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView ivAll;
     RecyclerView rcvAll;
     ImageView ivFading;
+    LinearLayout llAll;
 
     Adapter_All adapterAll;
     Adapter_Sub adapterSub;
@@ -67,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
     Adapter_Pager adapterPager;
 
     boolean isOpen = false;
+    private static final int mainTabCount = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,6 +154,7 @@ public class MainActivity extends AppCompatActivity {
         tvAll = (TextView) findViewById(R.id.tvAll);
         ivAll = (ImageView) findViewById(R.id.ivAll);
         rcvAll = (RecyclerView) findViewById(R.id.rcvAll);
+        llAll = (LinearLayout) findViewById(R.id.llAll);
         pager = (ViewPager) findViewById(R.id.pager);
         tabBar = (MBTabBar) findViewById(R.id.tabBar);
         rcvSub = (RecyclerView) findViewById(R.id.rcvSub);
@@ -161,6 +171,7 @@ public class MainActivity extends AppCompatActivity {
         rcvSub.setVisibility(View.GONE);
         back.setVisibility(View.GONE);
         tvAll.setVisibility(View.GONE);
+        llAll.setVisibility(View.GONE);
 
         UtilAnim.fideIn(tabBar, 200, null);
 
@@ -178,6 +189,43 @@ public class MainActivity extends AppCompatActivity {
         tabBar.setTextColor(colorList);
 
         tabBar.setViewPager(pager);
+        setAllTab();
+    }
+
+    private void setAllTab() {
+        int count = 0;
+        if (tabList.size() > 0) {
+            if (tabList.size() % mainTabCount != 0) {
+                count = mainTabCount - (tabList.size() % mainTabCount);
+            }
+        }
+
+        LinearLayout ll = null;
+        for (int i = 0; i < tabList.size() + count; i++) {
+            if (ll == null) {
+                ll = new LinearLayout(MainActivity.this);
+                ll.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                ll.setOrientation(LinearLayout.HORIZONTAL);
+            }
+
+            ViewMainTab tab = new ViewMainTab(MainActivity.this, this);
+            tab.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f));
+            if (i < tabList.size()) {
+                tab.setData(tabList.get(i));
+                ll.addView(tab);
+            } else {
+                tab.setData(null);
+                ll.addView(tab);
+            }
+
+            if (i % 3 == 2){
+                llAll.addView(ll);
+            }
+
+            if (ll.getChildCount() == 3) {
+                ll = null;
+            }
+        }
     }
 
     private void setEvent() {
@@ -228,14 +276,14 @@ public class MainActivity extends AppCompatActivity {
                     back.setVisibility(View.GONE);
                     tvAll.setVisibility(View.GONE);
                     ivFading.setVisibility(View.VISIBLE);
-                    collapse(rcvAll);
+                    collapse(llAll);
                     UtilAnim.fideIn(tabBar, 100, null);
                 } else {
                     ivAll.setImageResource(R.drawable.sketch_cabtn_down_180927);
                     back.setVisibility(View.VISIBLE);
                     tvAll.setVisibility(View.VISIBLE);
                     ivFading.setVisibility(View.GONE);
-                    expand(rcvAll);
+                    expand(llAll);
                     UtilAnim.fideOut(tabBar, 100, null);
                 }
                 isOpen = !isOpen;
@@ -307,7 +355,7 @@ public class MainActivity extends AppCompatActivity {
         if (v.getVisibility() == View.VISIBLE) {
             return;
         }
-        v.measure(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        v.measure(MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         final int targetHeight = v.getMeasuredHeight();
 
         // Older versions of android (pre API 21) cancel animations for views with a height of 0.
@@ -361,5 +409,10 @@ public class MainActivity extends AppCompatActivity {
 
         a.setDuration(300);
         v.startAnimation(a);
+    }
+
+    @Override
+    public void onMainTabClick(TAB_DATA data) {
+
     }
 }
