@@ -2,7 +2,6 @@ package com.chacha.kkang.moolbantabs.activity;
 
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.view.ViewPager;
@@ -11,7 +10,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
@@ -22,7 +20,6 @@ import android.widget.TextView;
 import com.chacha.kkang.moolbantabs.R;
 import com.chacha.kkang.moolbantabs.TAB_DATA;
 import com.chacha.kkang.moolbantabs.UtilAnim;
-import com.chacha.kkang.moolbantabs.adapter.Adapter_All;
 import com.chacha.kkang.moolbantabs.adapter.Adapter_Pager;
 import com.chacha.kkang.moolbantabs.adapter.Adapter_Sub;
 import com.chacha.kkang.moolbantabs.component.MBTabBar;
@@ -31,7 +28,6 @@ import com.chacha.kkang.moolbantabs.component.ViewMainTab;
 import java.util.ArrayList;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
-import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 public class MainActivity extends AppCompatActivity implements ViewMainTab.setOnMainTabClickListener {
 
@@ -121,7 +117,9 @@ public class MainActivity extends AppCompatActivity implements ViewMainTab.setOn
                 if (tabList.size() > pager.getCurrentItem()) {
                     ArrayList<TAB_DATA> subList = tabList.get(pager.getCurrentItem()).subList;
                     for (int i = 0; i < subList.size(); i++) {
-                        subList.get(i).isSelect = false;
+                        if (subList.get(i) != null) {
+                            subList.get(i).isSelect = false;
+                        }
                     }
 
                     data.isSelect = true;
@@ -201,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements ViewMainTab.setOn
                 ll.addView(tab);
             }
 
-            if (i % 3 == 2){
+            if (i % 3 == 2) {
                 llAll.addView(ll);
             }
 
@@ -223,13 +221,13 @@ public class MainActivity extends AppCompatActivity implements ViewMainTab.setOn
                 updateAllTab();
 
                 int count = tabList.get(position).subList.size() % 3;
-                if(tabList.get(position).subList.size() % 3 != 0) {
+                if (tabList.get(position).subList.size() % 3 != 0) {
                     for (int i = count; i < 3; i++) {
                         tabList.get(position).subList.add(null);
                     }
                 }
 
-                if (tabList.get(position).subList.size() > 0){
+                if (tabList.get(position).subList.size() > 0) {
                     rcvSub.setVisibility(View.VISIBLE);
 
                     tabList.get(position).subList.get(0).isSelect = true;
