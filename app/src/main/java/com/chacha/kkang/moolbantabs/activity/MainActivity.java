@@ -189,10 +189,10 @@ public class MainActivity extends AppCompatActivity implements ViewMainTab.setOn
         tabBar.setTextColor(colorList);
 
         tabBar.setViewPager(pager);
-        setAllTab();
+        updateAllTab();
     }
 
-    private void setAllTab() {
+    private void updateAllTab() {
         if (llAll.getChildCount() > 0) {
             llAll.removeAllViews();
         }
@@ -241,7 +241,7 @@ public class MainActivity extends AppCompatActivity implements ViewMainTab.setOn
                     tabList.get(i).isSelect = false;
                 }
                 tabList.get(position).isSelect = true;
-                adapterAll.notifyDataSetChanged();
+                updateAllTab();
 
                 int count = tabList.get(position).subList.size() % 3;
                 if(tabList.get(position).subList.size() % 3 != 0) {
@@ -421,6 +421,6 @@ public class MainActivity extends AppCompatActivity implements ViewMainTab.setOn
             tabList.get(i).isSelect = false;
         }
         data.isSelect = true;
-        setAllTab();
+        updateAllTab();
     }
 }
