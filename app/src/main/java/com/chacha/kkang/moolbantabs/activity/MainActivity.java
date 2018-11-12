@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity implements ViewMainTab.setOn
     }
 
     MBTabBar tabBar;
-    RecyclerView rcvSub;
     ArrayList<TAB_DATA> tabList;
     TextView tvOnResumScroll;
     TextView tvAll;
@@ -62,8 +61,6 @@ public class MainActivity extends AppCompatActivity implements ViewMainTab.setOn
     LinearLayout llAll;
     LinearLayout llSub;
 
-    Adapter_Sub adapterSub;
-    GridLayoutManager gridLayoutManager2;
     View back;
 
     ViewPager pager;
@@ -114,26 +111,6 @@ public class MainActivity extends AppCompatActivity implements ViewMainTab.setOn
         }
 
         adapterPager = new Adapter_Pager(this, tabList);
-
-        gridLayoutManager2 = new GridLayoutManager(MainActivity.this, 3);
-
-        adapterSub = new Adapter_Sub(this, new Adapter_Sub.setOnSubTabClickListener() {
-            @Override
-            public void onSubTabClick(int position, TAB_DATA data) {
-                if (tabList.size() > pager.getCurrentItem()) {
-                    ArrayList<TAB_DATA> subList = tabList.get(pager.getCurrentItem()).subList;
-                    for (int i = 0; i < subList.size(); i++) {
-                        if (subList.get(i) != null) {
-                            subList.get(i).isSelect = false;
-                        }
-                    }
-
-                    data.isSelect = true;
-                    adapterSub.notifyDataSetChanged();
-                }
-
-            }
-        });
     }
 
     private void setUI() {
@@ -145,23 +122,18 @@ public class MainActivity extends AppCompatActivity implements ViewMainTab.setOn
         llSub = (LinearLayout) findViewById(R.id.llSub);
         pager = (ViewPager) findViewById(R.id.pager);
         tabBar = (MBTabBar) findViewById(R.id.tabBar);
-        rcvSub = (RecyclerView) findViewById(R.id.rcvSub);
         ivFading = (ImageView) findViewById(R.id.ivFading);
     }
 
     private void setView() {
         pager.setAdapter(adapterPager);
         pager.setOverScrollMode(View.OVER_SCROLL_IF_CONTENT_SCROLLS);
-        rcvSub.setVisibility(View.GONE);
         back.setVisibility(View.GONE);
         tvAll.setVisibility(View.GONE);
         llAll.setVisibility(View.GONE);
         llSub.setVisibility(View.GONE);
 
         UtilAnim.fideIn(tabBar, 200, null);
-
-        rcvSub.setLayoutManager(gridLayoutManager2);
-        rcvSub.setAdapter(adapterSub);
 
         tabBar.setDividerWidth(0);
         tabBar.setIndicatorHeight(5);
