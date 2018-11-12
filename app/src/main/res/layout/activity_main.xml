@@ -86,6 +86,17 @@
                 android:paddingTop="6.5dp"
                 android:paddingBottom="6.5dp"/>
 
+            <LinearLayout
+                android:id="@+id/llSub"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/backcolor_default"
+                android:paddingLeft="11.5dp"
+                android:paddingRight="11.5dp"
+                android:paddingTop="6.5dp"
+                android:paddingBottom="6.5dp"/>
+
             <android.support.v4.view.ViewPager
                 android:id="@+id/pager"
                 android:layout_width="match_parent"

@@ -24,12 +24,13 @@ import com.chacha.kkang.moolbantabs.adapter.Adapter_Pager;
 import com.chacha.kkang.moolbantabs.adapter.Adapter_Sub;
 import com.chacha.kkang.moolbantabs.component.MBTabBar;
 import com.chacha.kkang.moolbantabs.component.ViewMainTab;
+import com.chacha.kkang.moolbantabs.component.ViewSubTab;
 
 import java.util.ArrayList;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
-public class MainActivity extends AppCompatActivity implements ViewMainTab.setOnMainTabClickListener {
+public class MainActivity extends AppCompatActivity implements ViewMainTab.setOnMainTabClickListener, ViewSubTab.setOnSubTabClickListener {
 
     public static void Debug(String msg) {
         Log.d("KKANG", buildLogMsg(msg));
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements ViewMainTab.setOn
     ImageView ivAll;
     ImageView ivFading;
     LinearLayout llAll;
+    LinearLayout llSub;
 
     Adapter_Sub adapterSub;
     GridLayoutManager gridLayoutManager2;
@@ -69,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements ViewMainTab.setOn
 
     boolean isOpen = false;
     private static final int mainTabCount = 3;
+    private static final int subTabCount = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +105,9 @@ public class MainActivity extends AppCompatActivity implements ViewMainTab.setOn
                 sub.key = i + "";
                 sub.name = i + " SUB TAB";
                 data.isSelect = false;
+                if (j == 0) {
+                    sub.isSelect = true;
+                }
                 data.subList.add(sub);
             }
             tabList.add(data);
@@ -136,6 +142,7 @@ public class MainActivity extends AppCompatActivity implements ViewMainTab.setOn
         tvAll = (TextView) findViewById(R.id.tvAll);
         ivAll = (ImageView) findViewById(R.id.ivAll);
         llAll = (LinearLayout) findViewById(R.id.llAll);
+        llSub = (LinearLayout) findViewById(R.id.llSub);
         pager = (ViewPager) findViewById(R.id.pager);
         tabBar = (MBTabBar) findViewById(R.id.tabBar);
         rcvSub = (RecyclerView) findViewById(R.id.rcvSub);
@@ -149,6 +156,7 @@ public class MainActivity extends AppCompatActivity implements ViewMainTab.setOn
         back.setVisibility(View.GONE);
         tvAll.setVisibility(View.GONE);
         llAll.setVisibility(View.GONE);
+        llSub.setVisibility(View.GONE);
 
         UtilAnim.fideIn(tabBar, 200, null);
 
@@ -167,6 +175,7 @@ public class MainActivity extends AppCompatActivity implements ViewMainTab.setOn
 
         tabBar.setViewPager(pager);
         updateAllTab();
+        updateSubTab(0);
     }
 
     private void updateAllTab() {
@@ -199,11 +208,51 @@ public class MainActivity extends AppCompatActivity implements ViewMainTab.setOn
                 ll.addView(tab);
             }
 
-            if (i % 3 == 2) {
+            if (i % mainTabCount == 2) {
                 llAll.addView(ll);
             }
 
-            if (ll.getChildCount() == 3) {
+            if (ll.getChildCount() == mainTabCount) {
+                ll = null;
+            }
+        }
+    }
+
+    private void updateSubTab(int position) {
+        if (llSub.getChildCount() > 0) {
+            llSub.removeAllViews();
+        }
+
+        int count = 0;
+        if (tabList.get(position).subList.size() > 0) {
+            if (tabList.get(position).subList.size() % subTabCount != 0) {
+                count = subTabCount - (tabList.get(position).subList.size() % subTabCount);
+            }
+        }
+
+        LinearLayout ll = null;
+        for (int i = 0; i < tabList.get(position).subList.size() + count; i++) {
+            if (ll == null) {
+                ll = new LinearLayout(MainActivity.this);
+                ll.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                ll.setOrientation(LinearLayout.HORIZONTAL);
+            }
+
+            ViewSubTab tab = new ViewSubTab(MainActivity.this, this);
+            tab.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f));
+            if (i < tabList.get(position).subList.size()) {
+                tab.setData(tabList.get(position).subList.get(i));
+                ll.addView(tab);
+            } else {
+                tab.setData(null);
+                ll.addView(tab);
+            }
+
+            if (i % subTabCount == 2) {
+                llSub.addView(ll);
+            }
+
+            if (ll.getChildCount() == subTabCount) {
                 ll = null;
             }
         }
@@ -220,21 +269,11 @@ public class MainActivity extends AppCompatActivity implements ViewMainTab.setOn
                 tabList.get(position).isSelect = true;
                 updateAllTab();
 
-                int count = tabList.get(position).subList.size() % 3;
-                if (tabList.get(position).subList.size() % 3 != 0) {
-                    for (int i = count; i < 3; i++) {
-                        tabList.get(position).subList.add(null);
-                    }
-                }
-
                 if (tabList.get(position).subList.size() > 0) {
-                    rcvSub.setVisibility(View.VISIBLE);
-
-                    tabList.get(position).subList.get(0).isSelect = true;
-                    adapterSub.setData(tabList.get(position).subList);
-                    adapterSub.notifyDataSetChanged();
+                    llSub.setVisibility(View.VISIBLE);
+                    updateSubTab(position);
                 } else {
-                    rcvSub.setVisibility(View.GONE);
+                    llSub.setVisibility(View.GONE);
                 }
             }
 
@@ -405,5 +444,20 @@ public class MainActivity extends AppCompatActivity implements ViewMainTab.setOn
         }
         data.isSelect = true;
         updateAllTab();
+    }
+
+    @Override
+    public void onSubTabClick(TAB_DATA data) {
+        if (tabList.size() > pager.getCurrentItem()) {
+            ArrayList<TAB_DATA> subList = tabList.get(pager.getCurrentItem()).subList;
+            for (int i = 0; i < subList.size(); i++) {
+                if (subList.get(i) != null) {
+                    subList.get(i).isSelect = false;
+                }
+            }
+
+            data.isSelect = true;
+            updateSubTab(pager.getCurrentItem());
+        }
     }
 }
