@@ -34,8 +34,8 @@
                 android:id="@+id/ivFading"
                 android:layout_width="15dp"
                 android:layout_height="match_parent"
-                android:background="#99ffffff"
-                android:layout_gravity="right"/>
+                android:layout_gravity="right"
+                android:background="@drawable/sketch_g_181112"/>
 
             <TextView
                 android:id="@+id/tvAll"
