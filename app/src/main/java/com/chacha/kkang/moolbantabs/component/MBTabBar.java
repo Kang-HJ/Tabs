@@ -80,7 +80,7 @@ public class MBTabBar extends HorizontalScrollView {
     private final PageListener mPageListener = new PageListener();
     private OnTabSelectedListener mTabReselectedListener = null;
     public ViewPager.OnPageChangeListener mDelegatePageListener;
-    private ViewPager mPager;
+    public ViewPager mPager;
 
     private int mTabCount;
 
