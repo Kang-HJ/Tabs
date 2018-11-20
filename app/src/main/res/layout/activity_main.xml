@@ -14,26 +14,32 @@
         android:padding="10dp"
         android:text="onResume" />
 
-    <com.chacha.kkang.moolbantabs.component.MBTab
-        android:id="@+id/mbTab"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <android.support.v4.view.ViewPager
             android:id="@+id/pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"/>
 
-        <LinearLayout
-            android:id="@+id/llAll"
+        <com.chacha.kkang.moolbantabs.component.MBTab
+            android:id="@+id/mbTab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@android:color/white"
-            android:padding="10dp"/>
+            android:layout_marginTop="41dp">
+
+            <LinearLayout
+                android:id="@+id/llAll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@android:color/white"
+                android:padding="10dp" />
+        </FrameLayout>
     </FrameLayout>
 </LinearLayout>
