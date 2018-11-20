@@ -101,6 +101,14 @@ public class MainActivity extends AppCompatActivity {
         mbTab.setMainTabMargin(intToDp(MainActivity.this, 3));
         mbTab.setMainTabSetting("#e84418", "#231916", 12);
 
+        mbTab.setSubTabResource(R.drawable.shape_round_line01_white_7);
+        mbTab.setSubTabSetting("#3e3e3e", "#878787", 12);
+        mbTab.setSubTabMargin(floatToDp(MainActivity.this, 1.5f));
+        mbTab.setSubTabPadding(intToDp(MainActivity.this, 10));
+        mbTab.setSubTabNoImgVisible(true);
+        mbTab.setSubTabNoImgResource(R.drawable.sketch_fish_180927);
+        mbTab.setSubTabNoImgPadding(intToDp(MainActivity.this, 10));
+
         mbTab.setData(tabList, llAll);
         mbTab.tabBar.setViewPager(pager);
         mbTab.setMainTabCount(3);
