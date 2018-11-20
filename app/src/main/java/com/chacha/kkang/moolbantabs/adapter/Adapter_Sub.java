@@ -11,12 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chacha.kkang.moolbantabs.R;
-import com.chacha.kkang.moolbantabs.TAB_DATA;
-import com.chacha.kkang.moolbantabs.activity.MainActivity;
+import com.kkang.mbtabs.component.TAB_DATA;
 
 import java.util.ArrayList;
-
-import static com.chacha.kkang.moolbantabs.activity.MainActivity.Debug;
 
 /**
  * Created by kkang on 2018. 10. 28..

@@ -7,8 +7,8 @@ import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.chacha.kkang.moolbantabs.component.PagerView;
-import com.chacha.kkang.moolbantabs.TAB_DATA;
+import com.chacha.kkang.moolbantabs.PagerView;
+import com.kkang.mbtabs.component.TAB_DATA;
 
 import java.util.ArrayList;
 import java.util.HashMap;

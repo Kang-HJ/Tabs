@@ -1,16 +1,18 @@
 package com.chacha.kkang.moolbantabs.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.chacha.kkang.moolbantabs.R;
-import com.chacha.kkang.moolbantabs.TAB_DATA;
 import com.chacha.kkang.moolbantabs.adapter.Adapter_Pager;
-import com.chacha.kkang.moolbantabs.component.MBTab;
+import com.kkang.mbtabs.component.MBTab;
+import com.kkang.mbtabs.component.TAB_DATA;
 
 import java.util.ArrayList;
 
@@ -96,5 +98,23 @@ public class MainActivity extends AppCompatActivity {
         pager.setOverScrollMode(View.OVER_SCROLL_IF_CONTENT_SCROLLS);
         mbTab.setData(tabList, llAll);
         mbTab.tabBar.setViewPager(pager);
+        mbTab.setMainTabCount(3);
+        mbTab.setSubTabCount(3);
+        mbTab.setFadingResource(R.drawable.sketch_g_181112);
+        mbTab.setVisibleFading(true);
+        mbTab.setVisibleAll(true);
+        mbTab.setSubTabBackground("#f7f7f7");
+        mbTab.setCollectTabSetting("모아보기", "#000000", 13);
+        int dp6_5 = floatToDp(MainActivity.this, 6.5f);
+        int dp11_5 = floatToDp(MainActivity.this, 11.5f);
+        mbTab.setSubTabPadding(dp11_5, dp6_5, dp11_5, dp6_5);
+    }
+
+    public static int intToDp(Context context, int value) {
+        return ((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, context.getResources().getDisplayMetrics()));
+    }
+
+    public static int floatToDp(Context context, float value) {
+        return ((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, context.getResources().getDisplayMetrics()));
     }
 }

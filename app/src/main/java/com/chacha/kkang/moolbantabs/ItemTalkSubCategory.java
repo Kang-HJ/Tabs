@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.kkang.mbtabs.component.TAB_DATA;
+
 /**
  * Created by kkang on 2018. 10. 28..
  */
