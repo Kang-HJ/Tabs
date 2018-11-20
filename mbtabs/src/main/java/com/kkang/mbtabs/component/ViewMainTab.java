@@ -3,6 +3,7 @@ package com.kkang.mbtabs.component;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Debug;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,12 +12,15 @@ import android.widget.TextView;
 
 import com.kkang.mbtabs.R;
 
-
 public class ViewMainTab extends LinearLayout {
 
     private TAB_DATA data;
     private TextView tv;
     private setOnMainTabClickListener listener;
+    private int selectRes = 0;
+    private int noSelectRes = 0;
+    private String selectColor = "";
+    private String noSelectColor = "";
 
     public ViewMainTab(Context context, setOnMainTabClickListener listener) {
         super(context);
@@ -64,14 +68,31 @@ public class ViewMainTab extends LinearLayout {
         updateUI();
     }
 
+    public void setTabResource(int selectRes, int noSelectRes) {
+        this.selectRes = selectRes;
+        this.noSelectRes = noSelectRes;
+    }
+
+    public void setTabSetting(String selectColor, String noSelectColor, int size) {
+        this.selectColor = selectColor;
+        this.noSelectColor = noSelectColor;
+        tv.setTextSize(size);
+    }
+
+    public void setTabMargin(int left, int top, int right, int bottom) {
+        LinearLayout.LayoutParams viewLayoutParams = (LinearLayout.LayoutParams) tv.getLayoutParams();
+        viewLayoutParams.setMargins(left, top, right, bottom);
+        tv.setLayoutParams(viewLayoutParams);
+    }
+
     private void updateUI() {
         if (data != null) {
             tv.setVisibility(View.VISIBLE);
             tv.setText(data.name);
 
             if (data.isSelect) {
-                tv.setTextColor(Color.parseColor("#e84418"));
-                tv.setBackgroundResource(R.drawable.shape_round_tomato_trans_7);
+                tv.setTextColor(Color.parseColor(selectColor));
+                tv.setBackgroundResource(selectRes);
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     tv.setTextAppearance(R.style.FontBoldTextViewStyle);
@@ -79,8 +100,8 @@ public class ViewMainTab extends LinearLayout {
                     tv.setTextAppearance(getContext(), R.style.FontBoldTextViewStyle);
                 }
             } else {
-                tv.setTextColor(Color.parseColor("#231916"));
-                tv.setBackgroundResource(R.drawable.shape_round_line01_white_7);
+                tv.setTextColor(Color.parseColor(noSelectColor));
+                tv.setBackgroundResource(noSelectRes);
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     tv.setTextAppearance(R.style.FontTextViewStyle);

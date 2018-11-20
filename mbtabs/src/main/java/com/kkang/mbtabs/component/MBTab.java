@@ -56,6 +56,23 @@ public class MBTab extends LinearLayout implements ViewMainTab.setOnMainTabClick
     private int mainTabCount = 3;
     private int subTabCount = 3;
 
+    private int mainTabSelectRes = 0;
+    private int mainTabNoSelectRes = 0;
+    private int mainTabMargin = 0;
+    private String mainTabSelectColor = "";
+    private String mainTabNoSelectColor = "";
+    private int mainTabSize = 0;
+
+    private int subTabRes = 0;
+    private String subTabSelectColor = "";
+    private String subTabNoSelectColor = "";
+    private int subTabSize = 0;
+    private int subTabMargin = 0;
+    private int subTabPadding = 0;
+    private boolean isSubTabNoImgShow = false;
+    private int subTabNoImgRes = 0;
+    private int subTabNoImgPadding = 0;
+
     public MBTab(Context context) {
         super(context);
         tabList = new ArrayList<>();
@@ -135,6 +152,51 @@ public class MBTab extends LinearLayout implements ViewMainTab.setOnMainTabClick
     public void setSubTabCount(int subCount) {
         subTabCount = subCount;
         updateView();
+    }
+
+    public void setMainTabResource(int selectRes, int noSelectRes) {
+        mainTabSelectRes = selectRes;
+        mainTabNoSelectRes = noSelectRes;
+    }
+
+    public void setMainTabMargin(int dp) {
+        mainTabMargin = dp;
+    }
+
+    public void setMainTabSetting(String mainTabSelectColor, String mainTabNoSelectColor, int size) {
+        this.mainTabSelectColor = mainTabSelectColor;
+        this.mainTabNoSelectColor = mainTabNoSelectColor;
+        mainTabSize = size;
+    }
+
+    public void setSubTabResource(int resource) {
+        subTabRes = resource;
+    }
+
+    public void setSubTabSetting(String selectColor, String noSelectColor, int size) {
+        subTabSelectColor = selectColor;
+        subTabNoSelectColor = noSelectColor;
+        subTabSize = size;
+    }
+
+    public void setSubTabMargin(int dp) {
+        subTabMargin = dp;
+    }
+
+    public void setSubTabPadding(int dp) {
+        subTabPadding = dp;
+    }
+
+    public void setSubTabNoImgVisible(boolean isShow) {
+        isSubTabNoImgShow = isShow;
+    }
+
+    public void setSubTabNoImgResource(int resource) {
+        subTabNoImgRes = resource;
+    }
+
+    public void setSubTabNoImgPadding(int dp) {
+        subTabNoImgPadding = dp;
     }
 
     private void setUI() {
@@ -239,6 +301,9 @@ public class MBTab extends LinearLayout implements ViewMainTab.setOnMainTabClick
 
             ViewMainTab tab = new ViewMainTab(getContext(), this);
             tab.setLayoutParams(new LinearLayout.LayoutParams(MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f));
+            tab.setTabResource(mainTabSelectRes, mainTabNoSelectRes);
+            tab.setTabMargin(mainTabMargin, mainTabMargin, mainTabMargin, mainTabMargin);
+            tab.setTabSetting(mainTabSelectColor, mainTabNoSelectColor, mainTabSize);
             if (i < tabList.size()) {
                 tab.setData(tabList.get(i));
                 ll.addView(tab);
@@ -279,6 +344,13 @@ public class MBTab extends LinearLayout implements ViewMainTab.setOnMainTabClick
 
             ViewSubTab tab = new ViewSubTab(getContext(), this);
             tab.setLayoutParams(new LinearLayout.LayoutParams(MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f));
+            tab.setTabResource(subTabRes);
+            tab.setTabSetting(subTabSelectColor, subTabNoSelectColor, subTabSize);
+            tab.setTabMargin(subTabMargin, subTabMargin, subTabMargin, subTabMargin);
+            tab.setTabPadding(subTabPadding, subTabPadding, subTabPadding, subTabPadding);
+            tab.setNonImgVisible(isSubTabNoImgShow);
+            tab.setNonImgResource(subTabNoImgRes);
+            tab.setNonImgPadding(subTabNoImgPadding, subTabNoImgPadding, subTabNoImgPadding, subTabNoImgPadding);
             if (i < tabList.get(position).subList.size()) {
                 tab.setData(tabList.get(position).subList.get(i));
                 ll.addView(tab);
