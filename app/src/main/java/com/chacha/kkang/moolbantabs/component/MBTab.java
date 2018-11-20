@@ -231,7 +231,7 @@ public class MBTab extends LinearLayout implements ViewMainTab.setOnMainTabClick
                 ll.addView(tab);
             }
 
-            if (i % mainTabCount == 2) {
+            if (i % mainTabCount == (mainTabCount - 1)) {
                 llAll.addView(ll);
             }
 
@@ -271,7 +271,7 @@ public class MBTab extends LinearLayout implements ViewMainTab.setOnMainTabClick
                 ll.addView(tab);
             }
 
-            if (i % subTabCount == 2) {
+            if (i % subTabCount == (subTabCount - 1)) {
                 llSub.addView(ll);
             }
 
