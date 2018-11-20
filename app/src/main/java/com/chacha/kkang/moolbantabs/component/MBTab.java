@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -26,17 +27,18 @@ import static com.chacha.kkang.moolbantabs.activity.MainActivity.Debug;
 public class MBTab extends LinearLayout implements ViewMainTab.setOnMainTabClickListener, ViewSubTab.setOnSubTabClickListener {
 
     public MBTabBar tabBar;
-    public ImageView ivFading;
-    public ImageView ivAll;
-    public TextView tvAll;
-    public LinearLayout llAllBtn;
-    public LinearLayout llSub;
-    public ArrayList<TAB_DATA> tabList;
-    public LinearLayout llAll;
+    private LinearLayout llTab;
+    private ImageView ivFading;
+    private ImageView ivAll;
+    private TextView tvAll;
+    private LinearLayout llAllBtn;
+    private LinearLayout llSub;
+    private ArrayList<TAB_DATA> tabList;
+    private LinearLayout llAll;
 
     boolean isOpen = false;
-    public static final int mainTabCount = 3;
-    public static final int subTabCount = 3;
+    private int mainTabCount = 3;
+    private int subTabCount = 3;
 
     public MBTab(Context context) {
         super(context);
@@ -68,12 +70,29 @@ public class MBTab extends LinearLayout implements ViewMainTab.setOnMainTabClick
         setEvent();
     }
 
+    public void setTabSize(int width, int height) {
+        int w = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
+        int h = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, height, getResources().getDisplayMetrics());
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(w, h);
+        llTab.setLayoutParams(params);
+    }
+
+    public void setCollectTabSetting(String title, String colorCode, int size) {
+        tvAll.setText(title);
+        tvAll.setTextColor(Color.parseColor(colorCode));
+        tvAll.setTextSize(size);
+    }
+
     public void setVisibleAll(boolean isShowllAllBtn) {
         if (isShowllAllBtn) {
             llAllBtn.setVisibility(View.VISIBLE);
         } else {
             llAllBtn.setVisibility(View.GONE);
         }
+    }
+
+    public void setFadingResource(int resource) {
+        ivFading.setImageResource(resource);
     }
 
     public void setVisibleFading(boolean isShowFading) {
@@ -84,8 +103,27 @@ public class MBTab extends LinearLayout implements ViewMainTab.setOnMainTabClick
         }
     }
 
+    public void setSubTabBackground(String colorCode) {
+        llSub.setBackgroundColor(Color.parseColor(colorCode));
+    }
+
+    public void setSubTabPadding(int left, int top, int right, int bottom) {
+        llSub.setPadding(left, top, right, bottom);
+    }
+
+    public void setMainTabCount(int mainCount) {
+        mainTabCount = mainCount;
+        updateView();
+    }
+
+    public void setSubTabCount(int subCount) {
+        subTabCount = subCount;
+        updateView();
+    }
+
     private void setUI() {
         tabBar = (MBTabBar) findViewById(R.id.tabBar);
+        llTab = (LinearLayout) findViewById(R.id.llTab);
         ivFading = (ImageView) findViewById(R.id.ivFading);
         ivAll = (ImageView) findViewById(R.id.ivAll);
         tvAll = (TextView) findViewById(R.id.tvAll);
