@@ -40,6 +40,13 @@ public class MBTab extends LinearLayout implements ViewMainTab.setOnMainTabClick
     private int mainTabCount = 3;
     private int subTabCount = 3;
 
+    private int mainTabSelectRes = 0;
+    private int mainTabNoSelectRes = 0;
+    private int mainTabMargin = 0;
+    private String mainTabSelectColor = "";
+    private String mainTabNoSelectColor = "";
+    private int mainTabSize = 0;
+
     public MBTab(Context context) {
         super(context);
         tabList = new ArrayList<>();
@@ -119,6 +126,21 @@ public class MBTab extends LinearLayout implements ViewMainTab.setOnMainTabClick
     public void setSubTabCount(int subCount) {
         subTabCount = subCount;
         updateView();
+    }
+
+    public void setMainTabResource(int isSelectRes, int isNoSelectRes) {
+        mainTabSelectRes = isSelectRes;
+        mainTabNoSelectRes = isNoSelectRes;
+    }
+
+    public void setMainTabMargin(int dp) {
+        mainTabMargin = dp;
+    }
+
+    public void setMainTabSetting(String mainTabSelectColor, String mainTabNoSelectColor, int size) {
+        this.mainTabSelectColor = mainTabSelectColor;
+        this.mainTabNoSelectColor = mainTabNoSelectColor;
+        mainTabSize = size;
     }
 
     private void setUI() {
@@ -223,6 +245,9 @@ public class MBTab extends LinearLayout implements ViewMainTab.setOnMainTabClick
 
             ViewMainTab tab = new ViewMainTab(getContext(), this);
             tab.setLayoutParams(new LinearLayout.LayoutParams(MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f));
+            tab.setTabResource(mainTabSelectRes, mainTabNoSelectRes);
+            tab.setTabMargin(mainTabMargin, mainTabMargin, mainTabMargin, mainTabMargin);
+            tab.setTabSetting(mainTabSelectColor, mainTabNoSelectColor, mainTabSize);
             if (i < tabList.size()) {
                 tab.setData(tabList.get(i));
                 ll.addView(tab);

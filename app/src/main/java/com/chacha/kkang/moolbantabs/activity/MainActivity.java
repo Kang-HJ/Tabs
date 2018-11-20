@@ -96,6 +96,11 @@ public class MainActivity extends AppCompatActivity {
         llAll.setVisibility(View.GONE);
         pager.setAdapter(adapterPager);
         pager.setOverScrollMode(View.OVER_SCROLL_IF_CONTENT_SCROLLS);
+
+        mbTab.setMainTabResource(R.drawable.shape_round_tomato_trans_7, R.drawable.shape_round_line01_white_7);
+        mbTab.setMainTabMargin(intToDp(MainActivity.this, 3));
+        mbTab.setMainTabSetting("#e84418", "#231916", 12);
+
         mbTab.setData(tabList, llAll);
         mbTab.tabBar.setViewPager(pager);
         mbTab.setMainTabCount(3);
