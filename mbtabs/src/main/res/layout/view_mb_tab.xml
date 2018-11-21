@@ -27,6 +27,7 @@
                 android:layout_width="15dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="right"
+                android:src="@drawable/sketch_g_181112"
                 android:scaleType="fitEnd"/>
 
             <TextView
@@ -35,7 +36,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="13dp"
-                android:gravity="center_vertical"/>
+                android:gravity="center_vertical"
+                android:textColor="#000000"
+                android:text="모아보기"
+                android:textSize="13sp"/>
         </FrameLayout>
 
         <LinearLayout
@@ -67,5 +71,10 @@
         android:id="@+id/llSub"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"/>
+        android:orientation="vertical"
+        android:background="#f7f7f7"
+        android:paddingTop="6.5dp"
+        android:paddingBottom="6.5dp"
+        android:paddingLeft="11.5dp"
+        android:paddingRight="11.5dp"/>
 </LinearLayout>

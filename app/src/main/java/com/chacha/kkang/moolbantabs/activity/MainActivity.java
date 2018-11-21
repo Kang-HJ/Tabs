@@ -145,16 +145,6 @@ public class MainActivity extends AppCompatActivity {
 
         mbTab.setData(tabList, llAll);
         mbTab.setViewPager(pager);
-        mbTab.setMainTabCount(3);
-        mbTab.setSubTabCount(3);
-        mbTab.setFadingResource(R.drawable.sketch_g_181112);
-        mbTab.setVisibleFading(true);
-        mbTab.setVisibleAll(true);
-        mbTab.setSubTabBackground("#f7f7f7");
-        mbTab.setCollectTabSetting("모아보기", "#000000", 13);
-        int dp6_5 = floatToDp(MainActivity.this, 6.5f);
-        int dp11_5 = floatToDp(MainActivity.this, 11.5f);
-        mbTab.setSubTabPadding(dp11_5, dp6_5, dp11_5, dp6_5);
     }
 
     public static int intToDp(Context context, int value) {
