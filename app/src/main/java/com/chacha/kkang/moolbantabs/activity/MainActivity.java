@@ -100,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
         mbTab.setMainTabResource(R.drawable.shape_round_tomato_trans_7, R.drawable.shape_round_line01_white_7);
         mbTab.setMainTabMargin(intToDp(MainActivity.this, 3));
         mbTab.setMainTabSetting("#e84418", "#231916", 12);
+        mbTab.setMainTabNoImgVisible(false);
 
         mbTab.setSubTabResource(R.drawable.shape_round_line01_white_7);
         mbTab.setSubTabSetting("#3e3e3e", "#878787", 12);

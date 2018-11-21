@@ -3,6 +3,7 @@ package com.kkang.mbtabs.component;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,28 +13,31 @@ import android.widget.TextView;
 
 import com.kkang.mbtabs.R;
 
-public class ViewSubTab extends LinearLayout {
+public class ViewTab extends LinearLayout {
 
     private TAB_DATA data;
     private TextView tv;
     private ImageView ivNon;
-    private setOnSubTabClickListener listener;
+    private setOnTabClickListener listener;
     private String selectColor = "";
     private String noSelectColor = "";
+    private int selectRes = 0;
+    private int noSelectRes = 0;
+    private String tabType = "Main";
 
-    public ViewSubTab(Context context, setOnSubTabClickListener listener) {
+    public ViewTab(Context context, setOnTabClickListener listener) {
         super(context);
         this.listener = listener;
         init();
     }
 
-    public ViewSubTab(Context context, AttributeSet attrs, setOnSubTabClickListener listener) {
+    public ViewTab(Context context, AttributeSet attrs, setOnTabClickListener listener) {
         super(context, attrs);
         this.listener = listener;
         init();
     }
 
-    public ViewSubTab(Context context, AttributeSet attrs, int defStyleAttr, setOnSubTabClickListener listener) {
+    public ViewTab(Context context, AttributeSet attrs, int defStyleAttr, setOnTabClickListener listener) {
         super(context, attrs, defStyleAttr);
         this.listener = listener;
         init();
@@ -57,7 +61,7 @@ public class ViewSubTab extends LinearLayout {
             @Override
             public void onClick(View v) {
                 if (listener != null) {
-                    listener.onSubTabClick(data);
+                    listener.onTabClick(data);
                 }
             }
         });
@@ -68,8 +72,13 @@ public class ViewSubTab extends LinearLayout {
         updateUI();
     }
 
-    public void setTabResource(int resource) {
-        tv.setBackgroundResource(resource);
+    public void setTabType(String tabType) {
+        this.tabType = tabType;
+    }
+
+    public void setTabResource(int selectRes, int noSelectRes) {
+        this.selectRes = selectRes;
+        this.noSelectRes = noSelectRes;
     }
 
     public void setTabSetting(String selectColor, String noSelectColor, int size) {
@@ -105,23 +114,54 @@ public class ViewSubTab extends LinearLayout {
     }
 
     private void updateUI() {
-        if (data == null) {
-            tv.setVisibility(View.GONE);
-            ivNon.setVisibility(View.VISIBLE);
-        } else {
-            tv.setVisibility(View.VISIBLE);
-            ivNon.setVisibility(View.GONE);
-            tv.setText(data.name);
-            if (data.isSelect) {
-                tv.setTextColor(Color.parseColor(selectColor));
-                tv.setTypeface(null, Typeface.BOLD);
+        if (tabType.equals("Main")) {
+            if (data != null) {
+                tv.setVisibility(View.VISIBLE);
+                tv.setText(data.name);
+
+                if (data.isSelect) {
+                    tv.setTextColor(Color.parseColor(selectColor));
+                    tv.setBackgroundResource(selectRes);
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        tv.setTextAppearance(R.style.FontBoldTextViewStyle);
+                    } else {
+                        tv.setTextAppearance(getContext(), R.style.FontBoldTextViewStyle);
+                    }
+                } else {
+                    tv.setTextColor(Color.parseColor(noSelectColor));
+                    tv.setBackgroundResource(noSelectRes);
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        tv.setTextAppearance(R.style.FontTextViewStyle);
+                    } else {
+                        tv.setTextAppearance(getContext(), R.style.FontTextViewStyle);
+                    }
+                }
             } else {
-                tv.setTextColor(Color.parseColor(noSelectColor));
-                tv.setTypeface(null, Typeface.NORMAL);
+                tv.setVisibility(View.INVISIBLE);
+            }
+        } else {
+            if (data == null) {
+                tv.setVisibility(View.GONE);
+                ivNon.setVisibility(View.VISIBLE);
+            } else {
+                tv.setVisibility(View.VISIBLE);
+                tv.setBackgroundResource(selectRes);
+                ivNon.setVisibility(View.GONE);
+                tv.setText(data.name);
+
+                if (data.isSelect) {
+                    tv.setTextColor(Color.parseColor(selectColor));
+                    tv.setTypeface(null, Typeface.BOLD);
+                } else {
+                    tv.setTextColor(Color.parseColor(noSelectColor));
+                    tv.setTypeface(null, Typeface.NORMAL);
+                }
             }
         }
     }
-    public interface setOnSubTabClickListener {
-        void onSubTabClick(TAB_DATA data);
+    public interface setOnTabClickListener {
+        void onTabClick(TAB_DATA data);
     }
 }

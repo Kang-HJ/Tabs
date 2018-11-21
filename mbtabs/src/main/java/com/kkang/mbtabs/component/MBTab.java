@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
-public class MBTab extends LinearLayout implements ViewMainTab.setOnMainTabClickListener, ViewSubTab.setOnSubTabClickListener {
+public class MBTab extends LinearLayout implements ViewTab.setOnTabClickListener {
     public static void Debug(String msg) {
         Log.d("KKANG", buildLogMsg(msg));
     }
@@ -62,6 +62,7 @@ public class MBTab extends LinearLayout implements ViewMainTab.setOnMainTabClick
     private String mainTabSelectColor = "";
     private String mainTabNoSelectColor = "";
     private int mainTabSize = 0;
+    private boolean isMainTabNoImgShow = false;
 
     private int subTabRes = 0;
     private String subTabSelectColor = "";
@@ -167,6 +168,10 @@ public class MBTab extends LinearLayout implements ViewMainTab.setOnMainTabClick
         this.mainTabSelectColor = mainTabSelectColor;
         this.mainTabNoSelectColor = mainTabNoSelectColor;
         mainTabSize = size;
+    }
+
+    public void setMainTabNoImgVisible(boolean isShow) {
+        isMainTabNoImgShow = isShow;
     }
 
     public void setSubTabResource(int resource) {
@@ -299,11 +304,14 @@ public class MBTab extends LinearLayout implements ViewMainTab.setOnMainTabClick
                 ll.setOrientation(LinearLayout.HORIZONTAL);
             }
 
-            ViewMainTab tab = new ViewMainTab(getContext(), this);
+            ViewTab tab = new ViewTab(getContext(), this);
             tab.setLayoutParams(new LinearLayout.LayoutParams(MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f));
+            tab.setTabType("Main");
             tab.setTabResource(mainTabSelectRes, mainTabNoSelectRes);
             tab.setTabMargin(mainTabMargin, mainTabMargin, mainTabMargin, mainTabMargin);
             tab.setTabSetting(mainTabSelectColor, mainTabNoSelectColor, mainTabSize);
+            tab.setNonImgVisible(isMainTabNoImgShow);
+
             if (i < tabList.size()) {
                 tab.setData(tabList.get(i));
                 ll.addView(tab);
@@ -342,9 +350,10 @@ public class MBTab extends LinearLayout implements ViewMainTab.setOnMainTabClick
                 ll.setOrientation(LinearLayout.HORIZONTAL);
             }
 
-            ViewSubTab tab = new ViewSubTab(getContext(), this);
+            ViewTab tab = new ViewTab(getContext(), this);
             tab.setLayoutParams(new LinearLayout.LayoutParams(MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f));
-            tab.setTabResource(subTabRes);
+            tab.setTabType("Sub");
+            tab.setTabResource(subTabRes, subTabRes);
             tab.setTabSetting(subTabSelectColor, subTabNoSelectColor, subTabSize);
             tab.setTabMargin(subTabMargin, subTabMargin, subTabMargin, subTabMargin);
             tab.setTabPadding(subTabPadding, subTabPadding, subTabPadding, subTabPadding);
@@ -449,8 +458,9 @@ public class MBTab extends LinearLayout implements ViewMainTab.setOnMainTabClick
     }
 
     @Override
-    public void onSubTabClick(TAB_DATA data) {
-//        if (tabList.size() > ((MainActivity) getContext()).pager.getCurrentItem()) {
+    public void onTabClick(TAB_DATA data) {
+//        Debug("----- click : "+data.name);
+//        if (tabList.size() > (getContext().pager.getCurrentItem()) {
 //            ArrayList<TAB_DATA> subList = tabList.get(((MainActivity) getContext()).pager.getCurrentItem()).subList;
 //            for (int i = 0; i < subList.size(); i++) {
 //                if (subList.get(i) != null) {
@@ -463,8 +473,8 @@ public class MBTab extends LinearLayout implements ViewMainTab.setOnMainTabClick
 //        }
     }
 
-    @Override
-    public void onMainTabClick(TAB_DATA data) {
+//    @Override
+//    public void onMainTabClick(TAB_DATA data) {
 //        for (int i = 0; i < tabList.size(); i++) {
 //            tabList.get(i).isSelect = false;
 //        }
@@ -472,5 +482,5 @@ public class MBTab extends LinearLayout implements ViewMainTab.setOnMainTabClick
 //        updateAllTab();
 //        ((MainActivity) getContext()).pager.setCurrentItem(Integer.valueOf(data.key));
 //        ivAll.performClick();
-    }
+//    }
 }
