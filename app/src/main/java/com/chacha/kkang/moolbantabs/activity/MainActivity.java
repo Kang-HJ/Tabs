@@ -2,12 +2,14 @@ package com.chacha.kkang.moolbantabs.activity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.chacha.kkang.moolbantabs.R;
 import com.chacha.kkang.moolbantabs.adapter.Adapter_Pager;
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     public ViewPager pager;
     private Adapter_Pager adapterPager;
     private LinearLayout llAll;
+    private TextView tvOnResumScroll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
         initData();
         setUI();
+        setEvent();
         setView();
     }
 
@@ -90,6 +94,33 @@ public class MainActivity extends AppCompatActivity {
         pager = (ViewPager) findViewById(R.id.pager);
         mbTab = (MBTab) findViewById(R.id.mbTab);
         llAll = (LinearLayout) findViewById(R.id.llAll);
+        tvOnResumScroll = (TextView) findViewById(R.id.tvOnResumScroll);
+    }
+
+    private void setEvent() {
+        tvOnResumScroll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final double offsetX = 200.0;
+                final double duration = 500.0;
+                if (mbTab.tabBar != null)
+                    mbTab.tabBar.scrollTo((int) offsetX, 0);
+                new CountDownTimer((long) duration, 20) {
+                    public void onTick(long millisUntilFinished) {
+                        int x = (int) (offsetX - (duration - millisUntilFinished) / duration * offsetX);
+                        Debug("millisUntilFinished : " + millisUntilFinished + " move x : " + x);
+                        if (mbTab.tabBar != null)
+                            mbTab.tabBar.smoothScrollTo(x, 0);
+                    }
+
+                    public void onFinish() {
+                        if (mbTab.tabBar != null)
+                            mbTab.tabBar.smoothScrollTo(0, 0);
+                    }
+                }.start();
+            }
+
+        });
     }
 
     private void setView() {
