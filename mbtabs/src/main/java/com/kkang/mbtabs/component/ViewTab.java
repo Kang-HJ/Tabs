@@ -24,6 +24,7 @@ public class ViewTab extends LinearLayout {
     private int selectRes = 0;
     private int noSelectRes = 0;
     private String tabType = "Main";
+    private boolean isShowNonImg = false;
 
     public ViewTab(Context context, setOnTabClickListener listener) {
         super(context);
@@ -98,11 +99,7 @@ public class ViewTab extends LinearLayout {
     }
 
     public void setNonImgVisible(boolean isShowNonImg) {
-        if (isShowNonImg) {
-            ivNon.setVisibility(View.VISIBLE);
-        } else {
-            ivNon.setVisibility(View.INVISIBLE);
-        }
+        this.isShowNonImg = isShowNonImg;
     }
 
     public void setNonImgResource(int resource) {
@@ -114,8 +111,15 @@ public class ViewTab extends LinearLayout {
     }
 
     private void updateUI() {
-        if (tabType.equals("Main")) {
-            if (data != null) {
+        if (data == null) {
+            tv.setVisibility(View.GONE);
+            if (isShowNonImg) {
+                ivNon.setVisibility(View.VISIBLE);
+            } else {
+                ivNon.setVisibility(View.GONE);
+            }
+        } else {
+            if (tabType.equals("Main")) {
                 tv.setVisibility(View.VISIBLE);
                 tv.setText(data.name);
 
@@ -139,17 +143,10 @@ public class ViewTab extends LinearLayout {
                     }
                 }
             } else {
-                tv.setVisibility(View.INVISIBLE);
-            }
-        } else {
-            if (data == null) {
-                tv.setVisibility(View.GONE);
-                ivNon.setVisibility(View.VISIBLE);
-            } else {
                 tv.setVisibility(View.VISIBLE);
                 tv.setBackgroundResource(selectRes);
-                ivNon.setVisibility(View.GONE);
                 tv.setText(data.name);
+                ivNon.setVisibility(View.GONE);
 
                 if (data.isSelect) {
                     tv.setTextColor(Color.parseColor(selectColor));

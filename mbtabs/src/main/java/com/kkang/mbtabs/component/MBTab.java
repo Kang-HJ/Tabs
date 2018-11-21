@@ -63,6 +63,8 @@ public class MBTab extends LinearLayout implements ViewTab.setOnTabClickListener
     private String mainTabNoSelectColor = "";
     private int mainTabSize = 0;
     private boolean isMainTabNoImgShow = false;
+    private int mainTabNoImgRes = 0;
+    private int mainTabNoImgPadding = 0;
 
     private int subTabRes = 0;
     private String subTabSelectColor = "";
@@ -172,6 +174,14 @@ public class MBTab extends LinearLayout implements ViewTab.setOnTabClickListener
 
     public void setMainTabNoImgVisible(boolean isShow) {
         isMainTabNoImgShow = isShow;
+    }
+
+    public void setMainTabNoImgResource(int resource) {
+        mainTabNoImgRes = resource;
+    }
+
+    public void setMainTabNoImgPadding(int dp) {
+        mainTabNoImgPadding = dp;
     }
 
     public void setSubTabResource(int resource) {
@@ -311,6 +321,8 @@ public class MBTab extends LinearLayout implements ViewTab.setOnTabClickListener
             tab.setTabMargin(mainTabMargin, mainTabMargin, mainTabMargin, mainTabMargin);
             tab.setTabSetting(mainTabSelectColor, mainTabNoSelectColor, mainTabSize);
             tab.setNonImgVisible(isMainTabNoImgShow);
+            tab.setNonImgResource(mainTabNoImgRes);
+            tab.setNonImgPadding(mainTabNoImgPadding, mainTabNoImgPadding, mainTabNoImgPadding, mainTabNoImgPadding);
 
             if (i < tabList.size()) {
                 tab.setData(tabList.get(i));
@@ -360,6 +372,7 @@ public class MBTab extends LinearLayout implements ViewTab.setOnTabClickListener
             tab.setNonImgVisible(isSubTabNoImgShow);
             tab.setNonImgResource(subTabNoImgRes);
             tab.setNonImgPadding(subTabNoImgPadding, subTabNoImgPadding, subTabNoImgPadding, subTabNoImgPadding);
+
             if (i < tabList.get(position).subList.size()) {
                 tab.setData(tabList.get(position).subList.get(i));
                 ll.addView(tab);
