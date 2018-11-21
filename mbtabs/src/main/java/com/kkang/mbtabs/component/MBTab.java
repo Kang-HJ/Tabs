@@ -102,6 +102,11 @@ public class MBTab extends LinearLayout implements ViewTab.setOnTabClickListener
     public void setData(ArrayList<TAB_DATA> tabList, LinearLayout llAll){
         this.tabList = tabList;
         this.llAll = llAll;
+        if (llAll == null) {
+            llAllBtn.setVisibility(View.GONE);
+            ivFading.setVisibility(View.GONE);
+            tvAll.setVisibility(View.GONE);
+        }
         updateView();
         setEvent();
     }
@@ -120,6 +125,10 @@ public class MBTab extends LinearLayout implements ViewTab.setOnTabClickListener
     }
 
     public void setVisibleAll(boolean isShowllAllBtn) {
+        if (llAll == null) {
+            return;
+        }
+
         if (isShowllAllBtn) {
             llAllBtn.setVisibility(View.VISIBLE);
         } else {
@@ -128,6 +137,10 @@ public class MBTab extends LinearLayout implements ViewTab.setOnTabClickListener
     }
 
     public void setFadingResource(int resource) {
+        if (llAll == null) {
+            return;
+        }
+
         ivFading.setImageResource(resource);
     }
 
@@ -295,6 +308,10 @@ public class MBTab extends LinearLayout implements ViewTab.setOnTabClickListener
     }
 
     private void updateAllTab() {
+        if (llAll == null) {
+            return;
+        }
+
         if (llAll.getChildCount() > 0) {
             llAll.removeAllViews();
         }
