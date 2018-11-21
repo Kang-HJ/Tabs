@@ -14,6 +14,6 @@
   #Add the dependency
   ```gladle
   dependencies {
-	        implementation 'com.github.Kang-HJ:Tabs:1.0'
+	        implementation 'com.github.Kang-HJ:Tabs:1.1'
 	}
   ```
