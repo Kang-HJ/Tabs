@@ -3,6 +3,7 @@ package com.kkang.mbtabs.component;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
@@ -43,6 +44,7 @@ public class MBTab extends LinearLayout implements ViewTab.setOnTabClickListener
     }
 
     public MBTabBar tabBar;
+    public ViewPager viewPager;
     private LinearLayout llTab;
     private ImageView ivFading;
     private ImageView ivAll;
@@ -99,7 +101,7 @@ public class MBTab extends LinearLayout implements ViewTab.setOnTabClickListener
         setUI();
     }
 
-    public void setData(ArrayList<TAB_DATA> tabList, LinearLayout llAll){
+    public void setData(ArrayList<TAB_DATA> tabList, LinearLayout llAll) {
         this.tabList = tabList;
         this.llAll = llAll;
         if (llAll == null) {
@@ -122,6 +124,13 @@ public class MBTab extends LinearLayout implements ViewTab.setOnTabClickListener
         tvAll.setText(title);
         tvAll.setTextColor(Color.parseColor(colorCode));
         tvAll.setTextSize(size);
+    }
+
+    public void setViewPager(ViewPager viewPager) {
+        this.viewPager = viewPager;
+        if (tabBar != null) {
+            tabBar.setViewPager(viewPager);
+        }
     }
 
     public void setVisibleAll(boolean isShowllAllBtn) {
@@ -488,29 +497,27 @@ public class MBTab extends LinearLayout implements ViewTab.setOnTabClickListener
     }
 
     @Override
-    public void onTabClick(TAB_DATA data) {
-//        Debug("----- click : "+data.name);
-//        if (tabList.size() > (getContext().pager.getCurrentItem()) {
-//            ArrayList<TAB_DATA> subList = tabList.get(((MainActivity) getContext()).pager.getCurrentItem()).subList;
-//            for (int i = 0; i < subList.size(); i++) {
-//                if (subList.get(i) != null) {
-//                    subList.get(i).isSelect = false;
-//                }
-//            }
-//
-//            data.isSelect = true;
-//            updateSubTab(((MainActivity) getContext()).pager.getCurrentItem());
-//        }
+    public void onTabClick(String type, TAB_DATA data) {
+        if(type.equals("Main")){
+            for (int i = 0; i < tabList.size(); i++) {
+                if (tabList.get(i) != null) {
+                    tabList.get(i).isSelect = false;
+                }
+            }
+            data.isSelect = true;
+            updateAllTab();
+        }else if(type.equals("Sub")){
+            if (viewPager != null) {
+                int position = viewPager.getCurrentItem();
+                ArrayList<TAB_DATA> subList = tabList.get(position).subList;
+                for (int i = 0; i < subList.size(); i++) {
+                    if (subList.get(i) != null) {
+                        subList.get(i).isSelect = false;
+                    }
+                }
+                data.isSelect = true;
+                updateSubTab(position);
+            }
+        }
     }
-
-//    @Override
-//    public void onMainTabClick(TAB_DATA data) {
-//        for (int i = 0; i < tabList.size(); i++) {
-//            tabList.get(i).isSelect = false;
-//        }
-//        data.isSelect = true;
-//        updateAllTab();
-//        ((MainActivity) getContext()).pager.setCurrentItem(Integer.valueOf(data.key));
-//        ivAll.performClick();
-//    }
 }

@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
         mbTab.setSubTabNoImgPadding(intToDp(MainActivity.this, 10));
 
         mbTab.setData(tabList, llAll);
-        mbTab.tabBar.setViewPager(pager);
+        mbTab.setViewPager(pager);
         mbTab.setMainTabCount(3);
         mbTab.setSubTabCount(3);
         mbTab.setFadingResource(R.drawable.sketch_g_181112);

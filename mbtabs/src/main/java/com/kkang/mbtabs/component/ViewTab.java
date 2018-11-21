@@ -62,7 +62,7 @@ public class ViewTab extends LinearLayout {
             @Override
             public void onClick(View v) {
                 if (listener != null) {
-                    listener.onTabClick(data);
+                    listener.onTabClick(tabType,data);
                 }
             }
         });
@@ -159,6 +159,6 @@ public class ViewTab extends LinearLayout {
         }
     }
     public interface setOnTabClickListener {
-        void onTabClick(TAB_DATA data);
+        void onTabClick(String type, TAB_DATA data);
     }
 }
