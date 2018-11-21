@@ -153,63 +153,6 @@ public class MBTabBar extends HorizontalScrollView {
         mDividerPaint.setAntiAlias(true);
         mDividerPaint.setStrokeWidth(mDividerWidth);
 
-        // get system attrs for container
-        TypedArray a = context.obtainStyledAttributes(attrs, ANDROID_ATTRS);
-        int textPrimaryColor = a.getColor(TEXT_COLOR_PRIMARY, getResources().getColor(android.R.color.black));
-        mUnderlineColor = textPrimaryColor;
-        mDividerColor = textPrimaryColor;
-        mIndicatorColor = textPrimaryColor;
-        int padding = a.getDimensionPixelSize(PADDING_INDEX, 0);
-        mPaddingLeft = padding > 0 ? padding : a.getDimensionPixelSize(PADDING_LEFT_INDEX, 0);
-        mPaddingRight = padding > 0 ? padding : a.getDimensionPixelSize(PADDING_RIGHT_INDEX, 0);
-        a.recycle();
-
-        String tabTextTypefaceName = "sans-serif";
-        // Use Roboto Medium as the default typeface from API 21 onwards
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            tabTextTypefaceName = "sans-serif-medium";
-            mTabTextTypefaceStyle = Typeface.NORMAL;
-        }
-
-        // get custom attrs for tabs and container
-        a = context.obtainStyledAttributes(attrs, R.styleable.MBTabBar);
-        mIndicatorColor = a.getColor(R.styleable.MBTabBar_pstsIndicatorColor, mIndicatorColor);
-        mIndicatorHeight = a.getDimensionPixelSize(R.styleable.MBTabBar_pstsIndicatorHeight, mIndicatorHeight);
-        mUnderlineColor = a.getColor(R.styleable.MBTabBar_pstsUnderlineColor, mUnderlineColor);
-        mUnderlineHeight = a.getDimensionPixelSize(R.styleable.MBTabBar_pstsUnderlineHeight, mUnderlineHeight);
-        mDividerColor = a.getColor(R.styleable.MBTabBar_pstsDividerColor, mDividerColor);
-        mDividerWidth = a.getDimensionPixelSize(R.styleable.MBTabBar_pstsDividerWidth, mDividerWidth);
-        mDividerPadding = a.getDimensionPixelSize(R.styleable.MBTabBar_pstsDividerPadding, mDividerPadding);
-        isExpandTabs = a.getBoolean(R.styleable.MBTabBar_pstsShouldExpand, isExpandTabs);
-        mScrollOffset = a.getDimensionPixelSize(R.styleable.MBTabBar_pstsScrollOffset, mScrollOffset);
-        isPaddingMiddle = a.getBoolean(R.styleable.MBTabBar_pstsPaddingMiddle, isPaddingMiddle);
-        mTabPadding = a.getDimensionPixelSize(R.styleable.MBTabBar_pstsTabPaddingLeftRight, mTabPadding);
-        mTabBackgroundResId = a.getResourceId(R.styleable.MBTabBar_pstsTabBackground, mTabBackgroundResId);
-        mTabTextSize = a.getDimensionPixelSize(R.styleable.MBTabBar_pstsTabTextSize, mTabTextSize);
-        mTabTextColor = a.hasValue(R.styleable.MBTabBar_pstsTabTextColor) ? a.getColorStateList(R.styleable.MBTabBar_pstsTabTextColor) : null;
-        mTabTextTypefaceStyle = a.getInt(R.styleable.MBTabBar_pstsTabTextStyle, mTabTextTypefaceStyle);
-        isTabTextAllCaps = a.getBoolean(R.styleable.MBTabBar_pstsTabTextAllCaps, isTabTextAllCaps);
-        int tabTextAlpha = a.getInt(R.styleable.MBTabBar_pstsTabTextAlpha, DEF_VALUE_TAB_TEXT_ALPHA);
-        String fontFamily = a.getString(R.styleable.MBTabBar_pstsTabTextFontFamily);
-        a.recycle();
-
-        //Tab text color selector
-        if (mTabTextColor == null) {
-            mTabTextColor = createColorStateList(
-                    textPrimaryColor,
-                    textPrimaryColor,
-                    Color.argb(tabTextAlpha,
-                            Color.red(textPrimaryColor),
-                            Color.green(textPrimaryColor),
-                            Color.blue(textPrimaryColor)));
-        }
-
-        //Tab text typeface and style
-        if (fontFamily != null) {
-            tabTextTypefaceName = fontFamily;
-        }
-        mTabTextTypeface = Typeface.create(tabTextTypefaceName, mTabTextTypefaceStyle);
-
         //Bottom padding for the tabs container parent view to show indicator and underline
         setTabsContainerParentViewPaddings();
 
@@ -531,13 +474,13 @@ public class MBTabBar extends HorizontalScrollView {
                 mDelegatePageListener.onPageSelected(position);
 
             }
-                View tab = mTabsContainer.getChildAt(mPager.getCurrentItem());
-                unSelect(tab);
-                mPager.setCurrentItem(position);
-                if (mTabReselectedListener != null) {
-                    mTabReselectedListener.onTabSelected(position);
-                }
-            
+            View tab = mTabsContainer.getChildAt(mPager.getCurrentItem());
+            unSelect(tab);
+            mPager.setCurrentItem(position);
+            if (mTabReselectedListener != null) {
+                mTabReselectedListener.onTabSelected(position);
+            }
+
         }
 
     }
