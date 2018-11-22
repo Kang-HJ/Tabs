@@ -111,7 +111,7 @@ public class ViewTab extends LinearLayout {
         ivNon.setPadding(left, top, right, bottom);
     }
 
-    private void updateUI() {
+    public void updateUI() {
         if (data == null) {
             tv.setVisibility(View.GONE);
             if (isShowNonImg) {

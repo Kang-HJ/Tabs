@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AndroidLayouts">
-    <shared>
-      <config />
-    </shared>
-  </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="-----" />
+    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="---" />
     <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
   </component>
@@ -17,12 +12,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4f5fd517-2821-4541-996a-b2e9285b2535" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/chacha/kkang/moolbantabs/activity/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/chacha/kkang/moolbantabs/activity/MainActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mbtabs/src/main/java/com/kkang/mbtabs/component/MBTab.java" beforeDir="false" afterPath="$PROJECT_DIR$/mbtabs/src/main/java/com/kkang/mbtabs/component/MBTab.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mbtabs/src/main/java/com/kkang/mbtabs/component/ViewTab.java" beforeDir="false" afterPath="$PROJECT_DIR$/mbtabs/src/main/java/com/kkang/mbtabs/component/ViewTab.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mbtabs/src/main/res/layout/item_subtabview.xml" beforeDir="false" afterPath="$PROJECT_DIR$/mbtabs/src/main/res/layout/item_subtabview.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/classes/" />
@@ -75,8 +67,8 @@
       <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/chacha/kkang/moolbantabs/activity/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="54" column="15" selection-start-line="54" selection-start-column="15" selection-end-line="54" selection-end-column="15" />
+            <state relative-caret-position="536">
+              <caret line="76" column="41" selection-start-line="76" selection-start-column="41" selection-end-line="76" selection-end-column="41" />
             </state>
           </provider>
         </entry>
@@ -84,8 +76,12 @@
       <file leaf-file-name="ViewTab.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mbtabs/src/main/java/com/kkang/mbtabs/component/ViewTab.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="724">
-              <caret line="97" column="23" selection-start-line="97" selection-start-column="23" selection-end-line="97" selection-end-column="23" />
+            <state relative-caret-position="511">
+              <caret line="88" column="41" selection-start-line="88" selection-start-column="41" selection-end-line="88" selection-end-column="41" />
+              <folding>
+                <element signature="e#1796#2020#0" expanded="true" />
+                <element signature="e#2019#2020#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -93,20 +89,8 @@
       <file leaf-file-name="TAB_DATA.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mbtabs/src/main/java/com/kkang/mbtabs/component/TAB_DATA.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
-              <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="item_subtabview.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mbtabs/src/main/res/layout/item_subtabview.xml">
-          <provider editor-type-id="android-designer2">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="418">
-              <caret line="22" column="35" selection-start-line="22" selection-start-column="35" selection-end-line="22" selection-end-column="35" />
+            <state relative-caret-position="57">
+              <caret line="3" selection-start-line="3" selection-end-line="3" />
             </state>
           </provider>
         </entry>
@@ -114,11 +98,41 @@
       <file leaf-file-name="MBTab.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mbtabs/src/main/java/com/kkang/mbtabs/component/MBTab.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="798">
-              <caret line="65" column="41" selection-start-line="65" selection-start-column="41" selection-end-line="65" selection-end-column="41" />
+            <state relative-caret-position="703">
+              <caret line="134" column="46" selection-start-line="134" selection-start-column="38" selection-end-line="134" selection-end-column="46" />
               <folding>
-                <element signature="e#16222#16223#0" expanded="true" />
-                <element signature="e#16257#16258#0" expanded="true" />
+                <element signature="e#4957#4958#0" expanded="true" />
+                <element signature="e#5022#5023#0" expanded="true" />
+                <element signature="e#5085#5086#0" expanded="true" />
+                <element signature="e#5153#5154#0" expanded="true" />
+                <element signature="e#5201#5989#0" expanded="true" />
+                <element signature="e#5988#5989#0" expanded="true" />
+                <element signature="e#12167#12168#0" expanded="true" />
+                <element signature="e#12210#12211#0" expanded="true" />
+                <element signature="e#13037#13038#0" expanded="true" />
+                <element signature="e#13080#13081#0" expanded="true" />
+                <element signature="e#17652#17653#0" expanded="true" />
+                <element signature="e#17686#17687#0" expanded="true" />
+                <element signature="e#17731#17732#0" expanded="true" />
+                <element signature="e#17766#17767#0" expanded="true" />
+                <element signature="e#18035#18036#0" expanded="true" />
+                <element signature="e#18078#18079#0" expanded="true" />
+                <element signature="e#18135#18136#0" expanded="true" />
+                <element signature="e#18177#18178#0" expanded="true" />
+                <element signature="e#18227#18228#0" expanded="true" />
+                <element signature="e#18267#18268#0" expanded="true" />
+                <element signature="e#18318#18319#0" expanded="true" />
+                <element signature="e#18354#18355#0" expanded="true" />
+                <element signature="e#18567#18568#0" expanded="true" />
+                <element signature="e#18600#18601#0" expanded="true" />
+                <element signature="e#18644#18645#0" expanded="true" />
+                <element signature="e#18678#18679#0" expanded="true" />
+                <element signature="e#18735#18736#0" expanded="true" />
+                <element signature="e#18777#18778#0" expanded="true" />
+                <element signature="e#18833#18834#0" expanded="true" />
+                <element signature="e#18874#18875#0" expanded="true" />
+                <element signature="e#18923#18924#0" expanded="true" />
+                <element signature="e#18962#18963#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -163,6 +177,11 @@
       <find>----- tab</find>
       <find>subTabPadding</find>
       <find>tvAll</find>
+      <find>ViewTab</find>
+      <find>subTab</find>
+      <find>onTabClick</find>
+      <find>tabList.get(position).isSelect = true;</find>
+      <find>mainTab</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -3485,18 +3504,24 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/view_mb_tab.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/chacha/kkang/moolbantabs/activity/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/item_subtabview.xml" />
-        <option value="$PROJECT_DIR$/mbtabs/src/main/java/com/kkang/mbtabs/component/ViewTab.java" />
         <option value="$PROJECT_DIR$/mbtabs/src/main/res/layout/item_subtabview.xml" />
+        <option value="$PROJECT_DIR$/mbtabs/src/main/java/com/kkang/mbtabs/component/ViewTab.java" />
         <option value="$PROJECT_DIR$/mbtabs/src/main/java/com/kkang/mbtabs/component/MBTab.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="2872" />
-    <option name="y" value="-877" />
+    <option name="y" value="-805" />
     <option name="width" value="2648" />
-    <option name="height" value="2137" />
+    <option name="height" value="2065" />
   </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state />
+    </entry>
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -3899,7 +3924,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="2872" y="-877" width="2648" height="2137" extended-state="0" />
+    <frame x="2872" y="-805" width="2648" height="2065" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="Android Profiler" order="7" />
@@ -3913,12 +3938,12 @@
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.20426829" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info anchor="bottom" id="Logcat" order="7" weight="0.09754902" />
+      <window_info active="true" anchor="bottom" id="Logcat" order="7" visible="true" weight="0.3089431" />
       <window_info id="Captures" order="2" weight="0.25" />
       <window_info id="Capture Tool" order="3" />
       <window_info id="Designer" order="3" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1285495" />
-      <window_info anchor="bottom" id="Build" order="7" visible="true" weight="0.120588236" />
+      <window_info anchor="bottom" id="Build" order="7" weight="0.120588236" />
       <window_info anchor="right" id="Gradle" order="3" weight="0.32960597" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Device File Explorer" order="3" side_tool="true" />
@@ -3941,13 +3966,6 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/mbtabs/src/main/java/com/kkang/mbtabs/component/ViewTab.java</url>
-          <line>124</line>
-          <properties />
-        </line-breakpoint>
-      </breakpoints>
       <option name="time" value="1" />
     </breakpoint-manager>
   </component>
@@ -4249,13 +4267,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mbtabs/src/main/java/com/kkang/mbtabs/component/TAB_DATA.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/view.xml">
       <provider editor-type-id="android-designer2">
         <state />
@@ -4265,13 +4276,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/item_subtabview.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/chacha/kkang/moolbantabs/activity/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="54" column="15" selection-start-line="54" selection-start-column="15" selection-end-line="54" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mbtabs/src/main/res/drawable/shape_round_tomato_trans_7.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
@@ -4286,33 +4290,96 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mbtabs/src/main/java/com/kkang/mbtabs/component/ViewTab.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="724">
-          <caret line="97" column="23" selection-start-line="97" selection-start-column="23" selection-end-line="97" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mbtabs/src/main/res/layout/item_subtabview.xml">
       <provider editor-type-id="android-designer2">
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="22" column="35" selection-start-line="22" selection-start-column="35" selection-end-line="22" selection-end-column="35" />
+        <state relative-caret-position="437">
+          <caret line="23" column="15" lean-forward="true" selection-start-line="23" selection-start-column="15" selection-end-line="23" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mbtabs/src/main/java/com/kkang/mbtabs/component/TAB_DATA.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/chacha/kkang/moolbantabs/activity/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="536">
+          <caret line="76" column="41" selection-start-line="76" selection-start-column="41" selection-end-line="76" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mbtabs/src/main/java/com/kkang/mbtabs/component/ViewTab.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="511">
+          <caret line="88" column="41" selection-start-line="88" selection-start-column="41" selection-end-line="88" selection-end-column="41" />
+          <folding>
+            <element signature="e#1796#2020#0" expanded="true" />
+            <element signature="e#2019#2020#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mbtabs/src/main/java/com/kkang/mbtabs/component/MBTab.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="798">
-          <caret line="65" column="41" selection-start-line="65" selection-start-column="41" selection-end-line="65" selection-end-column="41" />
+        <state relative-caret-position="703">
+          <caret line="134" column="46" selection-start-line="134" selection-start-column="38" selection-end-line="134" selection-end-column="46" />
           <folding>
-            <element signature="e#16222#16223#0" expanded="true" />
-            <element signature="e#16257#16258#0" expanded="true" />
+            <element signature="e#4957#4958#0" expanded="true" />
+            <element signature="e#5022#5023#0" expanded="true" />
+            <element signature="e#5085#5086#0" expanded="true" />
+            <element signature="e#5153#5154#0" expanded="true" />
+            <element signature="e#5201#5989#0" expanded="true" />
+            <element signature="e#5988#5989#0" expanded="true" />
+            <element signature="e#12167#12168#0" expanded="true" />
+            <element signature="e#12210#12211#0" expanded="true" />
+            <element signature="e#13037#13038#0" expanded="true" />
+            <element signature="e#13080#13081#0" expanded="true" />
+            <element signature="e#17652#17653#0" expanded="true" />
+            <element signature="e#17686#17687#0" expanded="true" />
+            <element signature="e#17731#17732#0" expanded="true" />
+            <element signature="e#17766#17767#0" expanded="true" />
+            <element signature="e#18035#18036#0" expanded="true" />
+            <element signature="e#18078#18079#0" expanded="true" />
+            <element signature="e#18135#18136#0" expanded="true" />
+            <element signature="e#18177#18178#0" expanded="true" />
+            <element signature="e#18227#18228#0" expanded="true" />
+            <element signature="e#18267#18268#0" expanded="true" />
+            <element signature="e#18318#18319#0" expanded="true" />
+            <element signature="e#18354#18355#0" expanded="true" />
+            <element signature="e#18567#18568#0" expanded="true" />
+            <element signature="e#18600#18601#0" expanded="true" />
+            <element signature="e#18644#18645#0" expanded="true" />
+            <element signature="e#18678#18679#0" expanded="true" />
+            <element signature="e#18735#18736#0" expanded="true" />
+            <element signature="e#18777#18778#0" expanded="true" />
+            <element signature="e#18833#18834#0" expanded="true" />
+            <element signature="e#18874#18875#0" expanded="true" />
+            <element signature="e#18923#18924#0" expanded="true" />
+            <element signature="e#18962#18963#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ScopeChooserConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
   </component>
 </project>

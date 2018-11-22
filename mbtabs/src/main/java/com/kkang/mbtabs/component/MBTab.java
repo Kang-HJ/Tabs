@@ -77,6 +77,8 @@ public class MBTab extends LinearLayout implements ViewTab.setOnTabClickListener
     private int subTabNoImgRes = R.drawable.sketch_fish_180927;
     private int subTabNoImgPadding = intToDp(getContext(), 10);
 
+    private ViewTab[] mainTab;
+
     public MBTab(Context context) {
         super(context);
         tabList = new ArrayList<>();
@@ -131,7 +133,9 @@ public class MBTab extends LinearLayout implements ViewTab.setOnTabClickListener
                     tabList.get(i).isSelect = false;
                 }
                 tabList.get(position).isSelect = true;
-                updateAllTab();
+                for (int i = 0; i < tabList.size(); i++) {
+                    mainTab[i].updateUI();
+                }
 
                 if (tabList.get(position).subList.size() > 0) {
                     llSub.setVisibility(View.VISIBLE);
@@ -206,6 +210,8 @@ public class MBTab extends LinearLayout implements ViewTab.setOnTabClickListener
             if (tabList.size() % mainTabCount != 0) {
                 count = mainTabCount - (tabList.size() % mainTabCount);
             }
+
+            mainTab = new ViewTab[tabList.size() + count];
         }
 
         LinearLayout ll = null;
@@ -216,23 +222,23 @@ public class MBTab extends LinearLayout implements ViewTab.setOnTabClickListener
                 ll.setOrientation(LinearLayout.HORIZONTAL);
             }
 
-            ViewTab tab = new ViewTab(getContext(), this);
-            tab.setLayoutParams(new LinearLayout.LayoutParams(MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f));
-            tab.setTabType("Main");
-            tab.setTabResource(mainTabSelectRes, mainTabNoSelectRes);
-            tab.setTabMargin(mainTabMargin, mainTabMargin, mainTabMargin, mainTabMargin);
-            tab.setTabSetting(mainTabSelectColor, mainTabNoSelectColor);
-            tab.setTabPadding(mainTabPadding, mainTabPadding, mainTabPadding, mainTabPadding);
-            tab.setNonImgVisible(isMainTabNoImgShow);
-            tab.setNonImgResource(mainTabNoImgRes);
-            tab.setNonImgPadding(mainTabNoImgPadding, mainTabNoImgPadding, mainTabNoImgPadding, mainTabNoImgPadding);
+            mainTab[i] = new ViewTab(getContext(), this);
+            mainTab[i].setLayoutParams(new LinearLayout.LayoutParams(MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f));
+            mainTab[i].setTabType("Main");
+            mainTab[i].setTabResource(mainTabSelectRes, mainTabNoSelectRes);
+            mainTab[i].setTabMargin(mainTabMargin, mainTabMargin, mainTabMargin, mainTabMargin);
+            mainTab[i].setTabSetting(mainTabSelectColor, mainTabNoSelectColor);
+            mainTab[i].setTabPadding(mainTabPadding, mainTabPadding, mainTabPadding, mainTabPadding);
+            mainTab[i].setNonImgVisible(isMainTabNoImgShow);
+            mainTab[i].setNonImgResource(mainTabNoImgRes);
+            mainTab[i].setNonImgPadding(mainTabNoImgPadding, mainTabNoImgPadding, mainTabNoImgPadding, mainTabNoImgPadding);
 
             if (i < tabList.size()) {
-                tab.setData(tabList.get(i));
-                ll.addView(tab);
+                mainTab[i].setData(tabList.get(i));
+                ll.addView(mainTab[i]);
             } else {
-                tab.setData(null);
-                ll.addView(tab);
+                mainTab[i].setData(null);
+                ll.addView(mainTab[i]);
             }
 
             if (i % mainTabCount == (mainTabCount - 1)) {
@@ -382,7 +388,9 @@ public class MBTab extends LinearLayout implements ViewTab.setOnTabClickListener
                 }
             }
             data.isSelect = true;
-            updateAllTab();
+            for (int i = 0; i < tabList.size(); i++) {
+                mainTab[i].updateUI();
+            }
         }else if(type.equals("Sub")){
             if (viewPager != null) {
                 int position = viewPager.getCurrentItem();
