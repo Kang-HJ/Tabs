@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.kkang.mbtabs.R;
 
+import static com.kkang.mbtabs.component.MBTab.Debug;
+
 public class ViewTab extends LinearLayout {
 
     private TAB_DATA data;
@@ -82,10 +84,9 @@ public class ViewTab extends LinearLayout {
         this.noSelectRes = noSelectRes;
     }
 
-    public void setTabSetting(String selectColor, String noSelectColor, int size) {
+    public void setTabSetting(String selectColor, String noSelectColor) {
         this.selectColor = selectColor;
         this.noSelectColor = noSelectColor;
-        tv.setTextSize(size);
     }
 
     public void setTabMargin(int left, int top, int right, int bottom) {

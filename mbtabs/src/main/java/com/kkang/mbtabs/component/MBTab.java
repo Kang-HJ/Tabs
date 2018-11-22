@@ -58,25 +58,24 @@ public class MBTab extends LinearLayout implements ViewTab.setOnTabClickListener
     private int mainTabCount = 3;
     private int subTabCount = 3;
 
-    private int mainTabSelectRes = 0;
-    private int mainTabNoSelectRes = 0;
-    private int mainTabMargin = 0;
-    private String mainTabSelectColor = "";
-    private String mainTabNoSelectColor = "";
-    private int mainTabSize = 0;
+    private int mainTabSelectRes = R.drawable.shape_round_tomato_trans_7;
+    private int mainTabNoSelectRes = R.drawable.shape_round_line01_white_7;
+    private int mainTabMargin = intToDp(getContext(), 3);
+    private String mainTabSelectColor = "#e84418";
+    private String mainTabNoSelectColor = "#231916";
+    private int mainTabPadding = 0;
     private boolean isMainTabNoImgShow = false;
-    private int mainTabNoImgRes = 0;
-    private int mainTabNoImgPadding = 0;
+    private int mainTabNoImgRes = R.drawable.sketch_fish_180927;
+    private int mainTabNoImgPadding = intToDp(getContext(), 10);
 
-    private int subTabRes = 0;
-    private String subTabSelectColor = "";
-    private String subTabNoSelectColor = "";
-    private int subTabSize = 0;
-    private int subTabMargin = 0;
-    private int subTabPadding = 0;
-    private boolean isSubTabNoImgShow = false;
-    private int subTabNoImgRes = 0;
-    private int subTabNoImgPadding = 0;
+    private int subTabRes = R.drawable.shape_round_line01_white_7;
+    private String subTabSelectColor = "#3e3e3e";
+    private String subTabNoSelectColor = "#878787";
+    private int subTabMargin = floatToDp(getContext(), 1.5f);
+    private int subTabPadding = intToDp(getContext(), 10);
+    private boolean isSubTabNoImgShow = true;
+    private int subTabNoImgRes = R.drawable.sketch_fish_180927;
+    private int subTabNoImgPadding = intToDp(getContext(), 10);
 
     public MBTab(Context context) {
         super(context);
@@ -111,129 +110,6 @@ public class MBTab extends LinearLayout implements ViewTab.setOnTabClickListener
         }
         updateView();
         setEvent();
-    }
-
-    public void setTabSize(int width, int height) {
-        int w = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
-        int h = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, height, getResources().getDisplayMetrics());
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(w, h);
-        llTab.setLayoutParams(params);
-    }
-
-    public void setCollectTabSetting(String title, String colorCode, int size) {
-        tvAll.setText(title);
-        tvAll.setTextColor(Color.parseColor(colorCode));
-        tvAll.setTextSize(size);
-    }
-
-    public void setViewPager(ViewPager viewPager) {
-        this.viewPager = viewPager;
-        if (tabBar != null) {
-            tabBar.setViewPager(viewPager);
-        }
-    }
-
-    public void setVisibleAll(boolean isShowllAllBtn) {
-        if (llAll == null) {
-            return;
-        }
-
-        if (isShowllAllBtn) {
-            llAllBtn.setVisibility(View.VISIBLE);
-        } else {
-            llAllBtn.setVisibility(View.GONE);
-        }
-    }
-
-    public void setFadingResource(int resource) {
-        if (llAll == null) {
-            return;
-        }
-
-        ivFading.setImageResource(resource);
-    }
-
-    public void setVisibleFading(boolean isShowFading) {
-        if (isShowFading) {
-            ivFading.setVisibility(View.VISIBLE);
-        } else {
-            ivFading.setVisibility(View.GONE);
-        }
-    }
-
-    public void setSubTabBackground(String colorCode) {
-        llSub.setBackgroundColor(Color.parseColor(colorCode));
-    }
-
-    public void setSubTabPadding(int left, int top, int right, int bottom) {
-        llSub.setPadding(left, top, right, bottom);
-    }
-
-    public void setMainTabCount(int mainCount) {
-        mainTabCount = mainCount;
-        updateView();
-    }
-
-    public void setSubTabCount(int subCount) {
-        subTabCount = subCount;
-        updateView();
-    }
-
-    public void setMainTabResource(int selectRes, int noSelectRes) {
-        mainTabSelectRes = selectRes;
-        mainTabNoSelectRes = noSelectRes;
-    }
-
-    public void setMainTabMargin(int dp) {
-        mainTabMargin = dp;
-    }
-
-    public void setMainTabSetting(String mainTabSelectColor, String mainTabNoSelectColor, int size) {
-        this.mainTabSelectColor = mainTabSelectColor;
-        this.mainTabNoSelectColor = mainTabNoSelectColor;
-        mainTabSize = size;
-    }
-
-    public void setMainTabNoImgVisible(boolean isShow) {
-        isMainTabNoImgShow = isShow;
-    }
-
-    public void setMainTabNoImgResource(int resource) {
-        mainTabNoImgRes = resource;
-    }
-
-    public void setMainTabNoImgPadding(int dp) {
-        mainTabNoImgPadding = dp;
-    }
-
-    public void setSubTabResource(int resource) {
-        subTabRes = resource;
-    }
-
-    public void setSubTabSetting(String selectColor, String noSelectColor, int size) {
-        subTabSelectColor = selectColor;
-        subTabNoSelectColor = noSelectColor;
-        subTabSize = size;
-    }
-
-    public void setSubTabMargin(int dp) {
-        subTabMargin = dp;
-    }
-
-    public void setSubTabPadding(int dp) {
-        subTabPadding = dp;
-    }
-
-    public void setSubTabNoImgVisible(boolean isShow) {
-        isSubTabNoImgShow = isShow;
-    }
-
-    public void setSubTabNoImgResource(int resource) {
-        subTabNoImgRes = resource;
-    }
-
-    public void setSubTabNoImgPadding(int dp) {
-        subTabNoImgPadding = dp;
     }
 
     private void setUI() {
@@ -345,7 +221,8 @@ public class MBTab extends LinearLayout implements ViewTab.setOnTabClickListener
             tab.setTabType("Main");
             tab.setTabResource(mainTabSelectRes, mainTabNoSelectRes);
             tab.setTabMargin(mainTabMargin, mainTabMargin, mainTabMargin, mainTabMargin);
-            tab.setTabSetting(mainTabSelectColor, mainTabNoSelectColor, mainTabSize);
+            tab.setTabSetting(mainTabSelectColor, mainTabNoSelectColor);
+            tab.setTabPadding(mainTabPadding, mainTabPadding, mainTabPadding, mainTabPadding);
             tab.setNonImgVisible(isMainTabNoImgShow);
             tab.setNonImgResource(mainTabNoImgRes);
             tab.setNonImgPadding(mainTabNoImgPadding, mainTabNoImgPadding, mainTabNoImgPadding, mainTabNoImgPadding);
@@ -392,7 +269,7 @@ public class MBTab extends LinearLayout implements ViewTab.setOnTabClickListener
             tab.setLayoutParams(new LinearLayout.LayoutParams(MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f));
             tab.setTabType("Sub");
             tab.setTabResource(subTabRes, subTabRes);
-            tab.setTabSetting(subTabSelectColor, subTabNoSelectColor, subTabSize);
+            tab.setTabSetting(subTabSelectColor, subTabNoSelectColor);
             tab.setTabMargin(subTabMargin, subTabMargin, subTabMargin, subTabMargin);
             tab.setTabPadding(subTabPadding, subTabPadding, subTabPadding, subTabPadding);
             tab.setNonImgVisible(isSubTabNoImgShow);
@@ -519,5 +396,137 @@ public class MBTab extends LinearLayout implements ViewTab.setOnTabClickListener
                 updateSubTab(position);
             }
         }
+    }
+
+    public void setTabSize(int width, int height) {
+        int w = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
+        int h = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, height, getResources().getDisplayMetrics());
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(w, h);
+        llTab.setLayoutParams(params);
+    }
+
+    public void setCollectTabSetting(String title, String colorCode) {
+        tvAll.setText(title);
+        tvAll.setTextColor(Color.parseColor(colorCode));
+    }
+
+    public void setViewPager(ViewPager viewPager) {
+        this.viewPager = viewPager;
+        if (tabBar != null) {
+            tabBar.setViewPager(viewPager);
+        }
+    }
+
+    public void setVisibleAll(boolean isShowllAllBtn) {
+        if (llAll == null) {
+            return;
+        }
+
+        if (isShowllAllBtn) {
+            llAllBtn.setVisibility(View.VISIBLE);
+        } else {
+            llAllBtn.setVisibility(View.GONE);
+        }
+    }
+
+    public void setFadingResource(int resource) {
+        if (llAll == null) {
+            return;
+        }
+
+        ivFading.setImageResource(resource);
+    }
+
+    public void setVisibleFading(boolean isShowFading) {
+        if (isShowFading) {
+            ivFading.setVisibility(View.VISIBLE);
+        } else {
+            ivFading.setVisibility(View.GONE);
+        }
+    }
+
+    public void setSubTabBackground(String colorCode) {
+        llSub.setBackgroundColor(Color.parseColor(colorCode));
+    }
+
+    public void setSubTabPadding(int left, int top, int right, int bottom) {
+        llSub.setPadding(left, top, right, bottom);
+    }
+
+    public void setMainTabCount(int mainCount) {
+        mainTabCount = mainCount;
+        updateView();
+    }
+
+    public void setSubTabCount(int subCount) {
+        subTabCount = subCount;
+        updateView();
+    }
+
+    public void setMainTabResource(int selectRes, int noSelectRes) {
+        mainTabSelectRes = selectRes;
+        mainTabNoSelectRes = noSelectRes;
+    }
+
+    public void setMainTabMargin(int dp) {
+        mainTabMargin = dp;
+    }
+
+    public void setMainTabPadding(int dp) {
+        mainTabPadding = dp;
+    }
+
+    public void setMainTabSetting(String mainTabSelectColor, String mainTabNoSelectColor) {
+        this.mainTabSelectColor = mainTabSelectColor;
+        this.mainTabNoSelectColor = mainTabNoSelectColor;
+    }
+
+    public void setMainTabNoImgVisible(boolean isShow) {
+        isMainTabNoImgShow = isShow;
+    }
+
+    public void setMainTabNoImgResource(int resource) {
+        mainTabNoImgRes = resource;
+    }
+
+    public void setMainTabNoImgPadding(int dp) {
+        mainTabNoImgPadding = dp;
+    }
+
+    public void setSubTabResource(int resource) {
+        subTabRes = resource;
+    }
+
+    public void setSubTabSetting(String selectColor, String noSelectColor) {
+        subTabSelectColor = selectColor;
+        subTabNoSelectColor = noSelectColor;
+    }
+
+    public void setSubTabMargin(int dp) {
+        subTabMargin = dp;
+    }
+
+    public void setSubTabPadding(int dp) {
+        subTabPadding = dp;
+    }
+
+    public void setSubTabNoImgVisible(boolean isShow) {
+        isSubTabNoImgShow = isShow;
+    }
+
+    public void setSubTabNoImgResource(int resource) {
+        subTabNoImgRes = resource;
+    }
+
+    public void setSubTabNoImgPadding(int dp) {
+        subTabNoImgPadding = dp;
+    }
+
+    public static int intToDp(Context context, int value) {
+        return ((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, context.getResources().getDisplayMetrics()));
+    }
+
+    public static int floatToDp(Context context, float value) {
+        return ((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, context.getResources().getDisplayMetrics()));
     }
 }
