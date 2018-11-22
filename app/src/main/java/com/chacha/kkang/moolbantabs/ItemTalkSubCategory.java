@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.kkang.mbtabs.component.TAB_DATA;
+import com.kkang.mbtabs.component.CUSTOM_TAB_DATA;
 
 /**
  * Created by kkang on 2018. 10. 28..
@@ -20,7 +20,7 @@ public class ItemTalkSubCategory extends LinearLayout {
     TextView tvCateName;
     TextView tvCateSelected;
 
-    TAB_DATA data;
+    CUSTOM_TAB_DATA data;
 
     LinearLayout llMain;
 
@@ -53,7 +53,7 @@ public class ItemTalkSubCategory extends LinearLayout {
         tvCateSelected = (TextView) findViewById(R.id.tvCateSelected);
     }
 
-    public void setData(TAB_DATA data) {
+    public void setData(CUSTOM_TAB_DATA data) {
         this.data = data;
         updateUI();
     }
@@ -71,7 +71,7 @@ public class ItemTalkSubCategory extends LinearLayout {
         }
     }
 
-    public TAB_DATA getData() {
+    public CUSTOM_TAB_DATA getData() {
         return data;
     }
 }

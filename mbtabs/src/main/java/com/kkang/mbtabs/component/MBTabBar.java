@@ -3,10 +3,8 @@ package com.kkang.mbtabs.component;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.content.res.TypedArray;
 import android.database.DataSetObserver;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -118,7 +116,7 @@ public class MBTabBar extends HorizontalScrollView {
     private int mScrollOffset;
     private int mLastScrollX = 0;
 
-    private int mTabBackgroundResId = R.drawable.psts_background_tab;
+    private int mTabBackgroundResId = R.drawable.mb_background_tab;
 
     public MBTabBar(Context context) {
         this(context, null);
@@ -194,7 +192,7 @@ public class MBTabBar extends HorizontalScrollView {
             if (isCustomTabs) {
                 tabView = ((CustomTabProvider) mPager.getAdapter()).getCustomTabView(this, i);
             } else {
-                tabView = LayoutInflater.from(getContext()).inflate(R.layout.psts_tab, this, false);
+                tabView = LayoutInflater.from(getContext()).inflate(R.layout.item_mb_tab, this, false);
             }
 
             CharSequence title = mPager.getAdapter().getPageTitle(i);

@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Created by kkang on 2018. 10. 28..
  */
 
-public class TAB_DATA {
+public class CUSTOM_TAB_DATA {
     public String key = "";
     public String name  = "";
     public String imgFile = "";
@@ -16,5 +16,5 @@ public class TAB_DATA {
     public boolean isNew = false;
     public boolean isSelect = false;
 
-    public ArrayList<TAB_DATA> subList = new ArrayList<>();
+    public ArrayList<CUSTOM_TAB_DATA> subList = new ArrayList<>();
 }

@@ -1,12 +1,10 @@
 package com.chacha.kkang.moolbantabs.activity;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -14,7 +12,7 @@ import android.widget.TextView;
 import com.chacha.kkang.moolbantabs.R;
 import com.chacha.kkang.moolbantabs.adapter.Adapter_Pager;
 import com.kkang.mbtabs.component.MBTab;
-import com.kkang.mbtabs.component.TAB_DATA;
+import com.kkang.mbtabs.component.CUSTOM_TAB_DATA;
 
 import java.util.ArrayList;
 
@@ -40,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private MBTab mbTab;
-    private ArrayList<TAB_DATA> tabList;
+    private ArrayList<CUSTOM_TAB_DATA> tabList;
 
     public ViewPager pager;
     private Adapter_Pager adapterPager;
@@ -62,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         tabList = new ArrayList<>();
 
         for (int i = 0; i < 8; i++) {
-            TAB_DATA data = new TAB_DATA();
+            CUSTOM_TAB_DATA data = new CUSTOM_TAB_DATA();
             data.key = i + "";
             data.name = i + " TAB";
             if (i == 3) {
@@ -75,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
             data.subList = new ArrayList<>();
             for (int j = 0; j < i; j++) {
-                TAB_DATA sub = new TAB_DATA();
+                CUSTOM_TAB_DATA sub = new CUSTOM_TAB_DATA();
                 sub.key = i + "";
                 sub.name = i + " SUB TAB";
                 data.isSelect = false;

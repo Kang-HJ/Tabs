@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.kkang.mbtabs.component.TAB_DATA;
+import com.kkang.mbtabs.component.CUSTOM_TAB_DATA;
 
 /**
  * Created by kkang on 2018. 10. 29..
@@ -34,7 +34,7 @@ public class PagerView extends LinearLayout {
 
     }
 
-    public PagerView(Context context, int position, TAB_DATA categories) {
+    public PagerView(Context context, int position, CUSTOM_TAB_DATA categories) {
         super(context);
         init();
         number = (TextView) findViewById(R.id.number);
