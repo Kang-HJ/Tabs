@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chacha.kkang.moolbantabs.PagerView;
-import com.kkang.mbtabs.component.TAB_DATA;
+import com.kkang.mbtabs.component.CUSTOM_TAB_DATA;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,17 +20,17 @@ import java.util.HashMap;
 public class Adapter_Pager extends PagerAdapter {
     private Context context;
 
-    private ArrayList<TAB_DATA> categories;
+    private ArrayList<CUSTOM_TAB_DATA> categories;
 
     private HashMap<String, PagerView> viewHashMap = new HashMap<>();
 
-    public Adapter_Pager(Context context,ArrayList<TAB_DATA> categories ) {
+    public Adapter_Pager(Context context,ArrayList<CUSTOM_TAB_DATA> categories ) {
         this.context = context;
         this.categories = categories;
     }
 
 
-    public void setCategories(ArrayList<TAB_DATA> categories ){
+    public void setCategories(ArrayList<CUSTOM_TAB_DATA> categories ){
         viewHashMap.clear();
         this.categories = categories;
     }

@@ -51,15 +51,15 @@ public class MBTab extends LinearLayout implements ViewTab.setOnTabClickListener
     private TextView tvAll;
     private LinearLayout llAllBtn;
     private LinearLayout llSub;
-    private ArrayList<TAB_DATA> tabList;
+    private ArrayList<CUSTOM_TAB_DATA> tabList;
     private LinearLayout llAll;
 
     boolean isOpen = false;
     private int mainTabCount = 3;
     private int subTabCount = 3;
 
-    private int mainTabSelectRes = R.drawable.shape_round_tomato_trans_7;
-    private int mainTabNoSelectRes = R.drawable.shape_round_line01_white_7;
+    private int mainTabSelectRes = R.drawable.mb_shape_round_tomato_trans_7;
+    private int mainTabNoSelectRes = R.drawable.mb_shape_round_line01_white_7;
     private int mainTabMargin = intToDp(getContext(), 3);
     private String mainTabSelectColor = "#e84418";
     private String mainTabNoSelectColor = "#231916";
@@ -68,7 +68,7 @@ public class MBTab extends LinearLayout implements ViewTab.setOnTabClickListener
     private int mainTabNoImgRes = R.drawable.sketch_fish_180927;
     private int mainTabNoImgPadding = intToDp(getContext(), 10);
 
-    private int subTabRes = R.drawable.shape_round_line01_white_7;
+    private int subTabRes = R.drawable.mb_shape_round_line01_white_7;
     private String subTabSelectColor = "#3e3e3e";
     private String subTabNoSelectColor = "#878787";
     private int subTabMargin = floatToDp(getContext(), 1.5f);
@@ -102,7 +102,7 @@ public class MBTab extends LinearLayout implements ViewTab.setOnTabClickListener
         setUI();
     }
 
-    public void setData(ArrayList<TAB_DATA> tabList, LinearLayout llAll) {
+    public void setData(ArrayList<CUSTOM_TAB_DATA> tabList, LinearLayout llAll) {
         this.tabList = tabList;
         this.llAll = llAll;
         if (llAll == null) {
@@ -380,7 +380,7 @@ public class MBTab extends LinearLayout implements ViewTab.setOnTabClickListener
     }
 
     @Override
-    public void onTabClick(String type, TAB_DATA data) {
+    public void onTabClick(String type, CUSTOM_TAB_DATA data) {
         if(type.equals("Main")){
             for (int i = 0; i < tabList.size(); i++) {
                 if (tabList.get(i) != null) {
@@ -394,7 +394,7 @@ public class MBTab extends LinearLayout implements ViewTab.setOnTabClickListener
         }else if(type.equals("Sub")){
             if (viewPager != null) {
                 int position = viewPager.getCurrentItem();
-                ArrayList<TAB_DATA> subList = tabList.get(position).subList;
+                ArrayList<CUSTOM_TAB_DATA> subList = tabList.get(position).subList;
                 for (int i = 0; i < subList.size(); i++) {
                     if (subList.get(i) != null) {
                         subList.get(i).isSelect = false;

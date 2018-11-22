@@ -13,11 +13,9 @@ import android.widget.TextView;
 
 import com.kkang.mbtabs.R;
 
-import static com.kkang.mbtabs.component.MBTab.Debug;
-
 public class ViewTab extends LinearLayout {
 
-    private TAB_DATA data;
+    private CUSTOM_TAB_DATA data;
     private TextView tv;
     private ImageView ivNon;
     private setOnTabClickListener listener;
@@ -48,7 +46,7 @@ public class ViewTab extends LinearLayout {
 
     private void init() {
         LayoutInflater li = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        li.inflate(R.layout.item_subtabview, this);
+        li.inflate(R.layout.item_mb_sub_tab, this);
 
         setUI();
         setEvent();
@@ -70,7 +68,7 @@ public class ViewTab extends LinearLayout {
         });
     }
 
-    public void setData(TAB_DATA data) {
+    public void setData(CUSTOM_TAB_DATA data) {
         this.data = data;
         updateUI();
     }
@@ -160,6 +158,6 @@ public class ViewTab extends LinearLayout {
         }
     }
     public interface setOnTabClickListener {
-        void onTabClick(String type, TAB_DATA data);
+        void onTabClick(String type, CUSTOM_TAB_DATA data);
     }
 }
