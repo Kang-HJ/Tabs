@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -156,8 +157,8 @@ public class MBTabBar extends HorizontalScrollView {
 
         //Configure tab's container LayoutParams for either equal divided space or just wrap tabs
         mTabLayoutParams = isExpandTabs ?
-                new LinearLayout.LayoutParams(0, LayoutParams.MATCH_PARENT, 1.0f) :
-                new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
+                new LinearLayout.LayoutParams(0, FrameLayout.LayoutParams.MATCH_PARENT, 1.0f) :
+                new LinearLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.MATCH_PARENT);
         Display dis = ((WindowManager) getContext().getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
         width = dis.getWidth();
     }
@@ -245,7 +246,7 @@ public class MBTabBar extends HorizontalScrollView {
         }
 
         tabView.setFocusable(true);
-        tabView.setOnClickListener(new OnClickListener() {
+        tabView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mPager.getCurrentItem() != position) {
@@ -575,7 +576,7 @@ public class MBTabBar extends HorizontalScrollView {
         return savedState;
     }
 
-    static class SavedState extends BaseSavedState {
+    static class SavedState extends View.BaseSavedState {
         int currentPosition;
 
         public SavedState(Parcelable superState) {

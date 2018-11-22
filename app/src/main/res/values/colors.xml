@@ -4,13 +4,9 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="line_01">#ebebeb</color>
-    <color name="line_02">#e6e6e6</color>
     <color name="line_03">#dadada</color>
     <color name="tomato">#e84418</color>
 
-    <color name="backcolor_default">#f7f7f7</color>
     <color name="psts_press">#1AFFFFFF</color>
-    <color name="filterTitle">#f9f9f9</color>
-    <color name="homeSelectColor">#e54829</color>
 
 </resources>

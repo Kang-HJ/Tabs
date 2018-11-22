@@ -17,10 +17,6 @@
         </attr>
     </declare-styleable>
 
-    <style name="SpinnerwithNoArrow" parent="@android:style/Widget.Spinner">
-        <item name="android:background">@android:drawable/edit_text</item>
-    </style>
-
     <declare-styleable name="draggable_view">
         <attr name="top_view_id" format="reference"/>
         <attr name="bottom_view_id" format="reference"/>

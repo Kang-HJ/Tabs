@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/tv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:gravity="center"
         android:layout_margin="1.5dp"
         android:background="@drawable/mb_shape_round_line01_white_7"
-        android:padding="10dp"
         android:textSize="12sp"/>
 
     <ImageView
         android:id="@+id/ivNon"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
         android:src="@drawable/sketch_fish_180927"
         android:padding="10dp"
         android:visibility="gone"/>
-</LinearLayout>
+</FrameLayout>

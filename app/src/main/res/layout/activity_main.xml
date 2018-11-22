@@ -8,38 +8,24 @@
     tools:context="com.chacha.kkang.moolbantabs.activity.MainActivity">
 
     <TextView
-        android:id="@+id/tvOnResumScroll"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="onResume" />
-
-    <FrameLayout
+        android:id="@+id/tvTab"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:background="#8000ff"
+        android:gravity="center"
+        android:text="TAB"
+        android:textColor="@android:color/white"
+        android:textSize="30dp" />
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/pager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <com.kkang.mbtabs.component.MBTab
-            android:id="@+id/mbTab"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="41dp">
-
-            <LinearLayout
-                android:id="@+id/llAll"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:orientation="vertical"
-                android:padding="10dp" />
-        </FrameLayout>
-    </FrameLayout>
+    <TextView
+        android:id="@+id/tvRolling"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:background="#8000ff"
+        android:gravity="center"
+        android:text="ROLLING"
+        android:textColor="@android:color/white"
+        android:textSize="30dp" />
 </LinearLayout>

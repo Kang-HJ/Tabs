@@ -53,6 +53,7 @@ public class MBTab extends LinearLayout implements ViewTab.setOnTabClickListener
     private LinearLayout llSub;
     private ArrayList<CUSTOM_TAB_DATA> tabList;
     private LinearLayout llAll;
+    private setTabClickListener listener;
 
     boolean isOpen = false;
     private int mainTabCount = 3;
@@ -76,6 +77,9 @@ public class MBTab extends LinearLayout implements ViewTab.setOnTabClickListener
     private boolean isSubTabNoImgShow = true;
     private int subTabNoImgRes = R.drawable.sketch_fish_180927;
     private int subTabNoImgPadding = intToDp(getContext(), 10);
+
+    String mainSelectecKey = "";
+    String subSelectecKey = "";
 
     public MBTab(Context context) {
         super(context);
@@ -131,14 +135,10 @@ public class MBTab extends LinearLayout implements ViewTab.setOnTabClickListener
                     tabList.get(i).isSelect = false;
                 }
                 tabList.get(position).isSelect = true;
-                updateAllTab();
+                mainSelectecKey = tabList.get(position).key;
 
-                if (tabList.get(position).subList.size() > 0) {
-                    llSub.setVisibility(View.VISIBLE);
-                    updateSubTab(position);
-                } else {
-                    llSub.setVisibility(View.GONE);
-                }
+                updateAllTab();
+                updateSubTab(position);
             }
 
             @Override
@@ -212,20 +212,17 @@ public class MBTab extends LinearLayout implements ViewTab.setOnTabClickListener
         for (int i = 0; i < tabList.size() + count; i++) {
             if (ll == null) {
                 ll = new LinearLayout(getContext());
-                ll.setLayoutParams(new LinearLayout.LayoutParams(MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
                 ll.setOrientation(LinearLayout.HORIZONTAL);
             }
 
             ViewTab tab = new ViewTab(getContext(), this);
-            tab.setLayoutParams(new LinearLayout.LayoutParams(MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f));
+            tab.setLayoutParams(new LinearLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT, 1.0f));
             tab.setTabType("Main");
             tab.setTabResource(mainTabSelectRes, mainTabNoSelectRes);
             tab.setTabMargin(mainTabMargin, mainTabMargin, mainTabMargin, mainTabMargin);
             tab.setTabSetting(mainTabSelectColor, mainTabNoSelectColor);
-            tab.setTabPadding(mainTabPadding, mainTabPadding, mainTabPadding, mainTabPadding);
             tab.setNonImgVisible(isMainTabNoImgShow);
             tab.setNonImgResource(mainTabNoImgRes);
-            tab.setNonImgPadding(mainTabNoImgPadding, mainTabNoImgPadding, mainTabNoImgPadding, mainTabNoImgPadding);
 
             if (i < tabList.size()) {
                 tab.setData(tabList.get(i));
@@ -237,6 +234,10 @@ public class MBTab extends LinearLayout implements ViewTab.setOnTabClickListener
 
             if (i % mainTabCount == (mainTabCount - 1)) {
                 llAll.addView(ll);
+                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) ll.getLayoutParams();
+                params.width = MATCH_PARENT;
+                params.height = intToDp(getContext(), 37);
+                ll.setLayoutParams(params);
             }
 
             if (ll.getChildCount() == mainTabCount) {
@@ -246,39 +247,47 @@ public class MBTab extends LinearLayout implements ViewTab.setOnTabClickListener
     }
 
     private void updateSubTab(int position) {
-        if (llSub.getChildCount() > 0) {
-            llSub.removeAllViews();
+        if (tabList.size() <= position) {
+            return;
+        }
+
+        llSub.removeAllViews();
+        subTabCount = 3;
+        ArrayList<CUSTOM_TAB_DATA> subList = tabList.get(position).subList;
+        int listSize = subList.size();
+        if (listSize % 3 == 1) {
+            subTabCount = 4;
         }
 
         int count = 0;
-        if (tabList.get(position).subList.size() > 0) {
-            if (tabList.get(position).subList.size() % subTabCount != 0) {
-                count = subTabCount - (tabList.get(position).subList.size() % subTabCount);
+        if (subList.size() > 0) {
+            if (subList.size() % subTabCount != 0) {
+                count = subTabCount - (subList.size() % subTabCount);
             }
         }
 
         LinearLayout ll = null;
-        for (int i = 0; i < tabList.get(position).subList.size() + count; i++) {
+        for (int i = 0; i < subList.size() + count; i++) {
             if (ll == null) {
                 ll = new LinearLayout(getContext());
-                ll.setLayoutParams(new LinearLayout.LayoutParams(MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
                 ll.setOrientation(LinearLayout.HORIZONTAL);
             }
 
             ViewTab tab = new ViewTab(getContext(), this);
-            tab.setLayoutParams(new LinearLayout.LayoutParams(MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f));
+            tab.setLayoutParams(new LinearLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT, 1.0f));
             tab.setTabType("Sub");
             tab.setTabResource(subTabRes, subTabRes);
             tab.setTabSetting(subTabSelectColor, subTabNoSelectColor);
             tab.setTabMargin(subTabMargin, subTabMargin, subTabMargin, subTabMargin);
-            tab.setTabPadding(subTabPadding, subTabPadding, subTabPadding, subTabPadding);
             tab.setNonImgVisible(isSubTabNoImgShow);
             tab.setNonImgResource(subTabNoImgRes);
-            tab.setNonImgPadding(subTabNoImgPadding, subTabNoImgPadding, subTabNoImgPadding, subTabNoImgPadding);
 
-            if (i < tabList.get(position).subList.size()) {
-                tab.setData(tabList.get(position).subList.get(i));
+            if (i < subList.size()) {
+                tab.setData(subList.get(i));
                 ll.addView(tab);
+                if (subList.get(i).isSelect) {
+                    subSelectecKey = subList.get(i).key;
+                }
             } else {
                 tab.setData(null);
                 ll.addView(tab);
@@ -286,11 +295,25 @@ public class MBTab extends LinearLayout implements ViewTab.setOnTabClickListener
 
             if (i % subTabCount == (subTabCount - 1)) {
                 llSub.addView(ll);
+                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) ll.getLayoutParams();
+                params.width = MATCH_PARENT;
+                params.height = intToDp(getContext(), 37);
+                ll.setLayoutParams(params);
             }
 
             if (ll.getChildCount() == subTabCount) {
                 ll = null;
             }
+        }
+
+        if (subList.size() > 2) {
+            llSub.setVisibility(View.VISIBLE);
+        } else {
+            llSub.setVisibility(View.GONE);
+        }
+
+        if (listener != null) {
+            listener.onTabClickListener(mainSelectecKey, subSelectecKey);
         }
     }
 
@@ -373,17 +396,25 @@ public class MBTab extends LinearLayout implements ViewTab.setOnTabClickListener
         v.startAnimation(a);
     }
 
+    public void setListener(setTabClickListener listener) {
+        this.listener = listener;
+    }
+
     @Override
     public void onTabClick(String type, CUSTOM_TAB_DATA data) {
-        if(type.equals("Main")){
+        if(data == null){
+            return;
+        }
+        if (type.equals("Main")) {
             for (int i = 0; i < tabList.size(); i++) {
                 if (tabList.get(i) != null) {
                     tabList.get(i).isSelect = false;
                 }
             }
             data.isSelect = true;
+            mainSelectecKey = data.key;
             updateAllTab();
-        }else if(type.equals("Sub")){
+        } else if (type.equals("Sub")) {
             if (viewPager != null) {
                 int position = viewPager.getCurrentItem();
                 ArrayList<CUSTOM_TAB_DATA> subList = tabList.get(position).subList;
@@ -393,8 +424,12 @@ public class MBTab extends LinearLayout implements ViewTab.setOnTabClickListener
                     }
                 }
                 data.isSelect = true;
+                subSelectecKey = data.key;
                 updateSubTab(position);
             }
+        }
+        if (listener != null) {
+            listener.onTabClickListener(mainSelectecKey, subSelectecKey);
         }
     }
 
@@ -528,5 +563,9 @@ public class MBTab extends LinearLayout implements ViewTab.setOnTabClickListener
 
     public static int floatToDp(Context context, float value) {
         return ((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, context.getResources().getDisplayMetrics()));
+    }
+
+    public interface setTabClickListener {
+        void onTabClickListener(String mainKey, String subKey);
     }
 }

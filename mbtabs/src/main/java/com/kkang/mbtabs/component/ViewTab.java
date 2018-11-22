@@ -7,6 +7,7 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -88,7 +89,7 @@ public class ViewTab extends LinearLayout {
     }
 
     public void setTabMargin(int left, int top, int right, int bottom) {
-        LinearLayout.LayoutParams viewLayoutParams = (LinearLayout.LayoutParams) tv.getLayoutParams();
+        FrameLayout.LayoutParams viewLayoutParams = (FrameLayout.LayoutParams) tv.getLayoutParams();
         viewLayoutParams.setMargins(left, top, right, bottom);
         tv.setLayoutParams(viewLayoutParams);
     }
