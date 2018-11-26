@@ -96,8 +96,9 @@ public class RollingScrollView extends ScrollView {
             item.setLayoutParams(itemParams);
             llHeight += itemHeight;
         }
-
-        movePostion();
+        if (list.size() > 1) {
+            movePostion();
+        }
     }
 
     private void addView() {
