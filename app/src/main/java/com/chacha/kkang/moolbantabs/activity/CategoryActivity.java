@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.Transformation;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -13,8 +16,11 @@ import com.chacha.kkang.moolbantabs.R;
 import com.chacha.kkang.moolbantabs.adapter.Adapter_Pager;
 import com.kkang.mbtabs.component.CUSTOM_TAB_DATA;
 import com.kkang.mbtabs.component.MBTab;
+import com.kkang.mbtabs.component.ViewMainTab;
 
 import java.util.ArrayList;
+
+import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
 
 public class CategoryActivity extends AppCompatActivity {
@@ -43,8 +49,9 @@ public class CategoryActivity extends AppCompatActivity {
 
     public ViewPager pager;
     private Adapter_Pager adapterPager;
-    private LinearLayout llAll;
     private TextView tvOnResumScroll;
+
+    private ViewMainTab viewMainTab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,8 +99,8 @@ public class CategoryActivity extends AppCompatActivity {
     private void setUI() {
         pager = (ViewPager) findViewById(R.id.pager);
         mbTab = (MBTab) findViewById(R.id.mbTab);
-        llAll = (LinearLayout) findViewById(R.id.llAll);
         tvOnResumScroll = (TextView) findViewById(R.id.tvOnResumScroll);
+        viewMainTab = (ViewMainTab) findViewById(R.id.viewMainTab);
     }
 
     private void setEvent() {
@@ -120,14 +127,138 @@ public class CategoryActivity extends AppCompatActivity {
             }
 
         });
+
+
     }
 
     private void setView() {
-        llAll.setVisibility(View.GONE);
         pager.setAdapter(adapterPager);
         pager.setOverScrollMode(View.OVER_SCROLL_IF_CONTENT_SCROLLS);
 
-        mbTab.setData(tabList, llAll);
+        mbTab.setData(tabList, true);
         mbTab.setViewPager(pager);
+
+        mbTab.setListener(new MBTab.setTabClickListener() {
+            @Override
+            public void onTabClickListener(int position) {
+                pager.setCurrentItem(position);
+                viewMainTab.setSelectedTab(position);
+            }
+
+            @Override
+            public void onAllClickListener(boolean isOpen) {
+                if(isOpen){
+                    expand(viewMainTab);
+                }else{
+                    collapse(viewMainTab, new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+
+                        }
+                    });
+
+                }
+            }
+        });
+        viewMainTab.setVisibility(View.GONE);
+        viewMainTab.setData(tabList, new ViewMainTab.setMainTabClickListener() {
+            @Override
+            public void onMainTabclickListener(int position, CUSTOM_TAB_DATA data) {
+                pager.setCurrentItem(position);
+                collapse(viewMainTab, new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+                mbTab.setAllBtnState(false);
+            }
+        });
+    }
+    public void expand(final View v) {
+        if (v == null) {
+            return;
+        }
+
+        if (v.getVisibility() == View.VISIBLE) {
+            return;
+        }
+        v.measure(MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        final int targetHeight = v.getMeasuredHeight();
+
+        // Older versions of android (pre API 21) cancel animations for views with a height of 0.
+        v.getLayoutParams().height = 1;
+        v.setVisibility(View.VISIBLE);
+        Animation a = new Animation() {
+            @Override
+            protected void applyTransformation(float interpolatedTime, Transformation t) {
+                v.getLayoutParams().height = interpolatedTime == 1
+                        ? WindowManager.LayoutParams.WRAP_CONTENT
+                        : (int) (targetHeight * interpolatedTime);
+                v.requestLayout();
+            }
+
+            @Override
+            public boolean willChangeBounds() {
+                return true;
+            }
+        };
+
+        a.setDuration(300);
+        v.startAnimation(a);
+    }
+
+
+    public void collapse(final View v, Animation.AnimationListener animationListener) {
+        if (v == null) {
+            return;
+        }
+        if (v.getVisibility() == View.GONE) {
+            return;
+        }
+        final int initialHeight = v.getMeasuredHeight();
+
+        Animation a = new Animation() {
+            @Override
+            protected void applyTransformation(float interpolatedTime, Transformation t) {
+                if (interpolatedTime == 1) {
+                    v.setVisibility(View.GONE);
+                } else {
+                    v.getLayoutParams().height = initialHeight - (int) (initialHeight * interpolatedTime);
+                    v.requestLayout();
+                }
+            }
+
+            @Override
+            public boolean willChangeBounds() {
+                return true;
+            }
+        };
+
+        // 1dp/ms
+        a.setDuration((int) (initialHeight / v.getContext().getResources().getDisplayMetrics().density));
+
+        a.setAnimationListener(animationListener);
+        v.startAnimation(a);
     }
 }

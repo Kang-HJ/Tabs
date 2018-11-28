@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.graphics.Color;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -13,8 +12,6 @@ import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
-
-import com.chacha.kkang.moolbantabs.activity.RollingSampleActivity;
 
 import java.util.ArrayList;
 
@@ -31,6 +28,10 @@ public class RollingScrollView extends ScrollView {
     int itemHeight = 0;
 
     int scrollOffset = 0;
+
+    Runnable runnable;
+    ObjectAnimator oa;
+    AnimatorListenerAdapter animatorListenerAdapter;
 
     public RollingScrollView(Context context) {
         super(context);
@@ -52,10 +53,27 @@ public class RollingScrollView extends ScrollView {
         setVerticalScrollBarEnabled(false);
         layoutContainer = new LinearLayout(getContext());
 
-        layoutContainer.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+        layoutContainer.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         layoutContainer.setOrientation(LinearLayout.VERTICAL);
-        layoutContainer.setBackgroundColor(Color.CYAN);
         addView(layoutContainer);
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                scrollOffset += itemHeight;
+
+                oa = ObjectAnimator.ofInt(RollingScrollView.this, "scrollY", scrollOffset);
+                oa.addListener(animatorListenerAdapter);
+                oa.setDuration(1000).start();
+
+            }
+        };
+        animatorListenerAdapter = new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                addView();
+            }
+        };
     }
 
     public void setData(ArrayList<TALK_NOTI_LIST> list) {
@@ -68,13 +86,25 @@ public class RollingScrollView extends ScrollView {
                 item.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 Log.d("KLL", "item.getH  " + item.getHeight());
                 itemHeight = item.getHeight();
-                layoutContainer.removeAllViews();
-
-
+                resetUI();
                 updateUI();
             }
         });
 
+    }
+
+    private void resetUI() {
+        layoutContainer.removeAllViews();
+        childPosition = 0;
+        scrollTo(0, 0);
+        if (runnable != null) {
+            removeCallbacks(runnable);
+        }
+        if (oa != null) {
+            oa.removeListener(animatorListenerAdapter);
+            oa.cancel();
+        }
+        scrollOffset = 0;
     }
 
     private void updateUI() {
@@ -96,6 +126,7 @@ public class RollingScrollView extends ScrollView {
             item.setLayoutParams(itemParams);
             llHeight += itemHeight;
         }
+
         if (list.size() > 1) {
             movePostion();
         }
@@ -107,40 +138,29 @@ public class RollingScrollView extends ScrollView {
         params.height = llHeight;
         layoutContainer.setLayoutParams(params);
 
-        ViewGroup vg = (ViewGroup) layoutContainer.getChildAt(childPosition);
-        View v = vg.getChildAt(0);
-        vg.removeViewAt(0);
+        if (layoutContainer.getChildCount() > childPosition) {
+            ViewGroup vg = (ViewGroup) layoutContainer.getChildAt(childPosition);
+            if (vg.getChildCount() > 0) {
+                View v = vg.getChildAt(0);
+                vg.removeViewAt(0);
 
-        RelativeLayout rl = new RelativeLayout(getContext());
-        layoutContainer.addView(rl);
-        LinearLayout.LayoutParams rlParams = (LinearLayout.LayoutParams) rl.getLayoutParams();
-        rlParams.height = itemHeight;
-        rlParams.width = MATCH_PARENT;
-        rl.setLayoutParams(rlParams);
-        rl.addView(v);
-        childPosition += 1;
+                RelativeLayout rl = new RelativeLayout(getContext());
+                layoutContainer.addView(rl);
+                LinearLayout.LayoutParams rlParams = (LinearLayout.LayoutParams) rl.getLayoutParams();
+                rlParams.height = itemHeight;
+                rlParams.width = MATCH_PARENT;
+                rl.setLayoutParams(rlParams);
+                rl.addView(v);
+                childPosition += 1;
 
-        movePostion();
+                movePostion();
+            }
+        }
     }
 
     private void movePostion() {
-        postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                scrollOffset += itemHeight;
-
-                ObjectAnimator oa = ObjectAnimator.ofInt(RollingScrollView.this, "scrollY", scrollOffset);
-                oa.addListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        super.onAnimationEnd(animation);
-                        addView();
-                    }
-                });
-                oa.setDuration(1000).start();
-
-            }
-        }, 1500);
+        postDelayed(runnable, 1500);
 
     }
 }
+

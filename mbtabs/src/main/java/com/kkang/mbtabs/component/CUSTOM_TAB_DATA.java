@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class CUSTOM_TAB_DATA {
     public String key = "";
-    public String name  = "";
+    public String name = "";
     public String imgFile = "";
 
     public int imgDrawable = 0;

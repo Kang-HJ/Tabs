@@ -13,10 +13,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="3dp"
-        android:layout_marginRight="3dp" />
+        android:layout_marginRight="3dp"
+        android:background="@drawable/carte_new_171116"
+        android:visibility="gone"/>
 
     <TextView
-        android:id="@+id/psts_tab_title"
+        android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -8,7 +7,7 @@
     <LinearLayout
         android:id="@+id/llTab"
         android:layout_width="match_parent"
-        android:layout_height="41dp"
+        android:layout_height="40dp"
         android:background="@android:color/white"
         android:orientation="horizontal">
 
@@ -27,8 +26,8 @@
                 android:layout_width="15dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="right"
-                android:src="@drawable/sketch_g_181112"
-                android:scaleType="fitEnd"/>
+                android:scaleType="fitEnd"
+                android:src="@drawable/sketch_g_181112" />
 
             <TextView
                 android:id="@+id/tvAll"
@@ -37,9 +36,9 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="13dp"
                 android:gravity="center_vertical"
-                android:textColor="#000000"
                 android:text="모아보기"
-                android:textSize="13sp"/>
+                android:textColor="#000000"
+                android:textSize="13sp" />
         </FrameLayout>
 
         <LinearLayout
@@ -58,23 +57,12 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:padding="10dp"
-                android:src="@drawable/sketch_cabtn_up_180927" />
+                android:src="@drawable/sketch_cabtn_down_180927" />
         </LinearLayout>
     </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/line_01"/>
-
-    <LinearLayout
-        android:id="@+id/llSub"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="#f7f7f7"
-        android:paddingTop="6.5dp"
-        android:paddingBottom="6.5dp"
-        android:paddingLeft="11.5dp"
-        android:paddingRight="11.5dp"/>
+        android:background="@color/line_01" />
 </LinearLayout>

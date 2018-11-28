@@ -26,6 +26,7 @@ public class ViewTab extends LinearLayout {
     private int noSelectRes = 0;
     private String tabType = "Main";
     private boolean isShowNonImg = false;
+    private int position = 0;
 
     public ViewTab(Context context, setOnTabClickListener listener) {
         super(context);
@@ -63,14 +64,19 @@ public class ViewTab extends LinearLayout {
             @Override
             public void onClick(View v) {
                 if (listener != null) {
-                    listener.onTabClick(tabType,data);
+                    if (data == null) {
+                        return;
+                    }
+                    listener.onTabClick(data, position);
                 }
             }
         });
     }
 
-    public void setData(CUSTOM_TAB_DATA data) {
+    public void setData(CUSTOM_TAB_DATA data, int position) {
         this.data = data;
+        this.position = position;
+
         updateUI();
     }
 
@@ -110,7 +116,7 @@ public class ViewTab extends LinearLayout {
         ivNon.setPadding(left, top, right, bottom);
     }
 
-    private void updateUI() {
+    public void updateUI() {
         if (data == null) {
             tv.setVisibility(View.GONE);
             if (isShowNonImg) {
@@ -158,7 +164,8 @@ public class ViewTab extends LinearLayout {
             }
         }
     }
+
     public interface setOnTabClickListener {
-        void onTabClick(String type, CUSTOM_TAB_DATA data);
+        void onTabClick(CUSTOM_TAB_DATA data, int position);
     }
 }

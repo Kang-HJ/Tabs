@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kkang.mbtabs.component.CUSTOM_TAB_DATA;
+import com.kkang.mbtabs.component.ViewSubTab;
 
 /**
  * Created by kkang on 2018. 10. 29..
@@ -15,6 +16,7 @@ import com.kkang.mbtabs.component.CUSTOM_TAB_DATA;
 
 public class PagerView extends LinearLayout {
     TextView number;
+    ViewSubTab viewSubTab;
 
     public PagerView(Context context) {
         super(context);
@@ -39,6 +41,15 @@ public class PagerView extends LinearLayout {
         init();
         number = (TextView) findViewById(R.id.number);
         number.setText(categories.key);
+
+        viewSubTab = (ViewSubTab)findViewById(R.id.viewSubTab);
+
+        viewSubTab.setData(categories.subList, new ViewSubTab.setSubTabClickListener() {
+            @Override
+            public void onSubTabclickListener(int position, CUSTOM_TAB_DATA data) {
+
+            }
+        });
 
     }
 

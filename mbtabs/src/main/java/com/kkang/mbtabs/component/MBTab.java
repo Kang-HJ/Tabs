@@ -1,7 +1,6 @@
 package com.kkang.mbtabs.component;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
@@ -16,14 +15,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-
 import com.kkang.mbtabs.R;
 
 import java.util.ArrayList;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
-public class MBTab extends LinearLayout implements ViewTab.setOnTabClickListener {
+public class MBTab extends LinearLayout {
     public static void Debug(String msg) {
         Log.d("KKANG", buildLogMsg(msg));
     }
@@ -47,39 +45,13 @@ public class MBTab extends LinearLayout implements ViewTab.setOnTabClickListener
     public ViewPager viewPager;
     private LinearLayout llTab;
     private ImageView ivFading;
-    private ImageView ivAll;
+    public ImageView ivAll;
     private TextView tvAll;
     private LinearLayout llAllBtn;
-    private LinearLayout llSub;
     private ArrayList<CUSTOM_TAB_DATA> tabList;
-    private LinearLayout llAll;
     private setTabClickListener listener;
 
-    boolean isOpen = false;
-    private int mainTabCount = 3;
-    private int subTabCount = 3;
-
-    private int mainTabSelectRes = R.drawable.mb_shape_round_tomato_trans_7;
-    private int mainTabNoSelectRes = R.drawable.mb_shape_round_line01_white_7;
-    private int mainTabMargin = intToDp(getContext(), 3);
-    private String mainTabSelectColor = "#e84418";
-    private String mainTabNoSelectColor = "#231916";
-    private int mainTabPadding = 0;
-    private boolean isMainTabNoImgShow = false;
-    private int mainTabNoImgRes = R.drawable.sketch_fish_180927;
-    private int mainTabNoImgPadding = intToDp(getContext(), 10);
-
-    private int subTabRes = R.drawable.mb_shape_round_line01_white_7;
-    private String subTabSelectColor = "#3e3e3e";
-    private String subTabNoSelectColor = "#878787";
-    private int subTabMargin = floatToDp(getContext(), 1.5f);
-    private int subTabPadding = intToDp(getContext(), 10);
-    private boolean isSubTabNoImgShow = true;
-    private int subTabNoImgRes = R.drawable.sketch_fish_180927;
-    private int subTabNoImgPadding = intToDp(getContext(), 10);
-
-    String mainSelectecKey = "";
-    String subSelectecKey = "";
+    private boolean isOpen = false;
 
     public MBTab(Context context) {
         super(context);
@@ -104,16 +76,30 @@ public class MBTab extends LinearLayout implements ViewTab.setOnTabClickListener
         setUI();
     }
 
-    public void setData(ArrayList<CUSTOM_TAB_DATA> tabList, LinearLayout llAll) {
+    public void setData(ArrayList<CUSTOM_TAB_DATA> tabList, boolean isAllBtn) {
         this.tabList = tabList;
-        this.llAll = llAll;
-        if (llAll == null) {
+        if (!isAllBtn) {
             llAllBtn.setVisibility(View.GONE);
             ivFading.setVisibility(View.GONE);
             tvAll.setVisibility(View.GONE);
         }
         updateView();
         setEvent();
+    }
+
+    public void setAllBtnState(boolean isOpen){
+        this.isOpen = isOpen;
+        if (isOpen) {
+            ivAll.setImageResource(R.drawable.sketch_cabtn_up_180927);
+            tvAll.setVisibility(View.VISIBLE);
+            ivFading.setVisibility(View.GONE);
+            UtilAnim.fideOut(tabBar, 100, null);
+        } else {
+            ivAll.setImageResource(R.drawable.sketch_cabtn_down_180927);
+            tvAll.setVisibility(View.GONE);
+            ivFading.setVisibility(View.VISIBLE);
+            UtilAnim.fideIn(tabBar, 100, null);
+        }
     }
 
     private void setUI() {
@@ -123,22 +109,15 @@ public class MBTab extends LinearLayout implements ViewTab.setOnTabClickListener
         ivAll = (ImageView) findViewById(R.id.ivAll);
         tvAll = (TextView) findViewById(R.id.tvAll);
         llAllBtn = (LinearLayout) findViewById(R.id.llAllBtn);
-        llSub = (LinearLayout) findViewById(R.id.llSub);
     }
 
     private void setEvent() {
-        tabBar.setOnTabReselectedListener(new MBTabBar.OnTabSelectedListener() {
+        tabBar.setOnTabSelectedListener(new MBTabBar.setOnTabSelectedListener() {
             @Override
             public void onTabSelected(int position) {
-                Debug("----- onTabSelected   >  " + position + " / " + tabList.get(position).subList.size());
-                for (int i = 0; i < tabList.size(); i++) {
-                    tabList.get(i).isSelect = false;
+                if (listener != null) {
+                    listener.onTabClickListener(position);
                 }
-                tabList.get(position).isSelect = true;
-                mainSelectecKey = tabList.get(position).key;
-
-                updateAllTab();
-                updateSubTab(position);
             }
 
             @Override
@@ -150,294 +129,41 @@ public class MBTab extends LinearLayout implements ViewTab.setOnTabClickListener
             public void onScrolling() {
                 ivFading.setVisibility(View.VISIBLE);
             }
+
+            @Override
+            public void onAllBtnShow(boolean isShow) {
+                if (isShow) {
+                    llAllBtn.setVisibility(View.VISIBLE);
+                } else {
+                    llAllBtn.setVisibility(View.GONE);
+                }
+            }
         });
 
         ivAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isOpen) {
-                    ivAll.setImageResource(R.drawable.sketch_cabtn_up_180927);
-                    tvAll.setVisibility(View.GONE);
-                    ivFading.setVisibility(View.VISIBLE);
-                    collapse(llAll);
-                    UtilAnim.fideIn(tabBar, 100, null);
-                } else {
-                    ivAll.setImageResource(R.drawable.sketch_cabtn_down_180927);
-                    tvAll.setVisibility(View.VISIBLE);
-                    ivFading.setVisibility(View.GONE);
-                    expand(llAll);
-                    UtilAnim.fideOut(tabBar, 100, null);
+                if (listener != null) {
+                    isOpen = !isOpen;
+                    setAllBtnState(isOpen);
+                    listener.onAllClickListener(isOpen);
                 }
-                isOpen = !isOpen;
             }
         });
     }
 
     private void updateView() {
         tvAll.setVisibility(View.GONE);
-        llSub.setVisibility(View.GONE);
 
         UtilAnim.fideIn(tabBar, 200, null);
 
-        tabBar.setDividerWidth(0);
         tabBar.setIndicatorHeight(5);
         tabBar.setBackgroundColor(Color.WHITE);
-
-        tabBar.setIndicatorColor(getResources().getColor(R.color.tomato));
-        ColorStateList colorList = createColorStateList(getResources().getColor(R.color.tomato)
-                , getResources().getColor(R.color.tomato), Color.BLACK);
-
-        tabBar.setTextColor(colorList);
-        updateAllTab();
-        updateSubTab(0);
-    }
-
-    private void updateAllTab() {
-        if (llAll == null) {
-            return;
-        }
-
-        if (llAll.getChildCount() > 0) {
-            llAll.removeAllViews();
-        }
-
-        int count = 0;
-        if (tabList.size() > 0) {
-            if (tabList.size() % mainTabCount != 0) {
-                count = mainTabCount - (tabList.size() % mainTabCount);
-            }
-        }
-
-        LinearLayout ll = null;
-        for (int i = 0; i < tabList.size() + count; i++) {
-            if (ll == null) {
-                ll = new LinearLayout(getContext());
-                ll.setOrientation(LinearLayout.HORIZONTAL);
-            }
-
-            ViewTab tab = new ViewTab(getContext(), this);
-            tab.setLayoutParams(new LinearLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT, 1.0f));
-            tab.setTabType("Main");
-            tab.setTabResource(mainTabSelectRes, mainTabNoSelectRes);
-            tab.setTabMargin(mainTabMargin, mainTabMargin, mainTabMargin, mainTabMargin);
-            tab.setTabSetting(mainTabSelectColor, mainTabNoSelectColor);
-            tab.setNonImgVisible(isMainTabNoImgShow);
-            tab.setNonImgResource(mainTabNoImgRes);
-
-            if (i < tabList.size()) {
-                tab.setData(tabList.get(i));
-                ll.addView(tab);
-            } else {
-                tab.setData(null);
-                ll.addView(tab);
-            }
-
-            if (i % mainTabCount == (mainTabCount - 1)) {
-                llAll.addView(ll);
-                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) ll.getLayoutParams();
-                params.width = MATCH_PARENT;
-                params.height = intToDp(getContext(), 37);
-                ll.setLayoutParams(params);
-            }
-
-            if (ll.getChildCount() == mainTabCount) {
-                ll = null;
-            }
-        }
-    }
-
-    private void updateSubTab(int position) {
-        if (tabList.size() <= position) {
-            return;
-        }
-
-        llSub.removeAllViews();
-        subTabCount = 3;
-        ArrayList<CUSTOM_TAB_DATA> subList = tabList.get(position).subList;
-        int listSize = subList.size();
-        if (listSize % 3 == 1) {
-            subTabCount = 4;
-        }
-
-        int count = 0;
-        if (subList.size() > 0) {
-            if (subList.size() % subTabCount != 0) {
-                count = subTabCount - (subList.size() % subTabCount);
-            }
-        }
-
-        LinearLayout ll = null;
-        for (int i = 0; i < subList.size() + count; i++) {
-            if (ll == null) {
-                ll = new LinearLayout(getContext());
-                ll.setOrientation(LinearLayout.HORIZONTAL);
-            }
-
-            ViewTab tab = new ViewTab(getContext(), this);
-            tab.setLayoutParams(new LinearLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT, 1.0f));
-            tab.setTabType("Sub");
-            tab.setTabResource(subTabRes, subTabRes);
-            tab.setTabSetting(subTabSelectColor, subTabNoSelectColor);
-            tab.setTabMargin(subTabMargin, subTabMargin, subTabMargin, subTabMargin);
-            tab.setNonImgVisible(isSubTabNoImgShow);
-            tab.setNonImgResource(subTabNoImgRes);
-
-            if (i < subList.size()) {
-                tab.setData(subList.get(i));
-                ll.addView(tab);
-                if (subList.get(i).isSelect) {
-                    subSelectecKey = subList.get(i).key;
-                }
-            } else {
-                tab.setData(null);
-                ll.addView(tab);
-            }
-
-            if (i % subTabCount == (subTabCount - 1)) {
-                llSub.addView(ll);
-                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) ll.getLayoutParams();
-                params.width = MATCH_PARENT;
-                params.height = intToDp(getContext(), 37);
-                ll.setLayoutParams(params);
-            }
-
-            if (ll.getChildCount() == subTabCount) {
-                ll = null;
-            }
-        }
-
-        if (subList.size() > 2) {
-            llSub.setVisibility(View.VISIBLE);
-        } else {
-            llSub.setVisibility(View.GONE);
-        }
-
-        if (listener != null) {
-            listener.onTabClickListener(mainSelectecKey, subSelectecKey);
-        }
-    }
-
-    private ColorStateList createColorStateList(int color_state_pressed, int color_state_selected, int color_state_default) {
-        return new ColorStateList(
-                new int[][]{
-                        new int[]{android.R.attr.state_pressed}, //pressed
-                        new int[]{android.R.attr.state_selected}, // enabled
-                        new int[]{} //default
-                },
-                new int[]{
-                        color_state_pressed,
-                        color_state_selected,
-                        color_state_default
-                }
-        );
-    }
-
-    public void expand(final View v) {
-        if (v == null) {
-            return;
-        }
-
-        if (v.getVisibility() == View.VISIBLE) {
-            return;
-        }
-        v.measure(MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        final int targetHeight = v.getMeasuredHeight();
-
-        // Older versions of android (pre API 21) cancel animations for views with a height of 0.
-        v.getLayoutParams().height = 1;
-        v.setVisibility(View.VISIBLE);
-        Animation a = new Animation() {
-            @Override
-            protected void applyTransformation(float interpolatedTime, Transformation t) {
-                v.getLayoutParams().height = interpolatedTime == 1
-                        ? WindowManager.LayoutParams.WRAP_CONTENT
-                        : (int) (targetHeight * interpolatedTime);
-                v.requestLayout();
-            }
-
-            @Override
-            public boolean willChangeBounds() {
-                return true;
-            }
-        };
-
-        a.setDuration(300);
-        v.startAnimation(a);
-    }
-
-    public void collapse(final View v) {
-        if (v == null) {
-            return;
-        }
-
-        if (v.getVisibility() == View.GONE) {
-            return;
-        }
-        final int initialHeight = v.getMeasuredHeight();
-
-        Animation a = new Animation() {
-            @Override
-            protected void applyTransformation(float interpolatedTime, Transformation t) {
-                if (interpolatedTime == 1) {
-                    v.setVisibility(View.GONE);
-                } else {
-                    v.getLayoutParams().height = initialHeight - (int) (initialHeight * interpolatedTime);
-                    v.requestLayout();
-                }
-            }
-
-            @Override
-            public boolean willChangeBounds() {
-                return true;
-            }
-        };
-
-        a.setDuration(300);
-        v.startAnimation(a);
+        tabBar.setData(tabList);
     }
 
     public void setListener(setTabClickListener listener) {
         this.listener = listener;
-    }
-
-    @Override
-    public void onTabClick(String type, CUSTOM_TAB_DATA data) {
-        if(data == null){
-            return;
-        }
-        if (type.equals("Main")) {
-            for (int i = 0; i < tabList.size(); i++) {
-                if (tabList.get(i) != null) {
-                    tabList.get(i).isSelect = false;
-                }
-            }
-            data.isSelect = true;
-            mainSelectecKey = data.key;
-            updateAllTab();
-        } else if (type.equals("Sub")) {
-            if (viewPager != null) {
-                int position = viewPager.getCurrentItem();
-                ArrayList<CUSTOM_TAB_DATA> subList = tabList.get(position).subList;
-                for (int i = 0; i < subList.size(); i++) {
-                    if (subList.get(i) != null) {
-                        subList.get(i).isSelect = false;
-                    }
-                }
-                data.isSelect = true;
-                subSelectecKey = data.key;
-                updateSubTab(position);
-            }
-        }
-        if (listener != null) {
-            listener.onTabClickListener(mainSelectecKey, subSelectecKey);
-        }
-    }
-
-    public void setTabSize(int width, int height) {
-        int w = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
-        int h = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, height, getResources().getDisplayMetrics());
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(w, h);
-        llTab.setLayoutParams(params);
     }
 
     public void setCollectTabSetting(String title, String colorCode) {
@@ -452,111 +178,6 @@ public class MBTab extends LinearLayout implements ViewTab.setOnTabClickListener
         }
     }
 
-    public void setVisibleAll(boolean isShowllAllBtn) {
-        if (llAll == null) {
-            return;
-        }
-
-        if (isShowllAllBtn) {
-            llAllBtn.setVisibility(View.VISIBLE);
-        } else {
-            llAllBtn.setVisibility(View.GONE);
-        }
-    }
-
-    public void setFadingResource(int resource) {
-        if (llAll == null) {
-            return;
-        }
-
-        ivFading.setImageResource(resource);
-    }
-
-    public void setVisibleFading(boolean isShowFading) {
-        if (isShowFading) {
-            ivFading.setVisibility(View.VISIBLE);
-        } else {
-            ivFading.setVisibility(View.GONE);
-        }
-    }
-
-    public void setSubTabBackground(String colorCode) {
-        llSub.setBackgroundColor(Color.parseColor(colorCode));
-    }
-
-    public void setSubTabPadding(int left, int top, int right, int bottom) {
-        llSub.setPadding(left, top, right, bottom);
-    }
-
-    public void setMainTabCount(int mainCount) {
-        mainTabCount = mainCount;
-        updateView();
-    }
-
-    public void setSubTabCount(int subCount) {
-        subTabCount = subCount;
-        updateView();
-    }
-
-    public void setMainTabResource(int selectRes, int noSelectRes) {
-        mainTabSelectRes = selectRes;
-        mainTabNoSelectRes = noSelectRes;
-    }
-
-    public void setMainTabMargin(int dp) {
-        mainTabMargin = dp;
-    }
-
-    public void setMainTabPadding(int dp) {
-        mainTabPadding = dp;
-    }
-
-    public void setMainTabSetting(String mainTabSelectColor, String mainTabNoSelectColor) {
-        this.mainTabSelectColor = mainTabSelectColor;
-        this.mainTabNoSelectColor = mainTabNoSelectColor;
-    }
-
-    public void setMainTabNoImgVisible(boolean isShow) {
-        isMainTabNoImgShow = isShow;
-    }
-
-    public void setMainTabNoImgResource(int resource) {
-        mainTabNoImgRes = resource;
-    }
-
-    public void setMainTabNoImgPadding(int dp) {
-        mainTabNoImgPadding = dp;
-    }
-
-    public void setSubTabResource(int resource) {
-        subTabRes = resource;
-    }
-
-    public void setSubTabSetting(String selectColor, String noSelectColor) {
-        subTabSelectColor = selectColor;
-        subTabNoSelectColor = noSelectColor;
-    }
-
-    public void setSubTabMargin(int dp) {
-        subTabMargin = dp;
-    }
-
-    public void setSubTabPadding(int dp) {
-        subTabPadding = dp;
-    }
-
-    public void setSubTabNoImgVisible(boolean isShow) {
-        isSubTabNoImgShow = isShow;
-    }
-
-    public void setSubTabNoImgResource(int resource) {
-        subTabNoImgRes = resource;
-    }
-
-    public void setSubTabNoImgPadding(int dp) {
-        subTabNoImgPadding = dp;
-    }
-
     public static int intToDp(Context context, int value) {
         return ((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, context.getResources().getDisplayMetrics()));
     }
@@ -566,6 +187,10 @@ public class MBTab extends LinearLayout implements ViewTab.setOnTabClickListener
     }
 
     public interface setTabClickListener {
-        void onTabClickListener(String mainKey, String subKey);
+        void onTabClickListener(int position);
+
+        void onAllClickListener(boolean isOpen);
+
+
     }
 }
